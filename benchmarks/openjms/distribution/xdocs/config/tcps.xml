@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>TCPS Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="TCPS Connector">
+      <p>
+        The TCPS connector enables OpenJMS clients to connect to the
+        OpenJMS server using SSL (Secure Socket Layer).
+      </p>
+      <p>
+        To use the TCPS connector:
+        <ol>
+          <li>
+            <a href="#Downloading_and_installing_JSSE">
+              JSSE must be installed.
+            </a>
+          </li>
+          <li>
+            <a href="#Creating_the_OpenJMS_server_certificate_keystore">
+              A certificate keystore must be created for the OpenJMS server. 
+            </a>
+          </li>
+          <li>
+            <a href="#Importing_the_server_public_key">
+              The OpenJMS server's public key must be imported into each
+              client's keystore.
+            </a>
+          </li>
+          <li>
+            <a href="#Configuring_openjms.xml">
+              openjms.xml must be configured.
+            </a>
+          </li>
+          <li>
+            <a href="#Client_authentication">
+              Configure client authentication (optional).
+            </a>
+          </li>
+        </ol>
+      </p>
+    </section>
+
+    <section name="Downloading and installing JSSE">
+      <p>
+        <em>You can skip this step if you are running JDK 1.4 or higher,
+        as JSSE is included in the JDK.</em>
+      </p>
+      <p>
+        Download the Java Secure Socket Extensions (JSSE) package, 
+        version 1.0.2 or later, from 
+        <a href="http://java.sun.com/products/jsse/">
+          http://java.sun.com/products/jsse/
+        </a>. 
+      </p>
+      <p>
+        After extracting JSSE, choose one of the following ways to make
+        it available to OpenJMS:
+        <ul>
+          <li>Make JSSE an installed extension</li>
+          <li>Set the JSSE_HOME environment variable</li>
+        </ul>
+      </p>
+      <subsection name="Making JSSE an installed extension">
+        <p>
+          JSSE can be made an installed extension by copying all three JAR 
+          files (jcert.jar, jnet.jar, and jsse.jar) to the 
+          <strong>$JAVA_HOME/jre/lib/ext</strong> directory. 
+         </p>
+      </subsection>
+
+      <subsection name="Setting the JSSE_HOME environment variable">
+        <p>
+          With this option, a new environment variable
+          <strong>JSSE_HOME</strong> is set in the OpenJMS environment script.
+          The variable contains the absolute path to the 
+          directory where the JSSE binary distribution is installed.
+        </p>
+        <p>
+          To configure the OpenJMS environment on Windows, edit the
+          <strong>%OPENJMS_HOME%\bin\setenv.bat</strong> batch file, and add
+          the following:
+          <source>
+rem The following line is optional, and is only required if JDK 1.2 or JDK 1.3 
+rem is being used, and JSSE wasn't installed as an extension
+set JSSE_HOME=&lt;insert JSSE directory path here&gt;
+          </source>
+        </p>
+        <p>
+          To configure the OpenJMS environment on Unix, edit the
+          <strong>$OPENJMS_HOME/bin/setenv.sh</strong> script, and add the 
+          following:
+          <source>
+# The following line is optional, and is only required if JDK 1.2 or JDK 1.3 
+# is being used, and JSSE wasn't installed as an extension
+JSSE_HOME=&lt;insert JSSE directory path here&gt;
+          </source>
+        </p>
+      </subsection>
+
+    </section>
+
+    <section name="Creating the OpenJMS server certificate keystore">
+      <p>
+        To create the OpenJMS server certificate keystore, enter the 
+        following:
+      </p>
+      <p>
+        <em>Windows</em>
+        <source>
+cd %OPENJMS_HOME%\config
+%JAVA_HOME%\bin\keytool -genkey -alias openjms -keyalg RSA -keystore openjms.keystore
+        </source>
+      </p>
+      <p>
+        <em>Unix</em>
+        <source>
+cd $OPENJMS_HOME/config
+$JAVA_HOME/bin/keytool -genkey -alias openjms -keyalg RSA -keystore openjms.keystore
+        </source>
+      </p>
+      <p>
+        After executing the command, you will first be prompted for the 
+        keystore password. The default password used by OpenJMS is 
+        <em>"openjms"</em>, although you can enter any password you like. The
+        keystore password needs specified in 
+        <a href="#Configuring_openjms.xml">openjms.xml</a>.
+      </p>
+    </section>
+
+    <section name="Importing the server public key">
+      <p>
+        In order for the server to authenticate itself to OpenJMS clients,
+        its public key needs to be imported into each client's certificate
+        keystore.
+      </p>
+      <p>
+        To export the OpenJMS server's public key, and import it into a 
+        client's certificate keystore, enter the following:
+      </p>
+      <p>
+        <em>Windows</em>
+        <source>
+%JAVA_HOME%\bin\keytool -export -rfc -keystore openjms.keystore \
+       -alias openjms -file openjms.public-key
+
+%JAVA_HOME%\bin\keytool -import -rfc -keystore client.keystore \
+       -alias openjms -file openjms.public-key
+        </source>
+      </p>
+      <p>
+        <em>Unix</em>
+        <source>
+$JAVA_HOME/bin/keytool -export -rfc -keystore openjms.keystore \
+       -alias openjms -file openjms.public-key
+
+$JAVA_HOME/bin/keytool -import -rfc -keystore client.keystore \
+       -alias openjms -file openjms.public-key
+        </source>
+      </p>
+    </section>
+
+    <section name="Configuring openjms.xml">
+      <p>
+        In order to activate the TCPS connector, a 
+        <strong>&lt;Connector&gt;</strong> 
+        element needs to be added to <strong>&lt;Connectors&gt;</strong> 
+        section of the <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, 
+        with a scheme of type <em>"tcps"</em>. E.g:
+
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="tcps">
+      <ConnectionFactories>
+        <ConnectionFactory name="TCPSConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>        
+        </source>
+      </p>
+      
+      <p>
+        If the keystore location or password is different to that above,
+        they will need to be specified in the
+        <strong>&lt;TcpsConfiguration&gt;</strong> element. E.g:
+
+        <source><![CDATA[
+  <TcpsConfiguration port="3035"
+                     keyStore="${openjms.home}/config/openjms.keystore"
+                     keyStorePassword="openjms"
+                     needClientAuth="false"/>
+               ]]>
+        </source>
+      </p>
+    </section>
+
+    <section name="Client authentication">
+      <p>
+        By default, clients aren't required to authenticate themselves with the
+        server. This can be changed by setting the <em>needClientAuth</em>
+        attribute of <strong>TcpsConfiguration</strong> to <em>"true"</em>. 
+        Each valid client's public key must be imported into the OpenJMS 
+        server's certificate keystore.
+      </p>
+
+      <subsection name="Creating OpenJMS client certificate keystores">
+        <p>
+          To create certificate keystores for OpenJMS clients enter the 
+          following:
+        </p>
+        <p>
+          <em>Windows</em>
+          <source>
+%JAVA_HOME%\bin\keytool -genkey -alias client -keyalg RSA -keystore client.keystore
+          </source>
+        </p>
+        <p>
+          <em>Unix</em>
+          <source>
+$JAVA_HOME/bin/keytool -genkey -alias client -keyalg RSA -keystore client.keystore
+          </source>
+        </p>
+        <p>
+          After executing the command, you will first be prompted for the 
+          keystore password. You can enter any password you like - this
+          password needs to be specified by clients.
+        </p>
+      </subsection>
+ 
+      <subsection name="Importing client public keys">
+        <p>
+          To export a client's public key, and import it into the OpenJMS
+          server's certificate keystore, enter the following:
+        </p>
+        <p>
+          <em>Windows</em>
+          <source>
+%JAVA_HOME%\bin\keytool -export -rfc -keystore client.keystore \
+        -alias client -file client.public-key
+
+%JAVA_HOME%\bin\keytool -import -rfc -keystore openjms.keystore \
+        -alias client -file client.public-key
+          </source>
+        </p>
+        <p>
+          <em>Unix</em>
+          <source>
+$JAVA_HOME/bin/keytool -export -rfc -keystore client.keystore \
+        -alias client -file client.public-key
+
+$JAVA_HOME/bin/keytool -import -rfc -keystore openjms.keystore \
+        -alias client -file client.public-key
+          </source>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="See Also">
+      <p>       
+        The following references provide detailed descriptions of the
+        configuration elements related to the TCPS connector:
+        <ul>
+          <li>
+            <a href="reference.html#Connectors">Connectors</a>
+          </li>
+          <li>
+            <a href="reference.html#ServerConfiguration">
+              ServerConfiguration
+            </a>
+          </li>
+          <li>
+            <a href="reference.html#TcpsConfiguration">TcpsConfiguration</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

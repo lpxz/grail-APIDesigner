@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>OpenJMS Roadmap</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Release 0.7.7 - TBA">
+      <table>
+        <thead><tr><th>ID</th><th>Description</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1217952&amp;group_id=54559&amp;atid=474136">BUG-1217952</a>
+          </td>
+          <td>
+            Clock drift between client and server affects msg expiration
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=673303&amp;group_id=54559&amp;atid=474136">BUG-673303</a>
+          </td>
+          <td>
+            Workaround for the OutOfMemoryError
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=893153&amp;group_id=54559&amp;atid=474139">RFE-893153</a>
+          </td>
+          <td>
+            documentation for security feature
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=872947&amp;group_id=54559&amp;atid=474136">BUG-872947</a>
+          </td>
+          <td>
+            Index exiryTime, destinationId to avoid full table scans
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=956584&amp;group_id=54559&amp;atid=474136">BUG-956584</a>
+          </td>
+          <td>
+            Messages get lost when time is adjusted backwards
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section name="Release 0.8 - TBA">
+      <table>
+        <tr><td>Complete XA support</td></tr>
+        <tr><td>Add support for Connection.setClientId()</td></tr>
+        <tr><td>Add support for authorization</td></tr>
+        <tr><td>Add support for JSR77 - J2EE Management Model</td></tr>
+      </table>
+    </section>
+
+    <section name="unscheduled - TBA">
+      <table>
+        <tr><td>Pluggable persistency layer</td></tr>
+        <tr><td>Add clustering support</td></tr>
+      </table>
+    </section>
+
+  </body>
+
+</document>

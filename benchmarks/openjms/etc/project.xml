@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+
+  <pomVersion>3</pomVersion>
+  <id>root</id>
+  <name>OpenJMS</name>
+  <groupId>openjms</groupId>
+  <currentVersion>0.7.7-beta-2-SNAPSHOT</currentVersion>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/images/openjms.gif</logo>
+  </organization>
+
+  <inceptionYear>1999</inceptionYear>
+
+  <package>org.exolab.jms</package> 
+
+  <!-- NB - want project logo on the left of the website, and no -->
+  <!-- organisation logo, but Maven sticks the organisation logo -->
+  <!-- the left and the project on the right. Work around this   -->
+  <!-- by using openjms.gif (project) logo for the organisation, -->
+  <!-- and a blank image for the project.                        -->
+  <logo>/images/none.png</logo>
+
+  <gumpRepositoryId>openjms</gumpRepositoryId>
+
+  <description>
+     OpenJMS is an open source implementation of Sun Microsystems's 
+     Java Message Service API 1.1 Specification
+  </description>
+
+  <shortDescription>The OpenJMS Project</shortDescription>
+
+  <url>http://openjms.sourceforge.net</url>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=54559</issueTrackingUrl>
+  <siteAddress>openjms.sourceforge.net</siteAddress>
+  <siteDirectory>/home/groups/o/op/openjms/htdocs/</siteDirectory>
+   
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@openjms.cvs.sourceforge.net:/cvsroot/openjms:openjms</connection>
+    <url>http://openjms.cvs.sourceforge.net/openjms/openjms/</url>
+  </repository>
+
+  <versions>
+    <version>
+      <id>0.7.7-dev</id>
+      <name>0.7.7-dev</name>
+      <tag>HEAD</tag>
+    </version>
+    <version>
+      <id>0.7.6.1</id>
+      <name>0.7.6.1</name>
+      <tag>openjms_0_7_6_1</tag>
+    </version>
+    <version>
+      <id>0.7.6</id>
+      <name>0.7.6</name>
+      <tag>openjms_0_7_6</tag>
+    </version>
+    <version>
+      <id>0.7.5</id>
+      <name>0.7.5</name>
+      <tag>openjms_0_7_5_19</tag>
+    </version>
+    <version>
+      <id>0.7.4</id>
+      <name>0.7.4</name>
+      <tag>openjms_0_7_4_18</tag>
+    </version>
+    <version>
+      <id>0.7.3.1</id>
+      <name>0.7.3.1</name>
+      <tag>openjms_0_7_3_1</tag>
+    </version>
+    <version>
+      <id>0.7.3</id>
+      <name>0.7.3</name>
+      <tag>openjms_0_7_3_16</tag>
+    </version>
+  </versions>
+
+  <branches>
+    <branch>
+      <tag>openjms_0_7_6_maint</tag>
+    </branch>
+  </branches>
+
+  <mailingLists>
+    <mailingList>
+      <name>OpenJMS User List</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/openjms-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/openjms-user</unsubscribe>
+      <archive>http://news.gmane.org/gmane.comp.java.openjms.user</archive>
+    </mailingList>
+    <mailingList>
+      <name>OpenJMS Developer List</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/openjms-developer</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/openjms-developer</unsubscribe>
+      <archive>http://news.gmane.org/gmane.comp.java.openjms.devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>OpenJMS CVS Commits List</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/openjms-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/openjms-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=openjms-cvs</archive>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <name>Jim Alateras</name>
+      <id>jima</id>
+      <email>jima@comware.com.au</email>
+    </developer>
+    <developer>
+      <name>Jim Mourikis</name>
+      <id>jimm</id>
+      <email>jimm@bigpond.net.au</email>
+    </developer>
+    <developer>
+      <name>Tim Anderson</name>
+      <id>tanderson</id>
+      <email>tma@netspace.net.au</email>
+    </developer>
+    <developer>
+      <name>Daniel Otero</name>
+      <id>oterod</id>
+      <email>daniel.otero@mac.com</email>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Constantin Goltsev</name>
+      <email>goltsev@intalio.com</email>
+      <organization>Intalio</organization>
+    </contributor>
+    <contributor>
+      <name>Art Whitten</name>
+      <email>artw@wfactor.com</email>
+      <organization>W Factor</organization>
+    </contributor>
+    <contributor>
+      <name>Fabien Betremieux</name>
+      <email>fabien.betremieux@lumos.com</email>
+      <organization>Lumos</organization>
+    </contributor>
+    <contributor>
+      <name>Ron Cain</name>
+      <email>rcain@synchronetworks.com</email>
+      <organization>Synchron Networks</organization>
+    </contributor>
+    <contributor>
+      <name>Payam Mirrashidi</name>
+      <email>payam@mirrashidi.com</email>
+    </contributor>
+    <contributor>
+      <name>Ashish Agrawal</name>
+      <email>agrawal@intalio.com</email>
+      <organization>Intalio</organization>
+    </contributor>
+    <contributor>
+      <name>Guedon Jung</name>
+      <email>gd452@lycos.co.kr</email>
+    </contributor>
+    <contributor>
+      <name>Jeremy Crosbie</name>
+      <email>jeremy@go2.com</email>
+    </contributor>
+    <contributor>
+      <name>Jonas Sondell</name>
+      <email>jso@ladok.umu.se</email>
+    </contributor>
+    <contributor>
+      <name>Dean Cording</name>
+      <email>dsc68@acay.com.au</email>
+      <organization>Electro Optic Systems</organization>
+    </contributor>
+    <contributor>
+      <name>Chris Wassman</name>
+      <email>cwassman@users.sourceforge.net</email>
+    </contributor>
+    <contributor>
+      <name>Heiko Bergmann</name>
+      <email>heiko.bergmann@fresenius-netcare.com</email>
+    </contributor>
+    <contributor>
+      <name>Jem Day</name>
+      <email>Jem.Day@barclaysglobal.com</email>
+    </contributor>
+    <contributor>
+      <name>Gerald Caponera</name>
+      <email>GCaponera@vettro.com</email>
+    </contributor>
+    <contributor>
+      <name>Keith Bae</name>
+      <email>keithbae@hotmail.com</email>
+    </contributor>
+    <contributor>
+      <name>Juan Carlos Estibariz</name>
+      <email>jcestiba@users.sourceforge.net</email>
+    </contributor> 
+    <contributor>
+      <name>Knut Lerpold</name>
+      <email>knut.lerpold@royalhighgate.com</email>
+    </contributor> 
+    <contributor>
+      <name>Gene Mourzine</name>
+      <email>mourzine@yahoo.com</email>
+    </contributor> 
+    <contributor>
+      <name>Elias Martenson</name>
+      <email>elias-m@algonet.se</email>
+    </contributor>
+    <contributor>
+      <name>Michael Jaszczyk</name>
+      <email>mjaszczyk@pironet.com</email>
+    </contributor>
+  </contributors>
+
+  <build>
+    <nagEmailAddress>openjms-developer@lists.sourceforge.net</nagEmailAddress>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+    <unitTestSourceDirectory>${basedir}/src/test/java</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+  </build>
+  
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-faq-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-tasklist-plugin</report>
+  </reports>
+
+</project>

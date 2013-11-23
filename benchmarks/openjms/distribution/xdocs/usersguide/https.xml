@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the HTTPS Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The HTTPS connector enables OpenJMS clients to connect to the
+        OpenJMS server using secure HTTP.
+      </p>
+      <p>
+        This is typically used when firewall restrictions prevent the use
+        of the RMI, TCP, and TCPS connectors.
+      </p>
+    </section>
+
+    <section name="Using the HTTPS connector">
+      <p>
+        Clients connect to the OpenJMS server via a webserver. 
+        To connect to OpenJMS via a webserver running on the local host, using
+        the default HTTPS configuration, construct an <em>InitialContext</em>
+       as follows:
+        <source>
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "https://localhost:443/");
+    properties.put("org.exolab.jms.net.https.keyStore", "&lt;keystore&gt;");
+    properties.put("org.exolab.jms.net.https.keyStorePassword", "&lt;password&gt;");
+    properties.put("org.exolab.jms.net.https.trustStore", "&lt;keystore&gt;");
+    Context context = new InitialContext(properties);
+        </source>
+        Where:
+        <ul>
+          <li>
+            <em>keystore</em> specifies the path to the client certificate
+            keystore.
+          </li>
+          <li>
+            <em>password</em> specifies the password of the client certificate
+            keystore.
+          </li>
+        </ul>
+      </p>
+      <p>          
+        The <em>Context.PROVIDER_URL</em> property has the format:
+        <source>
+"http://&lt;webserver-host&gt;:&lt;webserver-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>webserver-host</em> specifies the host of the webserver 
+            running the OpenJMS servlet.
+          </li>
+          <li>
+            <em>webserver-port</em> specifies the port that the 
+            OpenJMS servlet is listening on.
+          </li>
+        </ul>
+      </p>
+      <subsection name="Connection properties">
+        <p>
+          The HTTPS connector supports the following connection properties:
+          <table>
+            <tr><th>Name</th><th>Description</th></tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.keyStore"</td>
+              <td>
+                The path of the keystore to use. If not specified, indicates 
+                to use the default keystore. Synonymous with the 
+                <em>"javax.net.ssl.keyStore"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.keyStorePassword"</td>
+              <td>
+                The keystore password. If not specified, indicates to
+                use the default password. Synonymous with the 
+                <em>"javax.net.ssl.keyStorePassword"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.keyStoreType"</td>
+              <td>
+                The keystore type. If not specified, defaults to "JKS".
+                Synonymous with the <em>"javax.net.ssl.keyStoreType"</em> 
+                System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.trustStore"</td>
+              <td>
+                The path of the truststore to use. If not specified, indicates 
+                to use the default truststore. Synonymous with the 
+                <em>"javax.net.ssl.trustStore"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.trustStorePassword"</td>
+              <td>
+                The truststore password. If not specified, indicates to
+                use the default password. Synonymous with the 
+                <em>"javax.net.ssl.trustStorePassword"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.trustStoreType"</td>
+              <td>
+                The truststore type. If not specified, defaults to "JKS".
+                Synonymous with the <em>"javax.net.ssl.trustStoreType"</em>
+                System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.proxyHost"</td>
+              <td>
+                Indicates the proxy server to use. Synonymous with the 
+                <em>"https.proxyHost"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.proxyPort"</td>
+              <td>
+                Indicates the port of the proxy server. Synonymous with the 
+                <em>"https.proxyPort"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.proxyUser"</td>
+              <td>
+                Indicates the user to log in to the proxy server with.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.https.proxyPassword"</td>
+              <td>
+                Indicates the password to log in to the proxy server with.
+              </td>
+            </tr>
+          </table>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Administration using the HTTPS connector">
+      <p>
+        To administer an OpenJMS server via the webserver running on the local
+        host, using the default HTTPS configuration, construct a 
+        <em>JmsAdminServerIfc</em> as follows:
+        <source>
+    String url = "https://localhost:443/";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>
+      </p>
+      <p>          
+        The URL argument has the same format as the 
+         <em>Context.PROVIDER_URL</em> described in 
+         <a href="#Using the HTTPS connector">Using the HTTPS connector</a>
+      </p>
+    </section>
+
+  </body>    
+</document>

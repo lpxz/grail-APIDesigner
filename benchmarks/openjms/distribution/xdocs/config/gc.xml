@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Garbage Collection</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Garbage Collection">
+      <p>
+        The OpenJMS server periodically runs a garbage collector to conserve
+        memory. Garbage collection will also be run if available memory falls 
+        below a configured threshold.
+      </p>
+      <p>
+        The garbage collector collects:
+        <ul>
+          <li>
+            Expired messages
+            <p>
+              These are messages whose <em>JMSExpiration</em> property is 
+              non-zero, and the time indicated by the property has passed.
+            </p>
+            <p>
+              Expired messages are removed both from memory and/or the 
+              database if they are persistent.
+            </p>
+          </li>
+          <li>
+            Message caches
+            <p>
+              Messages are cached on a per-destination basis.
+              A topic message cache will be garbage collected if it
+              has no active consumers.
+              A queue message cache will be garbage collected if it
+              has no active consumers and:
+              <ul>
+                <li>it is administered and contains no messages; or</li>
+                <li>
+                  it is temporary, and there is no corresponding Connection
+                  instance (i.e, the client connection has been closed or lost)
+                </li>
+              </ul>
+              An active consumer is any <code>TopicSubscriber</code>, 
+              <code>QueueReceiver</code> or <code>QueueBrowser</code> 
+              currently registered with the message cache.
+            </p>
+          </li>
+          <li>
+            Cached persistent messages
+            <p>
+              These are messages cached in memory to avoid the overhead
+              reading them from the database. These are removed
+              from memory when available memory is low.
+            </p>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="Configuration">
+      <p>
+        The garbage collector is configured via the 
+        <strong>&lt;GarbageCollectionConfiguration&gt;</strong> 
+        element in the <strong>$OPENJMS_HOME/config/openjms.xml</strong>
+        configuration file:
+        <source><![CDATA[
+  <GarbageCollectionConfiguration memoryCheckInterval="30"
+                                  lowWaterThreshold="20"
+                                  garbageCollectionInterval="600"
+                                  garbageCollectionThreadPriority="5"/>]]>
+        </source>      
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to garbage collection:
+        <ul>
+          <li>
+            <a href="reference.html#GarbageCollectionConfiguration">
+              GarbageCollectionConfiguration
+            </a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>
+
+</document>

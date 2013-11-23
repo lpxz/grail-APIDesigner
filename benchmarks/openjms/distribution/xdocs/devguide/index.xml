@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Developer Guide</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="About this Guide">
+      <p>
+        This guide provides information for people interested in 
+        contributing to OpenJMS. If you simply want to use OpenJMS, consult
+        the <a href="../usersguide/index.html">User Guide</a>
+      </p>
+    </section>
+
+    <section name="Developer Guide Documentation">
+      <table>
+        <tr><th>Document</th><th>Description</th></tr>
+        <tr>
+          <td><a href="volunteers.html">Volunteers</a></td>
+          <td>How to contribute to the OpenJMS project.</td>
+        </tr>
+        <tr>
+          <td><a href="source.html">Getting the Source</a></td>
+          <td>Instructions for obtaining the OpenJMS source.</td>
+        </tr>
+        <tr>
+          <td><a href="codestyle.html">Coding Style and Conventions</a></td>
+          <td>Coding style and conventions used in OpenJMS.</td>
+        </tr>
+        <tr>
+          <td><a href="build.html">Building OpenJMS</a></td>
+          <td>Instructions for building OpenJMS from the source.</td>
+        </tr>
+        <tr>
+          <td><a href="test.html">Testing OpenJMS</a></td>
+          <td>Instructions for testing OpenJMS.</td>
+        </tr>
+        <tr>
+          <td><a href="submit.html">Submitting Changes</a></td>
+          <td>Instructions for submitting changes.</td>
+        </tr>
+        <tr>
+          <td><a href="roadmap.html">Roadmap</a></td>
+          <td>The roadmap for future releases.</td>
+        </tr>
+      </table>
+    </section>
+
+  </body>
+</document>

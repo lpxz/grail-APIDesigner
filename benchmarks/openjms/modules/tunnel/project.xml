@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <name>OpenJMS: HTTP tunnel</name>
+  <id>openjms-tunnel</id>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <shortDescription>OpenJMS HTTP tunnel</shortDescription>
+
+  <description>
+     HTTP tunnel to enable clients behind a firewall to connect
+     to an OpenJMS server.
+  </description>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-common</artifactId>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <url>http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <url>http://logging.apache.org/log4j/</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+
+    <dependency>
+       <groupId>servletapi</groupId>
+       <artifactId>servletapi</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+  </build>
+</project>

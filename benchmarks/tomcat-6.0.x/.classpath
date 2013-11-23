@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn/**|org/apache/tomcat/util/net/puretls/|org/apache/naming/factory/webservices/|org/apache/tomcat/buildutil/Txt2Html.java|org/apache/jasper/compiler/JDTCompiler.java" kind="src" path="java"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="lib/ant-1.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.0-beta3.jar"/>
+	<classpathentry kind="lib" path="lib/com.springsource.org.apache.tools.ant.launch-1.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/tools.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

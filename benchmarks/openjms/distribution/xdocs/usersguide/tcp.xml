@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the TCP Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The TCP connector enables OpenJMS clients to connect to the
+        OpenJMS server using TCP/IP sockets.
+      </p>
+    </section>
+
+    <section name="Using the TCP connector">
+      <p>
+        To connect to an OpenJMS server running on the local host, using
+        the default TCP configuration, construct an 
+          <em>InitialContext</em> as follows:
+        <source>
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "tcp://localhost:3035/");
+    Context context = new InitialContext(properties);
+        </source>
+      </p>
+      <p>          
+        The <em>Context.PROVIDER_URL</em> property has the format:
+        <source>
+"tcp://&lt;server-host&gt;:&lt;jndi-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>server-host</em> specifies the host that the OpenJMS server
+            is running on.
+          </li>
+          <li>
+            <em>jndi-port</em> specifies the port that the embedded JNDI
+            provider is listening on.
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="Administration using the TCP connector">
+      <p>
+        To administer an OpenJMS server running on the local host, using
+        the default TCP configuration, construct a 
+        <em>JmsAdminServerIfc</em> as follows:
+        <source>
+    String url = "tcp://localhost:3035/";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>
+      </p>
+      <p>          
+        The URL argument has the format:
+        <source>
+"tcp://&lt;server-host&gt;:&lt;server-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>server-host</em> specifies the host that the OpenJMS server
+            is running on.
+          </li>
+          <li>
+            <em>server-port</em> specifies the port that the OpenJMS server
+            is listening on.
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

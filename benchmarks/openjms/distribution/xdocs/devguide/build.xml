@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Building OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Overview">
+      <p>
+        OpenJMS is built using <a href="http://maven.apache.org">Maven</a>.
+        Maven 1.0.2 must be used.
+      </p>
+      <p>
+        If you are familiar with Maven, skip forward to 
+        <a href="#Building_OpenJMS">Building OpenJMS</a>
+      </p>
+    </section>
+
+    <section name="New to Maven?">
+      <p>
+        Maven is a build tool that aims to simplify the process of developing 
+        Java projects.
+      </p>
+      <p>
+        If you don't have Maven installed, download a copy from 
+        <a href="http://maven.apache.org/">http://maven.apache.org/</a>, 
+        install it, and put its <em>bin/</em> directory in your path.
+      </p>
+
+      <subsection name="Third party JARs">
+        <p>
+          OpenJMS uses third party JARs which maven will automatically 
+          attempt to download from a central repository and cache locally.
+        </p>
+        <p>
+          However, due to licensing restrictions, not all JARs can be
+          automatically downloaded - these need to be done manually. 
+          In particular, this applies to JARs distributed by Sun (i.e, the 
+          JDBC, JMS, JNDI and JTA JARs).
+        </p>
+        <p>
+          When maven encounters a JAR it can't download, it will output a
+          message like:
+<source>
+The build cannot continue because of the following unsatisfied dependency:
+
+jdbc-2.0.jar; version override doesn't exist: 2.0 (try downloading from
+http://java.sun.com/products/jdbc)
+</source>
+        </p>
+        <p>
+          The following table indicates the name of the product, the download
+          archive name, and the path the resulting JAR(s) must be copied to. 
+          The JAR(s) may need to be extracted and/or renamed.
+          <table>
+            <tr>
+              <th>Product</th>
+              <th>Download</th>
+              <th>Copy to</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="http://java.sun.com/products/jdbc/download.html">
+                  JDBC 2.0 Optional Package Binary</a>
+              </td>
+              <td>jdbc2_0-stdext.jar</td>
+              <td>${maven.repo.local}/jdbc/jars/jdbc-2.0.jar</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="http://java.sun.com/products/jms/docs.html">
+                  JMS 1.0.2b API Documentation, Jar, and Source</a>
+              </td>
+              <td>jms-1_0_2b.zip</td>
+              <td>${maven.repo.local}/jms/jars/jms-1.0.2b.jar</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="http://java.sun.com/products/jndi/downloads/index.html">JNDI 1.2.1</a>
+              </td>
+              <td>jndi-1_2_1.zip</td>
+              <td>${maven.repo.local}/jndi/jars/jndi-1.2.1.jar</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="http://java.sun.com/products/jsse/index-103.html#downloads">JSSE 1.0.3_03 software and documentation</a>
+              </td>
+              <td>jsse-1_0_3_03-gl.zip</td>
+              <td>${maven.repo.local}/jsse/jars/jsse-1.0.3.jar</td>
+            </tr>
+            <tr>
+              <td/>
+              <td/>
+              <td>${maven.repo.local}/jsse/jars/jcert-1.0.3.jar</td>
+            </tr>
+            <tr>
+              <td/>
+              <td/>
+              <td>${maven.repo.local}/jsse/jars/jnet-1.0.3.jar</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="http://java.sun.com/products/jta/">JTA 1.0.1</a>
+              </td>
+              <td>jta-1_0_1B-classes.zip</td>
+              <td>${maven.repo.local}/jta/jars/jta-1.0.1.jar</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          In the above, <strong>${maven.repo.local}</strong> represents
+          maven's local repository. By default, this is
+          <strong>${user.home}/.maven/repository</strong>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Building OpenJMS">
+      <p>
+        The following assume that maven is run from the root of the OpenJMS
+        source tree, unless otherwise specified.
+      </p>
+    
+      <subsection name="Building the OpenJMS JARS">
+        <p>
+          To build all of the OpenJMS JARS:
+        </p>
+        <p>
+          <source>
+maven -Dmaven.test.skip o:build
+          </source>
+        </p>
+        <p>
+          NOTE: <em>maven.test.skip</em> prevents the unit tests being run.
+          Need to do this until:
+          <ul>
+            <li>
+              The http unit tests can be run automatically. These require
+              openjms-tunnel to deployed to a running Tomcat installation.
+            </li>
+            <li>
+              A mechanism is set up to only run unit tests if something has 
+              changed.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="Installing the server">
+        <p>
+          To install the server:
+        </p>
+        <p>
+          <source>
+maven -Dmaven.test.skip o:install
+          </source>
+        </p>
+        <p>
+          By default this installs the server to the <strong>install/</strong>
+          directory. To override this behaviour, define 
+          <strong>install.dir</strong>
+          in <strong>distribution/build.properties</strong>
+        </p>
+      </subsection>
+
+      <subsection name="Building a single module">
+        <p>
+          To build a single module, <em>cd</em> to the directory holding the 
+          module and run maven from there. E.g, to compile the openjms-net 
+          module:
+        </p>
+        <p>
+          <source>
+cd modules/net
+maven java:compile
+          </source>
+        </p>
+        <p>
+          To install it to the local repository to make it available to other 
+          modules:
+        </p>
+        <p>
+          <source>
+maven jar:install
+          </source>
+        </p>       
+      </subsection>
+
+      <subsection name="Building the documentation">
+        <p>
+          To build the website, run:
+          <source>
+maven o:site
+          </source>
+        </p>
+        <p>
+          The website will be generated to the <strong>target/docs/</strong>
+          directory.
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Goals">
+      <p>
+        The following custom goals are available:
+      </p>
+      <p>
+        <table>
+          <tr>
+            <th>Goal</th> 
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>o:build</td>
+            <td>Executes the default build for all projects</td>
+          </tr>
+          <tr>
+            <td>o:clean</td>
+            <td>Deletes the <em>target</em> directory in all projects</td>
+          </tr>
+          <tr>
+            <td>o:site</td>
+            <td>Generates the website</td>
+          </tr>
+          <tr>
+            <td>o:install</td>
+            <td>Builds and installs the OpenJMS server</td>
+          </tr>
+          <tr>
+            <td>o:dist-bin</td>
+            <td>Generates a binary distribution</td>
+          </tr>
+          <tr>
+            <td>o:dist-src</td>
+            <td>Generates a source distribution</td>
+          </tr>
+        </table>
+      </p>
+    </section>
+
+  </body>
+
+</document>

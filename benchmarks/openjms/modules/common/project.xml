@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <name>OpenJMS: Common</name>
+  <id>openjms-common</id>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <shortDescription>OpenJMS Common</shortDescription>
+
+  <description>
+    Shared utility classes used by OpenJMS modules.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <url>http://jakarta.apache.org/commons/logging/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <url>http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <url>http://logging.apache.org/log4j/</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+  </build>
+</project>

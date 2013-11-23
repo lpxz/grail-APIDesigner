@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="APIDesigner">
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="lib/ant-contrib.jar"/>
+        </classpath>
+    </taskdef>
+    <property environment="env"/>
+  
+    
+    <property name="soot24.location" value="./soot24"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+	<property name="ACfinder" value="atomic.compositions.analysis.Finder"/>
+
+
+    <path id="soot24.classpath">
+        <pathelement location="${soot24.location}/classes"/>
+        <pathelement location="${soot24.location}/lib/jasminclasses-2.3.0.jar"/>
+        <pathelement location="${soot24.location}/lib/jedd-runtime.jar"/>
+        <pathelement location="${soot24.location}/lib/jedd-translator.jar"/>
+        <pathelement location="${soot24.location}/lib/polyglot-1.3.3.jar"/>
+        <pathelement location="${soot24.location}/lib/svnant.jar"/>
+        <pathelement location="${soot24.location}/lib/svnClientAdapter.jar"/>
+        <pathelement location="${soot24.location}/lib/TGGraphLayout.jar"/>
+        <pathelement location="${soot24.location}/lib/xmlunit1.0.jar"/>
+        <pathelement location="${soot24.location}/lib/log4j-1.2.14.jar"/>
+        <pathelement location="${soot24.location}/lib/trove.jar"/>
+        <pathelement location="${soot24.location}/lib/jboss-serialization.jar"/>
+        <pathelement location="${soot24.location}/lib/jboss-common-4.0.2.jar"/>
+        <pathelement location="${soot24.location}/lib/junit-4.4.jar"/>
+        <pathelement location="${soot24.location}/javabdd_lib/javabdd_0.6.jar"/>
+        <pathelement location="${soot24.location}/lib/ant-antlr.jar"/>
+        <pathelement location="${soot24.location}/lib/ant-apache-bcel.jar"/>
+        <pathelement location="${soot24.location}/lib/ant-testutil.jar"/>
+        <pathelement location="${soot24.location}/lib/ant.jar"/>
+        <pathelement location="${soot24.location}/lib/coffer.jar"/>
+        <pathelement location="${soot24.location}/lib/java_cup.jar"/>
+        <pathelement location="${soot24.location}/lib/JFlex.jar"/>
+        <pathelement location="${soot24.location}/lib/junit-4.8.1.jar"/>
+        <pathelement location="${soot24.location}/lib/pao.jar"/>
+        <pathelement location="${soot24.location}/lib/polyglot.jar"/>
+        <pathelement location="${soot24.location}/lib/pth.jar"/>
+        <pathelement location="${soot24.location}/lib/xercesImpl.jar"/>
+        <pathelement location="${soot24.location}/lib/xml-apis.jar"/>
+        <pathelement location="${soot24.location}/lib/ant-contrib.jar"/>
+        <pathelement location="${soot24.location}/javabdd_lib/sablejbdd_real.jar"/>
+        <pathelement location="${soot24.location}/lib/pia.jar"/>
+        <pathelement location="${soot24.location}/lib/poa.jar"/>
+    	 <pathelement location="${soot24.location}/lib/commons-io-2.4.jar"/>
+    
+    </path>
+    <path id="APIDesigner.classpath">
+        <pathelement location="bin"/>
+        <path refid="soot24.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${log4j.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${soot24.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">      
+        <ant antfile="build.xml" dir="${soot24.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="APIDesigner.classpath"/>
+        </javac>
+    </target>
+
+  
+    <target name="DDGDriver">
+        <java classname="DDGDriver" failonerror="true" fork="yes">
+            <classpath refid="APIDesigner.classpath"/>
+        </java>
+    </target>
+	
+	
+
+	
+    <target name="Openjms">    	
+        <java classname="${ACfinder}" failonerror="true" fork="yes">
+          	<arg value="-f J -pp -cp ${user.dir}/benchmarks/openjms/lib/jms-1.1.jar:${user.dir}/benchmarks/openjms/lib/commons-codec-1.3.jar:${user.dir}/benchmarks/openjms/lib/servlet.jar:${user.dir}/benchmarks/openjms/lib/derby-10.1.1.0.jar:${user.dir}/benchmarks/openjms/lib/castor-0.9.5.jar:${user.dir}/benchmarks/openjms/lib/spice-jndikit-1.2.jar:${user.dir}/benchmarks/openjms/lib/antlr-2.7.6.jar:${user.dir}/benchmarks/openjms/lib/oro-2.0.8.jar:${user.dir}/benchmarks/openjms/lib/commons-dbcp-1.2.1.jar:${user.dir}/benchmarks/openjms/lib/xml-apis-1.0.b2.jar:${user.dir}/benchmarks/openjms/lib/xerces-2.4.0.jar:${user.dir}/benchmarks/openjms/lib/commons-pool-1.2.jar:${user.dir}/benchmarks/openjms/lib/commons-collections-2.1.jar:${user.dir}/benchmarks/openjms/lib/commons-logging-1.0.4.jar:${user.dir}/lib/rt.jar:${user.dir}/lib/jce.jar:${user.dir}/lib/jsse.jar:${user.dir}/lib/charsets.jar:${user.dir}/benchmarks/openjms/bin -process-dir ${user.dir}/benchmarks/openjms/bin"/>        
+          	<jvmarg line="-Xmx1g"/>
+        	 
+              <classpath refid="APIDesigner.classpath"/>
+          </java>
+    </target>
+	
+    <target name="Jigsaw">    	
+        <java classname="${ACfinder}" failonerror="true" fork="yes">
+           	<arg value="-i org.w3c -f J -pp -cp ${user.dir}/lib/rt.jar:${user.dir}/lib/jce.jar:${user.dir}/lib/tools.jar:${user.dir}/benchmarks/jigsaw/classes/jakarta-oro-2.0.8.jar:${user.dir}/benchmarks/jigsaw/classes/sax.jar:${user.dir}/benchmarks/jigsaw/classes/servlet.jar:${user.dir}/benchmarks/jigsaw/classes/Tidy.jar:${user.dir}/benchmarks/jigsaw/classes/xerces.jar:${user.dir}/benchmarks/jigsaw/classes/xp.jar:${user.dir}/benchmarks/jigsaw/classes/tools.jar:${user.dir}/lib/jsse.jar:${user.dir}/lib/charsets.jar:${user.dir}/benchmarks/jigsaw/bin -process-dir ${user.dir}/benchmarks/jigsaw/bin"/>        
+           	<jvmarg line="-Xmx1g"/>
+               <classpath refid="APIDesigner.classpath"/>
+           </java>
+    </target>
+	
+    <target name="Specjbb">    	
+        <java classname="${ACfinder}" failonerror="true" fork="yes">
+          	<arg value="-f J -pp -cp ${user.dir}/lib/jsse.jar:${user.dir}/benchmarks/specjbb2005/bin -process-dir ${user.dir}/benchmarks/specjbb2005/bin"/>        
+          	 <jvmarg line="-Xmx1g"/>
+              <classpath refid="APIDesigner.classpath"/>
+          </java>
+    </target>
+	
+	
+    
+	
+	<!--missing-->
+    <target name="Tuple">    	
+   	 <java classname="${ACfinder}" failonerror="true" fork="yes">
+   	 	        	<arg value="-f J -pp -cp ${user.dir}/benchmarks/tuplesoup-0.1.2-AJ/bin -process-dir ${user.dir}/benchmarks/tuplesoup-0.1.2-AJ/bin"/>        
+   	 	        	<jvmarg line="-Xmx10g"/>
+   	 	            <classpath refid="APIDesigner.classpath"/>
+   	 	        </java>
+    </target>
+   	 	            	
+    <target name="Derby">    	
+        <java classname="${ACfinder}" failonerror="true" fork="yes">
+          	<arg value="-i org.apache -f J -pp -cp ${user.dir}/benchmarks/derby-10.3.2.1/build:${user.dir}/lib/jsse.jar:${user.dir}/lib/jce.jar:${user.dir}/benchmarks/derby-10.3.2.1/lib/commons-io-1.1.jar:${user.dir}/benchmarks/derby-10.3.2.1/lib/commons-logging-1.0.4.jar:${user.dir}/benchmarks/derby-10.3.2.1/lib/serializer-2.7.0.jar:${user.dir}/benchmarks/derby-10.3.2.1/lib/xalan-2.7.0.jar:${user.dir}/benchmarks/derby-10.3.2.1/lib/xercesImpl-2.7.1.jar -process-dir ${user.dir}/benchmarks/derby-10.3.2.1/build"/>        
+          	 <jvmarg line="-Xmx2g"/>
+              <classpath refid="APIDesigner.classpath"/>
+          </java>    	
+    </target>
+	
+    <target name="Tomcat">    	
+    	 <java classname="${ACfinder}" failonerror="true" fork="yes">
+    	    <arg value= "-i org.apache -f J -pp -cp ${user.dir}/benchmarks/tomcat-6.0.x/lib/com.springsource.org.apache.tools.ant.launch-1.7.1.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/commons-codec-1.3.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/commons-logging-1.1.1.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/httpclient-4.0.1.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/httpcore-4.0-beta3.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/httpmime-4.0.1.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/tools.jar:${user.dir}/lib/jsse.jar:${user.dir}/benchmarks/tomcat-6.0.x/lib/ant-1.7.1.jar:${user.dir}/benchmarks/tomcat-6.0.x/bin -process-dir ${user.dir}/benchmarks/tomcat-6.0.x/bin" />
+    	    <jvmarg line="-Xmx2g"/>
+    	    <classpath refid="APIDesigner.classpath"/>
+    	          </java> 	
+    </target>
+    <target name="Avrora">    	
+    	 <java classname="${ACfinder}" failonerror="true" fork="yes">
+    	          	<arg value= "-i org.apache -f J -pp -cp ${user.dir}/benchmarks/avrora/lib/commons-cli-1.1.jar:${user.dir}/benchmarks/avrora/bin -process-dir ${user.dir}/benchmarks/avrora/bin" />
+    	        	<jvmarg line="-Xmx2g"/>
+    	              <classpath refid="APIDesigner.classpath"/>
+    	          </java> 	
+    </target>
+	
+
+    	              	
+    <target name="Lucene">    	
+    	 <java classname="${ACfinder}" failonerror="true" fork="yes">
+    	          	<arg value="-i org.apache -f J -pp -cp ${user.dir}/benchmarks/lucene/lib/junit-3.8.2.jar:${user.dir}/benchmarks/lucene/lib/servlet-api-2.4.jar:${user.dir}/benchmarks/lucene/lib/commons-cli-1.1.jar:${user.dir}/benchmarks/lucene/bin -process-dir ${user.dir}/benchmarks/lucene/bin" />
+    	        	<jvmarg line="-Xmx2g"/>
+    	              <classpath refid="APIDesigner.classpath"/>
+    	          </java> 	
+    </target>
+	
+    <target name="Cache4j">    	
+    	 <java classname="${ACfinder}" failonerror="true" fork="yes">
+    	          	<arg value="-i org.apache -f J -pp -cp ${user.dir}/benchmarks/cache4j/bin -process-dir ${user.dir}/benchmarks/cache4j/bin" />
+    	        	<jvmarg line="-Xmx1g"/>
+    	            <classpath refid="APIDesigner.classpath"/>
+    	          </java> 	
+    </target>
+	
+	
+
+     <!--the project is not found-->
+     <target name="Jspider">    	
+        	 <java classname="${ACfinder}" failonerror="true" fork="yes">
+        	          	<arg value= "-i org.apache -f J -pp -cp ${user.dir}/benchmarks/jspider/lib/commons-logging.jar:${user.dir}/benchmarks/jspider/lib/junit.jar:${user.dir}/benchmarks/jspider/lib/log4j-1.2.8.jar:${user.dir}/benchmarks/jspider/lib/unittests.jar:${user.dir}/benchmarks/jspider/lib/velocity-dep-1.3.1.jar:${user.dir}/benchmarks/jspider/bin -process-dir ${user.dir}/benchmarks/jspider/bin" />
+        	        	<jvmarg line="-Xmx1g"/>
+        	              <classpath refid="APIDesigner.classpath"/>
+        	          </java> 	
+        </target>
+	
+   
+	
+	
+
+	 	
+
+	 	
+	 
+	
+	
+    <target name="ACfinder">    
+    	<antcall target = "Lucene"/>	
+    	<antcall target = "Specjbb"/>    	
+		<antcall target = "Cache4j"/>		
+		<antcall target = "Openjms"/>
+		<antcall target = "Jigsaw"/>
+		<antcall target = "Derby"/>		
+		
+    	<antcall target = "Tomcat"/>
+    </target>
+	
+	
+	
+
+    <target name="DacapoWholeAnalysis">   	
+    	<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    	        	<arg line="avrora"/>        
+    	        	 <jvmarg line="-Xmx1g"/>        
+    	            <classpath refid="APIDesigner.classpath"/>
+    	        </java>
+    	
+    	<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    	        	<arg line="batik"/>        
+    	        	 <jvmarg line="-Xmx1g"/>        
+    	            <classpath refid="APIDesigner.classpath"/>
+     </java>
+    	
+
+    		
+    		<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    		        	<arg line="h2"/>        
+    		        	 <jvmarg line="-Xmx1g"/>        
+    		            <classpath refid="APIDesigner.classpath"/>
+    		        </java>
+    		
+    		<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    		        	<arg line="jython"/>        
+    		        	 <jvmarg line="-Xmx1g"/>        
+    		            <classpath refid="APIDesigner.classpath"/>
+    		        </java>
+    		
+    		<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    		        	<arg line="luindex"/>        
+    		        	 <jvmarg line="-Xmx1g"/>        
+    		            <classpath refid="APIDesigner.classpath"/>
+    		        </java>
+    		
+    		<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    		        	<arg line="lusearch"/>        
+    		        	 <jvmarg line="-Xmx1g"/>        
+    		            <classpath refid="APIDesigner.classpath"/>
+    		        </java>
+    	            	
+    	<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    	        	<arg line="pmd"/>        
+    	        	 <jvmarg line="-Xmx1g"/>        
+    	            <classpath refid="APIDesigner.classpath"/>
+    	        </java>
+    	
+    	<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    	        	<arg line="sunflow"/>        
+    	        	 <jvmarg line="-Xmx1g"/>        
+    	            <classpath refid="APIDesigner.classpath"/>
+    	        </java>
+    	
+    	<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    	    	        	<arg line="tomcat"/>        
+    	    	        	 <jvmarg line="-Xmx1g"/>        
+    	    	            <classpath refid="APIDesigner.classpath"/>
+    	    	        </java>
+    	
+    	<java classname="DacapoWholeAnalysis" failonerror="true" fork="yes">
+    	        	<arg line="eclipse"/>        
+    	        	 <jvmarg line="-Xmx1g"/>        
+    	            <classpath refid="APIDesigner.classpath"/>
+    	        </java>
+    </target>
+</project>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring the TCP Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The TCP connector enables OpenJMS clients to connect to the
+        OpenJMS server using TCP/IP sockets.
+      </p>
+      <p>
+        It is configured by adding a <strong>&lt;Connector&gt;</strong> 
+        element to <strong>&lt;Connectors&gt;</strong> section of the
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, with a scheme
+        of type <em>"tcp"</em>. E.g:
+
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="tcp">
+      <ConnectionFactories>
+        <ConnectionFactory name="TCPConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>        
+        </source>
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to the TCP connector:          
+        <ul>
+          <li>
+            <a href="reference.html#Connectors">Connectors</a>
+          </li>
+          <li>
+            <a href="reference.html#ServerConfiguration">
+              ServerConfiguration
+            </a>
+          </li>
+          <li>
+            <a href="reference.html#TcpConfiguration">TcpConfiguration</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

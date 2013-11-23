@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the TCPS Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The TCPS connector enables OpenJMS clients to connect to the
+        OpenJMS server using SSL (Secure Socket Layer).
+      </p>
+    </section>
+
+    <section name="Using the TCPS connector">
+      <p>
+        To connect to an OpenJMS server running on the local host, using the
+        default TCPS configuration, construct an <em>InitialContext</em> 
+        as follows:
+        <source>
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "tcps://localhost:3035/");
+    properties.put("org.exolab.jms.net.tcps.keyStore", "&lt;keystore&gt;");
+    properties.put("org.exolab.jms.net.tcps.keyStorePassword", "&lt;password&gt;");
+    properties.put("org.exolab.jms.net.tcps.trustStore", "&lt;keystore&gt;");
+    Context context = new InitialContext(properties);
+        </source>
+        Where:
+        <ul>
+          <li>
+            <em>keystore</em> specifies the path to the client certificate
+            keystore.
+          </li>
+          <li>
+            <em>password</em> specifies the password of the client certificate
+            keystore.
+          </li>
+        </ul>
+      </p>
+      <p>          
+        The <em>Context.PROVIDER_URL</em> property has the format:
+        <source>
+"tcps://&lt;server-host&gt;:&lt;jndi-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>server-host</em> specifies the host that the OpenJMS server
+            is running on.
+          </li>
+          <li>
+            <em>jndi-port</em> specifies the port that the embedded JNDI
+            provider is listening on.
+          </li>
+        </ul>
+      </p>
+
+      <subsection name="Connection properties">
+        <p>
+          The TCPS connector supports the following connection properties:
+          <table>
+            <tr><th>Name</th><th>Description</th></tr>
+            <tr>
+              <td>"org.exolab.jms.net.tcps.keyStore"</td>
+              <td>
+                The path of the keystore to use. If not specified, indicates 
+                to use the default keystore. Synonymous with the 
+                <em>"javax.net.ssl.keyStore"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.tcps.keyStorePassword"</td>
+              <td>
+                The keystore password. If not specified, indicates to
+                use the default password. Synonymous with the 
+                <em>"javax.net.ssl.keyStorePassword"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.tcps.keyStoreType"</td>
+              <td>
+                The keystore type. If not specified, defaults to "JKS".
+                Synonymous with the <em>"javax.net.ssl.keyStoreType"</em> 
+                System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.tcps.trustStore"</td>
+              <td>
+                The path of the truststore to use. If not specified, indicates 
+                to use the default truststore. Synonymous with the 
+                <em>"javax.net.ssl.trustStore"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.tcps.trustStorePassword"</td>
+              <td>
+                The truststore password. If not specified, indicates to
+                use the default password. Synonymous with the 
+                <em>"javax.net.ssl.trustStorePassword"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.tcps.trustStoreType"</td>
+              <td>
+                The truststore type. If not specified, defaults to "JKS".
+                Synonymous with the <em>"javax.net.ssl.trustStoreType"</em>
+                System property.
+              </td>
+            </tr>
+          </table>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Administration using the TCPS connector">
+      <p>
+        To administer an OpenJMS server running on the local host, using
+        the default TCPS configuration, construct a 
+        <em>JmsAdminServerIfc</em> as follows:
+        <source>
+    String url = "tcps://localhost:3035/";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>
+      </p>
+      <p>          
+        The URL argument has the format:
+        <source>
+"tcps://&lt;server-host&gt;:&lt;server-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>server-host</em> specifies the host that the OpenJMS server
+            is running on.
+          </li>
+          <li>
+            <em>server-port</em> specifies the port that the OpenJMS server
+            is listening on.
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        For more information on the client certificate keystore, see
+        <a href="../config/tcps.html#Creating OpenJMS client certificate keystores">
+          Creating OpenJMS client certificate keystores
+        </a>
+      </p>
+    </section>
+
+  </body>    
+</document>

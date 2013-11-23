@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring Security</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        OpenJMS provides support for connection authentication, to
+        ensure only valid users may connect to the server.
+      </p>
+    </section>
+
+    <section name="Configuring Security">
+      <p>
+       Security is configured in the 
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, via
+        the <strong>&lt;SecurityConfiguration&gt;</strong> and
+        <strong>&lt;Users&gt;</strong> elements. E.g:    
+        <source><![CDATA[
+  <SecurityConfiguration securityEnabled="true"/>
+
+  <Users>
+    <User name="admin" password="openjms"/>
+    <User name="user1" password="password1"/>
+    <User name="user2" password="password2"/>
+  </Users>]]>
+        </source>
+      </p>
+      <p>
+        In the above, security is enabled, and three users are registered:
+        <em>admin</em>, <em>user1</em> and <em>user2</em>
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to security:
+        <ul>
+          <li>
+            <a href="reference.html#SecurityConfiguration">
+              SecurityConfiguration
+            </a>
+          </li>
+          <li><a href="reference.html#Users">Users</a></li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

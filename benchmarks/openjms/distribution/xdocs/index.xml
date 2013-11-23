@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="What is OpenJMS?">
+      <p>
+        OpenJMS is an open source implementation of Sun Microsystems's 
+        <a href="http://java.sun.com/products/jms">
+          Java Message Service API 1.1 Specification
+        </a>
+      </p>
+    </section>
+
+    <section name="Features">
+      <p>
+        <ul>
+          <li>Point-to-Point and publish-subscribe messaging models</li>
+          <li>Guaranteed delivery of messages</li>
+          <li>Synchronous and asynchronous message delivery</li>
+          <li>Persistence using JDBC</li>
+          <li>Local transactions</li>
+          <li>Message filtering using SQL92-like selectors</li>           
+          <li>Authentication</li>
+          <li>Administration GUI</li>
+          <li>XML-based configuration files</li>
+          <li>In-memory and database garbage collection</li>
+          <li>Automatic client disconnection detection</li>
+          <li>Applet support</li>
+          <li>Integrates with Servlet containers such as Jakarta Tomcat</li>
+          <li>Support for TCP, RMI, HTTP and SSL protocol stacks</li>
+          <li>Support for large numbers of destinations and subscribers</li>
+        </ul>
+      </p>
+    </section>
+  </body>
+</document>
+

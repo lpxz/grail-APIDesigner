@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Running OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Starting OpenJMS">
+      <p>
+        To start the OpenJMS server, open a command prompt and type:
+      </p>
+      <p>
+        <em>Windows</em>
+        <source>
+cd %OPENJMS_HOME%\bin
+startup
+        </source>
+      </p>
+      <p>
+        <em>Unix</em>
+        <source>
+cd $OPENJMS_HOME/bin
+startup.sh
+        </source>
+      </p>
+    </section>
+
+    <section name="Shutting down OpenJMS">
+      <p>
+        To stop the OpenJMS server, open a command prompt and type:
+      </p>
+      <p>
+        <em>Windows</em>
+        <source>
+cd %OPENJMS_HOME%\bin
+shutdown 
+        </source>
+      </p>
+      <p>
+        <em>Unix</em>
+        <source>
+cd $OPENJMS_HOME/bin
+shutdown.sh
+        </source>
+      </p>
+      <p>
+        If <a href="../config/security.html">security is enabled</a>, a valid 
+        user name and password is required to stop the OpenJMS server. E.g.:
+      </p>
+      <p>
+        <em>Windows</em>
+        <source>
+cd %OPENJMS_HOME%\bin
+shutdown -u admin -p openjms
+        </source>
+      </p>
+      <p>
+        <em>Unix</em>
+        <source>
+cd $OPENJMS_HOME/bin
+shutdown.sh -u admin -p openjms
+        </source>
+      </p>
+      <p>
+        In the above, the user name and password are those of the default
+        administration user.
+      </p>
+    </section>
+
+  </body>
+
+</document>

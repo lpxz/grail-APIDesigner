@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <name>OpenJMS: Examples</name>
+  <id>openjms-examples</id>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <shortDescription>OpenJMS Examples</shortDescription>
+
+  <dependencies>
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms</artifactId>
+      <url>http://openjms.sourceforge.net/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>jms</groupId>
+      <artifactId>jms</artifactId>
+      <url>http://java.sun.com/products/jms</url>
+    </dependency>
+  </dependencies>
+
+</project>

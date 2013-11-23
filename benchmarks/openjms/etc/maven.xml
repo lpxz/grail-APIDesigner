@@ -1,0 +1,17 @@
+<project xmlns:ant="jelly:ant" 
+         xmlns:castor="castor"
+         xmlns:define="jelly:define"
+         xmlns:deploy="deploy"
+         xmlns:j="jelly:core"
+         xmlns:license="license" 
+         xmlns:maven="jelly:maven"
+         xmlns:util="jelly:util">
+
+  <!-- ==================================================================== -->
+  <!-- Global properties                                                    -->
+  <!-- ==================================================================== -->
+
+  <!-- Determine what the top-level directory is -->
+    <j:set var="project.root" value="${pom.parentBasedir().getParentFile().getCanonicalFile()}"/>
+
+</project>

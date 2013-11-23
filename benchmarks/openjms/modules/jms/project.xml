@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <name>OpenJMS: JMS</name>
+  <id>openjms</id>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <dependencies>
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-common</artifactId>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-net</artifactId>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-tunnel</artifactId>
+      <type>war</type>
+    </dependency>
+
+    <dependency>
+      <groupId>antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <url>http://www.antlr.org/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>castor</groupId>
+      <artifactId>castor</artifactId>
+      <url>http://castor.exolab.org/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <url>http://jakarta.apache.org/commons/collections/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <url>http://jakarta.apache.org/commons/dbcp/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <url>http://jakarta.apache.org/commons/logging/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <url>http://jakarta.apache.org/commons/pool/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <url>http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jdbc</groupId>
+      <artifactId>jdbc</artifactId>
+      <url>http://java.sun.com/products/jdbc</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jms</groupId>
+      <artifactId>jms</artifactId>
+      <url>http://java.sun.com/products/jms</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jndi</groupId>
+      <artifactId>jndi</artifactId>
+      <url>http://java.sun.com/products/jndi</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jta</groupId>
+      <artifactId>jta</artifactId>
+      <url>http://java.sun.com/products/jta</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <url>http://logging.apache.org/log4j/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <url>http://jakarta.apache.org/oro/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>spice</groupId>
+      <artifactId>spice-jndikit</artifactId>
+      <url>http://spice.codehaus.org/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <url>http://xml.apache.org/xerces2-j/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <url>http://xml.apache.org/xerces2-j/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/java</directory>
+        <includes>
+          <include>**/openjms.version</include>
+          <include>**/openjms_defaults.xml</include>
+          <include>**/connectors.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/config</directory>
+        <includes>
+          <include>log4j.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+</project>

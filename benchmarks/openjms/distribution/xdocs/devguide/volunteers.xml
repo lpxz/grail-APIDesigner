@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Volunteers</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Volunteers">
+      <p>
+        All work on OpenJMS is provided on a volunteer basis. We are always
+        looking for volunteers to help make OpenJMS a great project.
+      </p>
+      <p>
+        There are a variety of ways to participate. You can:
+        <ul>
+          <li><a href="#Providing feedback">provide feedback</a></li>
+          <li>
+            <a href="#Mailing lists">answer queries in the mailing lists</a>
+          </li>
+          <li>
+            <a href="#Contributing code or documentation">
+              contribute code or documentation
+            </a>
+          </li>
+        </ul>
+        Regardless of how you choose to participate, we suggest you to join 
+        the <a href="../mail-lists.html">mailing lists</a> first.  
+      </p>
+    </section>
+
+    <section name="Providing feedback">
+      <p>
+        Using OpenJMS, reporting 
+        <a href="http://sourceforge.net/tracker/?group_id=54559&amp;atid=474136">bugs</a>
+        , making 
+        <a href="http://sourceforge.net/tracker/?group_id=54559&amp;atid=474139">enhancement requests</a>, 
+        et cetera, are very important. Your feedback allows OpenJMS to evolve.
+      </p>
+    </section>
+
+    <section name="Contributing code or documentation">
+      <p>
+        Want to contribute code or documentation? Excellent!
+      </p>
+      <p>
+        If you want to contribute, but don't know where to start, take a look
+        at the list of
+        <a href="http://sourceforge.net/tracker/?group_id=54559&amp;atid=474136">
+          outstanding bugs
+        </a>
+        , 
+        <a href="http://sourceforge.net/tracker/?group_id=54559&amp;atid=474139">
+          enhancement requests
+        </a>
+        and the <a href="roadmap.html">Roadmap</a>.
+      </p>
+    </section>
+
+  </body>
+
+</document>

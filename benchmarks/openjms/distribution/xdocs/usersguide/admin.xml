@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the Administration API</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Overview">
+      <p>
+        This document provides code examples demonstrating how to use the
+        OpenJMS administration API.
+      </p>
+    </section>
+    
+    <section name="Preparatory work">
+      <p>
+        In order to use the administration API, a 
+        <a href="../apidocs/org/exolab/jms/administration/JmsAdminServerIfc.html">
+          JmsAdminServerIfc
+        </a> 
+        instance is required. This is obtained via the 
+        <a href="../apidocs/org/exolab/jms/administration/AdminConnectionFactory.html">
+          AdminConnectionFactory
+        </a> 
+        class:
+                
+        <source>
+import org.exolab.jms.administration.AdminConnectionFactory;
+import org.exolab.jms.administration.JmsAdminServerIfc;
+
+// ...
+    String url = "tcp://localhost:3035/";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>        
+      </p>
+      <p>
+        In the above, <em>url</em> specifies the URL of the OpenJMS server,
+        and is connector specific. Refer to the 
+        <a href="connectors.html">connector documentation</a> for more details.
+      </p>
+      <p>
+        If <a href="../config/security.html">security is enabled</a>,
+        a valid user name and password must be supplied, e.g.:
+        <source>
+    String url = "tcp://localhost:3035/";
+    String user = "admin";
+    String password = "openjms";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url, user, password);
+        </source>        
+      </p>
+      <p>
+        <strong>Note:</strong> the admin reference should be closed when
+        it is no longer needed, e.g.:
+        <source>
+    admin.close();
+        </source>
+      </p>
+    </section>
+
+    <section name="Listing destinations">
+      <p>
+        The following example shows how to list all administered destinations:
+        <source>
+    Vector destinations = admin.getAllDestinations();
+    Iterator iterator = destinations.iterator();
+    while (iterator.hasNext()) {
+      Destination destination = (Destination) iterator.next();
+      if (destination instanceof Queue) {
+         Queue queue = (Queue) destination;
+         System.out.println("queue:" + queue.getQueueName());
+      } else {
+         Topic topic = (Topic) destination;
+         System.out.println("topic:" + topic.getTopicName());
+      }
+    }
+        </source>
+      </p>
+    </section>
+
+    <section name="Creating administered destinations">
+      <p>
+        To create an administered queue named <em>'myqueue'</em>:
+        <source>
+    String queue = "myqueue";
+    Boolean isQueue = Boolean.TRUE;
+    if (!admin.addDestination(queue, isQueue)) {
+        System.err.println("Failed to create queue " + queue);
+    }
+        </source>
+      </p>
+      <p>
+        To create an administered topic named <em>'mytopic'</em>:
+        <source>
+    String topic = "mytopic";
+    Boolean isQueue = Boolean.FALSE;
+    if (!admin.addDestination(topic, isQueue)) {
+        System.err.println("Failed to create topic " + topic);
+    }
+        </source>
+      </p>
+    </section>
+
+    <section name="Counting messages in a queue">
+      <p>
+        To determine the number of messages available in an administered queue
+        named <em>'myqueue'</em>:
+        <source>
+    String queue = "myqueue";
+    int count = admin.getQueueMessageCount(queue);
+    System.out.println("Queue " + queue + " has " + count + " messages");
+        </source>
+      </p>
+    </section>
+
+    <section name="Counting messages for a durable subscriber">
+      <p>
+        To determine count the number of messages available in an administered
+        topic named <em>'mytopic'</em> for the subscriber <em>'sub1'</em>:
+        <source>
+    String topic = "mytopic";
+    String name = "sub1";
+    int count = admin.getDurableConsumerMessageCount(topic, name);
+    System.out.println("Subscriber " + name + " has " + count + " messages "
+                       + "for topic " + topic);
+        </source>
+      </p>
+    </section>
+
+    <section name="Removing a destination">
+      <p>
+        To remove the administered destination <em>'myqueue'</em>:
+        <source>
+    String destination = "myqueue";
+    if (!admin.removeDestination(destination)) {
+       System.err.println("Failed to remove destination " + queue);
+    }
+        </source>
+      </p>
+    </section>
+
+    <section name="Determining if a destination exists">
+      <p>
+        To determine if the <em>'mytopic'</em> destination exists:
+        <source>
+    String destination = "mytopic";
+    if (admin.destinationExists(destination)) {
+       System.out.println(destination + " exists");
+    } else {
+       System.out.println(destination + " doesn't exist");
+    }
+        </source>
+      </p>
+    </section>
+
+    <section name="Shutting down OpenJMS">
+      <p>
+        To shut down the OpenJMS server:
+        <source>
+    admin.stopServer();
+        </source>
+      </p>
+    </section>
+
+  </body>
+
+</document>

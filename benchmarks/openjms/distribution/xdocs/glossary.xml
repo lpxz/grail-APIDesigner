@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Glossary</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Glossary">
+
+      <subsection name="point-to-point">
+        <p>
+          One of the messaging styles provided by JMS. Here, a 
+          <em>producer</em> sends messages to a <em>queue</em>, which
+          may be received by one and only one <em>consumer</em>.
+        </p>
+      </subsection>
+
+      <subsection name="publish-and-subscribe">
+        <p>
+          One of the messaging styles provided by JMS. Here, a 
+          <em>producer</em> sends messages to a <em>topic</em>, which
+          may be received by one or more <em>consumers</em>.
+        </p>
+      </subsection>
+
+    </section>
+  </body>
+
+</document>

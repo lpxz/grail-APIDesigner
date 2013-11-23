@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="OpenJMS">
+
+  <title>OpenJMS</title>
+
+  <body>
+    <links>
+      <item name="Home Page" href="http://openjms.sourceforge.net/"/>
+      <item name="SourceForge Project Page"   
+                  href="http://sourceforge.net/projects/openjms/"/>
+      <item name="JMS CTS" href="http://jmscts.sourceforge.net/"/>
+      <item name="JMS" href="http://java.sun.com/products/jms/"/>
+    </links>
+    <menu name="OpenJMS">
+      <item name="Overview" href="/index.html"/>
+      <item name="News and Status" href="/status.html"/>
+      <item name="Downloads" href="/downloads.html"/>
+      <item name="Release Notes" href="/release-notes.html"/>
+      <item name="Getting Started" href="/gettingstarted.html"/>
+      <item name="User Guide" href="/usersguide/index.html" collapse="true">
+        <item name="Using OpenJMS" href="/usersguide/using.html"/>
+        <item name="Examples" href="/usersguide/examples.html"/>
+        <item name="Client JARS" href="/usersguide/jars.html"/>
+        <item name="Connectors" href="/usersguide/connectors.html" 
+              collapse="true">
+          <item name="TCP" href="/usersguide/tcp.html"/>
+          <item name="TCPS" href="/usersguide/tcps.html"/>
+          <item name="RMI" href="/usersguide/rmi.html"/>
+          <item name="HTTP" href="/usersguide/http.html"/>
+          <item name="HTTPS" href="/usersguide/https.html"/>
+          <item name="Embedded" href="/usersguide/embedded.html"/>
+        </item> 
+        <item name="Administration API" href="/usersguide/admin.html"/>
+      </item>
+      <item name="Administrator Guide" href="/adminguide/index.html" 
+            collapse="true">
+        <item name="Installation" href="/adminguide/install.html"/>
+        <item name="Running OpenJMS" href="/adminguide/running.html"/>
+        <item name="Configuration" href="/config/config.html" collapse="true">
+          <item name="Database" href="/config/jdbc.html"/>
+          <item name="Connectors" href="/config/connectors.html" 
+                collapse="true">
+            <item name="TCP" href="/config/tcp.html"/>
+            <item name="TCPS" href="/config/tcps.html"/>
+            <item name="RMI" href="/config/rmi.html"/>
+            <item name="HTTP" href="/config/http.html"/>
+            <item name="HTTPS" href="/config/https.html"/>
+            <item name="Embedded" href="/config/embedded.html"/>
+          </item> 
+          <item name="JNDI" href="/config/jndi.html"/>
+          <item name="Connection Factories" href="/config/factories.html"/>
+          <item name="Security" href="/config/security.html"/>
+          <item name="Destinations" href="/config/destinations.html"/>
+          <item name="Garbage Collection" href="/config/gc.html"/>
+          <item name="Reference" href="/config/reference.html"/>
+        </item>
+      </item>
+      <item name="Developer Guide" href="/devguide/index.html" collapse="true">
+        <item name="Volunteers" href="/devguide/volunteers.html"/>
+        <item name="Getting the Source" href="/devguide/source.html"/>
+        <item name="Coding Conventions" href="/devguide/codestyle.html"/>
+        <item name="Building OpenJMS" href="/devguide/build.html"/>
+        <item name="Testing OpenJMS" href="/devguide/test.html"/>
+        <item name="Submitting Changes" href="/devguide/submit.html"/>
+        <item name="Roadmap" href="/devguide/roadmap.html"/>
+      </item>
+      <item name="FAQ" href="/faq.html"/>
+    </menu>
+    <menu name="Modules">
+      <item name="Common" href="/modules/openjms-common/index.html"/>
+      <item name="Network" href="/modules/openjms-net/index.html"/>
+      <item name="HTTP Tunnel" href="/modules/openjms-tunnel/index.html"/>
+      <item name="JMS" href="/modules/openjms/index.html"/>
+      <item name="Tools" href="/modules/openjms-tools/index.html"/>
+    </menu>
+    <search/>
+
+    <footer>
+      <a href="http://sourceforge.net/projects/openjms">
+        <img src="http://sourceforge.net/sflogo.php?group_id=54559" 
+             border="0" alt="sf logo"/>
+      </a>
+    </footer>
+
+  </body>
+</project>

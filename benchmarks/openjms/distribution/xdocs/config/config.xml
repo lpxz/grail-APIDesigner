@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Overview of the Configuration documentation">
+      <table>
+        <tr><th>Document</th><th>Description</th></tr>
+        <tr><td><a href="jdbc.html">Configuring the database</a></td>
+          <td>
+            OpenJMS requires a JDBC 2.0 compliant database. This document
+            describes how to configure OpenJMS to use a database.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="connectors.html">Configuring OpenJMS Connectors</a></td>
+          <td>
+            OpenJMS provides connectivity over several protocols, using 
+            <em>connectors</em>. This document describes the supported 
+            connectors and their configuration.
+          </td>
+        </tr>
+        <tr><td><a href="jndi.html">Configuring JNDI</a></td>
+          <td>
+             OpenJMS uses the Java Naming and Directory Interface (JNDI), 
+             to make connection factories, topics, and queues available to
+             clients. This document describes the configuration of JNDI.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="factories.html">Configuring Connection Factories</a>
+          </td>
+          <td>
+             This document describes how to configure connection factories.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="security.html">Configuring Security</a></td>
+          <td>This document describes how to configure security.</td>
+        </tr>
+        <tr>
+          <td><a href="destinations.html">Configuring Destinations</a></td>
+          <td>This document describes how to configure topics and queues.</td>
+        </tr>
+        <tr>
+          <td><a href="gc.html">Garbage Collection</a></td>
+          <td>This document describes memory management configuration.</td>
+        </tr>
+        <tr>
+          <td><a href="reference.html">Configuration Reference</a></td>
+          <td>
+            This document describes all of the items that can be included in 
+            the OpenJMS server configuration file.
+          </td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</document>

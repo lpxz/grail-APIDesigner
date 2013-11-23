@@ -1,0 +1,6 @@
+target
+install
+build.properties
+velocity.log
+*.ipr
+*.iws

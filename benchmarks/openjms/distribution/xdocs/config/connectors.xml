@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring Connectors</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        OpenJMS provides connectivity via TCP, RMI, HTTP and SSL protocol 
+        stacks using <em>connectors</em>.
+      </p>
+      <p>
+        Connectors are configured in the 
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> configuration
+        file, using the <strong>&lt;Connectors</strong>&gt; element. E.g:
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="tcp">
+      <ConnectionFactories>
+        <ConnectionFactory name="ConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>]]>
+        </source>
+      </p>
+      <p>
+        The above specifies that the connection factory named
+        <em>"ConnectionFactory"</em> uses the TCP Connector.
+      </p>
+    </section>
+
+    <section name="Supported Connectors">
+      <p>
+        The following documents detail the supported connectors, and
+        their configuration requirements:
+        <table>
+          <tr><th>Connector</th><th>Description</th></tr>
+          <tr>
+            <td><a href="tcp.html">TCP</a></td>
+            <td>Provides connectivity using TCP/IP sockets.</td>
+          </tr>
+          <tr>
+            <td><a href="tcps.html">TCPS</a></td>
+            <td>Provides connectivity using secure sockets.</td>
+          </tr>
+          <tr>
+            <td><a href="rmi.html">RMI</a></td>
+            <td>Provides connectivity using RMI.</td>
+          </tr>
+          <tr>
+            <td><a href="http.html">HTTP</a></td>
+            <td>Provides connectivity using HTTP.</td>
+          </tr>
+          <tr>
+            <td><a href="https.html">HTTPS</a></td>
+            <td>
+              Provides connectivity using HTTP over secure sockets.
+            </td>
+          </tr>
+          <tr>
+            <td><a href="embedded.html">Embedded</a></td>
+            <td>Provides connectivity within the same JVM.</td>
+          </tr>
+        </table>
+      </p>
+    </section>
+
+    <section name="Configuring multiple connectors">
+      <p>
+        In order to configure multiple connectors, add a 
+        &lt;Connector&gt; entry for each desired connector.<br/>
+        Each connection factory must have a different name.<br/>
+        E.g, to configure tcp and rmi connectors:<br/>
+        <source><![CDATA[
+<Connectors>
+  <Connector scheme="tcp">
+    <ConnectionFactories>
+      <ConnectionFactory name="ConnectionFactory" />
+    </ConnectionFactories>
+  <Connector scheme="rmi">
+    <ConnectionFactories>
+      <QueueConnectionFactory name="QueueConnectionFactory" />
+      <TopicConnectionFactory name="TopicConnectionFactory" />
+    </ConnectionFactories>
+  </Connector>
+  </Connector>
+</Connectors>]]>
+        </source>
+      </p>
+    </section>
+
+  </body>    
+</document>

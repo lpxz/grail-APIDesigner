@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring the RMI Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The RMI connector enables OpenJMS clients to connect to the
+        OpenJMS server using RMI.
+      </p>
+      <p>
+        It is configured by adding a <strong>&lt;Connector&gt;</strong> 
+        element to <strong>&lt;Connectors&gt;</strong> section of the
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, with a scheme
+        of type <em>"rmi"</em>. E.g:
+
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="rmi">
+      <ConnectionFactories>
+        <ConnectionFactory name="RMIConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>        
+        </source>
+      </p>
+    </section>
+
+    <section name="Using an external RMI registry">
+      <p>
+        By default, the OpenJMS uses an embedded RMI registry for the
+        RMI connector.
+      </p>
+      <p>
+        An external registry can be configured by changing the 
+        <strong>&lt;RmiConfiguration&gt;</strong> element:
+        <source>
+  &lt;RmiConfiguration embeddedRegistry="false"
+                    registryHost="&lt;registry-host&gt;"
+                    registryPort="&lt;registry-port&gt;"&gt;
+  &lt;/RmiConfiguration&gt;
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>registry-host</em> specifies the host that the RMI registry is
+            running on.
+            <p>
+              If not specified, it defaults to <em>localhost</em>.
+            </p>
+          </li>
+          <li>
+            <em>registry-port</em> specifies the port that the RMI registry is
+            listening on.
+            <p>
+              If not specified, it defaults to <em>1099</em>.
+            </p>
+          </li>
+        </ul>
+      </p>
+      <p>
+        <strong>NOTE:</strong> when using an external RMI registry, the
+        registry must be running before the OpenJMS server is started.
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to the RMI connector:          
+        <ul>
+          <li>
+            <a href="reference.html#Connectors">Connectors</a>
+          </li>
+          <li>
+            <a href="reference.html#ServerConfiguration">
+              ServerConfiguration
+            </a>
+          </li>
+          <li>
+            <a href="reference.html#RmiConfiguration">RmiConfiguration</a>
+          </li>
+        </ul>
+      </p>
+
+    </section>
+
+  </body>    
+</document>

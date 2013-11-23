@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Submitting Changes</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Submitting changes">
+      <p>
+        To submit changes to OpenJMS, raise a
+        <a href="http://sourceforge.net/tracker/?group_id=54559&amp;atid=474136">
+          bug report
+        </a>
+        or 
+        <a href="http://sourceforge.net/tracker/?group_id=54559&amp;atid=474139">
+          enhancement request
+        </a>
+        , and add the changes as an attachment.
+      </p>
+      <p>
+        Changes should be presented in the form of input to the 
+        <strong>patch</strong> command.
+      </p>
+      <p>
+        The patch should be created by using the <strong>cvs diff -u</strong> 
+        command. It is recommended that you submit patches against the latest
+        CVS version of OpenJMS in order to avoid conflicts. This will also
+        ensure that you are not submitting a patch for a problem that has 
+        already been resolved. 
+      </p>
+      <p>
+        For example: 
+        <source>
+cvs diff -u Foo.java >> patch.txt
+        </source>
+      </p>
+      <p>
+        All patches necessary to address an action item should be 
+        concatenated within a single patch file. If later modification to 
+        the patch proves necessary, the entire new patch should be attached
+        and not just the difference between the two patches. 
+      </p>
+    </section>
+
+  </body>
+
+</document>

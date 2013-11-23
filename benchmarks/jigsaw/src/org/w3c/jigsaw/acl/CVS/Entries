@@ -1,0 +1,14 @@
+/AclFilter.java/1.2/Tue Jun 15 17:53:02 2010//
+/AclPrincipal.java/1.1/Tue Jun 15 12:22:08 2010//
+/AclRealm.java/1.2/Tue Jun 15 17:53:02 2010//
+/AuthUserPrincipal.java/1.1/Tue Jun 15 12:22:08 2010//
+/BasicAuthPrincipal.java/1.1/Tue Jun 15 12:22:07 2010//
+/DigestAuthPrincipal.java/1.1/Tue Jun 15 12:22:07 2010//
+/DigestQopAuthPrincipal.java/1.1/Tue Jun 15 12:22:07 2010//
+/HTTPPermission.java/1.1/Tue Jun 15 12:22:07 2010//
+/HTTPPrincipal.java/1.1/Tue Jun 15 12:22:06 2010//
+/InvalidAuthException.java/1.1/Tue Jun 15 12:22:06 2010//
+/JAcl.java/1.1/Tue Jun 15 12:22:09 2010//
+/Makefile/1.1/Tue Jun 15 12:22:08 2010/-kb/
+/SecurityLevel.java/1.1/Tue Jun 15 12:22:07 2010//
+/SimplePrincipal.java/1.1/Tue Jun 15 12:22:06 2010//

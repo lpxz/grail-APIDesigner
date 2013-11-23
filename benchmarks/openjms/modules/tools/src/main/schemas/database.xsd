@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.openjms.org/database/schema">
+
+<!-- ====================================================================== -->
+<!-- This schema defines a simple RDBMS schema for constructing database    -->
+<!-- tables and indexes                                                     -->
+<!-- Author: Tim Anderson (tima@intalio.com)                                -->
+<!-- ====================================================================== -->
+
+  <xsd:element name="database">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines a database. It is the root element of all database
+        schema documents.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="table" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="deprecated" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="table">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines a table
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="attribute" minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="primary-key" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="index" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="attribute">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines a table attribute.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required" />
+      <xsd:attribute name="type" type="xsd:string" use="required" />
+      <xsd:attribute name="primary-key" type="xsd:boolean" use="optional" 
+                     value="false" />
+      <xsd:attribute name="unique" type="xsd:boolean" use="optional" 
+                     value="false" />
+      <xsd:attribute name="not-null" type="xsd:boolean" use="optional" 
+                     value="false" />
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="primary-key">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element specifies a primary key on a table
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="column" minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  
+  <xsd:element name="index">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element specifies an index on a table
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="column" minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string" use="required" />
+      <xsd:attribute name="unique" type="xsd:boolean" use="optional" 
+                     value="false" />
+    </xsd:complexType>
+  </xsd:element>
+
+  
+  <xsd:element name="column">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines a column in an index
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" />
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="deprecated">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element specifies a table that is no longer required.
+        This is a temporary workaround until a schema migration tool is 
+        developed
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element> 
+
+</xsd:schema>

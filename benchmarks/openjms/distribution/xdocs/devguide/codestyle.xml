@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Coding Style and Conventions</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Coding Style">
+      <p>
+        <ul>
+          <li>
+            <p>
+              General
+              <ul>
+                <li>All sources must include the license header</li>
+                <li><strong>NO tabs</strong></li>
+              </ul>             
+            </p>
+          </li>
+          <li>
+            <p>
+              Java
+              <ul>
+                <li>4 space indent.</li>
+                <li>
+                  JavaDoc MUST exist on all methods. If your code 
+                  modifications use an existing class/method/variable which 
+                  lacks JavaDoc, it is required that you add it. This will 
+                  improve the project as a whole.
+                </li>
+                <li>         
+                  If you contribute to a file (code or documentation), add 
+                  yourself to the authors list at the top of the file. For java
+                  sources, the preferred format is:
+                  <source>
+@author &lt;a href="mailto:user@domain.com"&gt;John Smith&lt;/a&gt;
+                  </source>
+                </li>
+                <li>
+                  Anything not specifically mentioned here should follow Sun's 
+                  <a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">
+                    Code Conventions for the Java Programming Language
+                  </a>
+                </li>
+                <li>
+                  Code not following style conventions will be listed in the 
+                  module's checkstyle report
+                </li>
+              </ul>
+            </p>
+          </li>
+          <li>
+            <p>
+              XML
+              <ul>
+                <li>2 space indent.</li>
+              </ul>
+            </p>
+          </li>
+        </ul>      
+      </p>
+    </section>
+
+    <section name="Coding Conventions">
+      <p>
+        <ul>
+          <li><p>Logging</p>
+            <ul>
+              <li>
+                <p>
+                  OpenJMS uses 
+                    <a href="http://jakarta.apache.org/commons/logging">
+                      Commons-Logging
+                    </a> 
+                  for logging.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Log instances must be named using the fully qualified class 
+                  name in which it is used. Commons-Logging provides a 
+                  convenience method to specify the name using a Class. E.g,
+                  in class <i>org.exolab.jms.server.OpenJMS</i>, use:
+                  <source>
+private static final Log _log = LogFactory.getLog(OpenJMS.class);
+                  </source>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Wrap logging statements with 
+                  <code>isLogLevelEnabled()</code> statements to avoid
+                  evaluation of parameters if the log level is disabled. E.g:
+                  <source>
+if (_log.isDebugEnabled()) {
+    _log.debug("createReceiver(queue=" + queue + ", clientId="
+               + clientId + ", selector=" + selector
+               + ") [sessionId=" + _sessionId + "]");
+}
+                  </source>
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>
+
+</document>

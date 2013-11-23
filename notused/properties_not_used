@@ -1,0 +1,110 @@
+Cache4j_pretrans_arg=-i org.apache -f c -pp -cp /home/lpxz/eclipse/workspace/cache4j/bin -process-dir /home/lpxz/eclipse/workspace/cache4j/bin
+Cache4j_trans_classpath=/home/lpxz/eclipse/workspace/cache4j/bin
+Cache4j_trans_mainClass=net.sf.cache4j.test.Cache4jTester
+Cache4j_trans_excludelist=
+Cache4j_trans_includelist=
+Cache4j_trans_outputform=c
+Cache4j_monitor_mainClassArg=net.sf.cache4j.test.Cache4jTester
+
+Jspider_pretrans_arg=-i org.apache -f c -pp -cp /home/lpxz/eclipse/workspace/jspider/lib/commons-logging.jar:/home/lpxz/eclipse/workspace/jspider/lib/junit.jar:/home/lpxz/eclipse/workspace/jspider/lib/log4j-1.2.8.jar:/home/lpxz/eclipse/workspace/jspider/lib/unittests.jar:/home/lpxz/eclipse/workspace/jspider/lib/velocity-dep-1.3.1.jar:/home/lpxz/eclipse/workspace/jspider/bin -process-dir /home/lpxz/eclipse/workspace/jspider/bin
+Jspider_trans_classpath=/home/lpxz/eclipse/workspace/jspider/lib/commons-logging.jar:/home/lpxz/eclipse/workspace/jspider/lib/junit.jar:/home/lpxz/eclipse/workspace/jspider/lib/log4j-1.2.8.jar:/home/lpxz/eclipse/workspace/jspider/lib/unittests.jar:/home/lpxz/eclipse/workspace/jspider/lib/velocity-dep-1.3.1.jar:/home/lpxz/eclipse/workspace/jspider/bin
+Jspider_trans_mainClass=net.javacoding.jspider.JSpider
+Jspider_trans_excludelist=
+Jspider_trans_includelist=net
+Jspider_trans_outputform=c
+Jspider_monitor_mainClassArg=net.javacoding.jspider.JSpider http://teamcooperation.wikispaces.com/JSpider download
+
+Specjbb_pretrans_arg=-f c -pp -cp /home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/eclipse/workspace/specjbb2005/bin -process-dir /home/lpxz/eclipse/workspace/specjbb2005/bin
+Specjbb_trans_classpath=/home/lpxz/eclipse/workspace/specjbb2005/bin
+Specjbb_trans_mainClass=spec.jbb.JBBmain
+Specjbb_trans_excludelist=
+Specjbb_trans_includelist=
+Specjbb_trans_outputform=c
+Specjbb_monitor_mainClassArg=spec.jbb.JBBmain
+
+# not suitable for predictive analysis
+Mail_pretrans_arg=-f c -pp -cp /home/lpxz/eclipse/workspace/mailpuccino/bin -process-dir /home/lpxz/eclipse/workspace/mailpuccino/bin
+Mail_trans_classpath=/home/lpxz/eclipse/workspace/mailpuccino/bin
+Mail_trans_mainClass=mailpuccino.Mailpuccino
+Mail_trans_excludelist=
+Mail_trans_includelist=
+Mail_trans_outputform=c
+Mail_monitor_mainClassArg=mailpuccino.Mailpuccino
+
+Tuple_pretrans_arg=-f c -pp -cp /home/lpxz/eclipse/workspace/tuplesoup-0.1.2-AJ/bin -process-dir /home/lpxz/eclipse/workspace/tuplesoup-0.1.2-AJ/bin
+Tuple_trans_classpath=/home/lpxz/eclipse/workspace/tuplesoup-0.1.2-AJ/bin
+Tuple_trans_mainClass=com.solidosystems.tuplesoup.test.ParallelPerformanceTest
+Tuple_trans_excludelist=
+Tuple_trans_includelist=
+Tuple_trans_outputform=c
+Tuple_monitor_mainClassArg=com.solidosystems.tuplesoup.test.ParallelPerformanceTest
+
+
+      
+Openjms_pretrans_arg=-i antlr -i org.exolab.castor -i org.codehaus -i org.apache -i javax -f c -pp -cp /home/lpxz/eclipse/workspace/openjms/lib/jms-1.1.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-codec-1.3.jar:/home/lpxz/eclipse/workspace/openjms/lib/servlet.jar:/home/lpxz/eclipse/workspace/openjms/lib/derby-10.1.1.0.jar:/home/lpxz/eclipse/workspace/openjms/lib/castor-0.9.5.jar:/home/lpxz/eclipse/workspace/openjms/lib/spice-jndikit-1.2.jar:/home/lpxz/eclipse/workspace/openjms/lib/antlr-2.7.6.jar:/home/lpxz/eclipse/workspace/openjms/lib/oro-2.0.8.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-dbcp-1.2.1.jar:/home/lpxz/eclipse/workspace/openjms/lib/xml-apis-1.0.b2.jar:/home/lpxz/eclipse/workspace/openjms/lib/xerces-2.4.0.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-pool-1.2.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-collections-2.1.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-logging-1.0.4.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/rt.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jce.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/charsets.jar:/home/lpxz/eclipse/workspace/openjms/bin -process-dir /home/lpxz/eclipse/workspace/openjms/bin
+Openjms_trans_classpath=/home/lpxz/eclipse/workspace/openjms/lib/jms-1.1.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-codec-1.3.jar:/home/lpxz/eclipse/workspace/openjms/lib/servlet.jar:/home/lpxz/eclipse/workspace/openjms/lib/derby-10.1.1.0.jar:/home/lpxz/eclipse/workspace/openjms/lib/castor-0.9.5.jar:/home/lpxz/eclipse/workspace/openjms/lib/spice-jndikit-1.2.jar:/home/lpxz/eclipse/workspace/openjms/lib/antlr-2.7.6.jar:/home/lpxz/eclipse/workspace/openjms/lib/oro-2.0.8.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-dbcp-1.2.1.jar:/home/lpxz/eclipse/workspace/openjms/lib/xml-apis-1.0.b2.jar:/home/lpxz/eclipse/workspace/openjms/lib/xerces-2.4.0.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-pool-1.2.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-collections-2.1.jar:/home/lpxz/eclipse/workspace/openjms/lib/commons-logging-1.0.4.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/rt.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jce.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/charsets.jar:/home/lpxz/eclipse/workspace/openjms/bin
+Openjms_trans_mainClass=driver.OpenJMSDriver
+Openjms_trans_excludelist=org.exolab.castor
+Openjms_trans_includelist=javax
+Openjms_trans_outputform=c
+Openjms_monitor_mainClassArg=driver.OpenJMSDriver
+
+
+Jigsaw_pretrans_arg=-i org.w3c -f c -pp -cp /home/lpxz/pool/jdk1.6.0_13/jre/lib/rt.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jce.jar:/home/lpxz/pool/jdk1.6.0_13/lib/tools.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/jakarta-oro-2.0.8.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/sax.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/servlet.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/Tidy.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/xerces.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/xp.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/tools.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/charsets.jar:/home/lpxz/eclipse/workspace/jigsaw/bin -process-dir /home/lpxz/eclipse/workspace/jigsaw/bin
+Jigsaw_trans_classpath=/home/lpxz/pool/jdk1.6.0_13/jre/lib/rt.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jce.jar:/home/lpxz/pool/jdk1.6.0_13/lib/tools.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/jakarta-oro-2.0.8.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/sax.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/servlet.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/Tidy.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/xerces.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/xp.jar:/home/lpxz/eclipse/workspace/jigsaw/classes/tools.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/charsets.jar:/home/lpxz/eclipse/workspace/jigsaw/bin
+Jigsaw_trans_mainClass=driver.JigsawDriver
+Jigsaw_trans_excludelist=
+Jigsaw_trans_includelist=org.w3c
+Jigsaw_trans_outputform=c
+Jigsaw_monitor_mainClassArg=driver.JigsawDriver 12
+
+#derby 1001 should be before derby-10....jar
+Derby_pretrans_arg=-i org.apache -f c -pp -cp /home/lpxz/eclipse/workspace/derby-10.3.2.1/build:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jce.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/commons-io-1.1.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/commons-logging-1.0.4.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/serializer-2.7.0.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/xalan-2.7.0.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/xercesImpl-2.7.1.jar -process-dir /home/lpxz/eclipse/workspace/derby-10.3.2.1/build
+Derby_trans_classpath=/home/lpxz/eclipse/workspace/derby-10.3.2.1/build:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jce.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/commons-io-1.1.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/commons-logging-1.0.4.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/serializer-2.7.0.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/xalan-2.7.0.jar:/home/lpxz/eclipse/workspace/derby-10.3.2.1/lib/xercesImpl-2.7.1.jar
+Derby_trans_mainClass=derby2861.Derby2861
+Derby_trans_excludelist=
+Derby_trans_includelist=org.apache
+Derby_trans_outputform=c
+Derby_monitor_mainClassArg=derby2861.Derby2861
+
+# do not forget to copy the sealed.jar to pecan-monitor/bin/tomcat3xxxx/ /home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/bin/tomcat37458/sealed.jar
+# also copy it to pecan/pecan-monitor/bin
+Tomcat_pretrans_arg=-i javax -i org.apache -f c -pp -cp /home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/com.springsource.org.apache.tools.ant.launch-1.7.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/commons-codec-1.3.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/commons-logging-1.1.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/httpclient-4.0.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/httpcore-4.0-beta3.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/httpmime-4.0.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/tools.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/ant-1.7.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/bin -process-dir /home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/bin
+Tomcat_trans_classpath=/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/com.springsource.org.apache.tools.ant.launch-1.7.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/commons-codec-1.3.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/commons-logging-1.1.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/httpclient-4.0.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/httpcore-4.0-beta3.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/httpmime-4.0.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/tools.jar:/home/lpxz/pool/jdk1.6.0_13/jre/lib/jsse.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/lib/ant-1.7.1.jar:/home/lpxz/eclipse/workspace/leap/tomcat-6.0.x/bin
+Tomcat_trans_mainClass=tomcat37458.Tomcat37458
+Tomcat_trans_excludelist=
+Tomcat_trans_includelist=org.apache javax
+Tomcat_trans_outputform=c
+Tomcat_monitor_mainClassArg=tomcat37458.Tomcat37458
+
+Avrora_pretrans_arg=-i org.apache -f c -pp -cp /home/lpxz/eclipse/workspace/avrora/lib/commons-cli-1.1.jar:/home/lpxz/eclipse/workspace/avrora/bin -process-dir /home/lpxz/eclipse/workspace/avrora/bin
+Avrora_trans_classpath=/home/lpxz/eclipse/workspace/avrora/lib/commons-cli-1.1.jar:/home/lpxz/eclipse/workspace/avrora/bin
+Avrora_trans_mainClass=avrora.Main
+Avrora_trans_excludelist=
+Avrora_trans_includelist=
+Avrora_trans_outputform=c
+Avrora_monitor_mainClassArg=avrora.Main /home/lpxz/eclipse/workspace/avrora/simple.od
+
+Lucene_pretrans_arg=-i org.apache -f c -pp -cp /home/lpxz/eclipse/workspace/lucene/lib/junit-3.8.2.jar:/home/lpxz/eclipse/workspace/lucene/lib/servlet-api-2.4.jar:/home/lpxz/eclipse/workspace/lucene/lib/commons-cli-1.1.jar:/home/lpxz/eclipse/workspace/lucene/bin -process-dir /home/lpxz/eclipse/workspace/lucene/bin
+Lucene_trans_classpath=/home/lpxz/eclipse/workspace/lucene/lib/junit-3.8.2.jar:/home/lpxz/eclipse/workspace/lucene/lib/servlet-api-2.4.jar:/home/lpxz/eclipse/workspace/lucene/lib/commons-cli-1.1.jar:/home/lpxz/eclipse/workspace/lucene/bin
+Lucene_trans_mainClass=org.apache.lucene.ThreadSafetyTest
+Lucene_trans_excludelist=
+Lucene_trans_includelist=
+Lucene_trans_outputform=c
+Lucene_monitor_mainClassArg=org.apache.lucene.ThreadSafetyTest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

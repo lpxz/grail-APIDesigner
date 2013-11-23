@@ -1,0 +1,4 @@
+ClientMethod:  the method, where the library APIs are composed.
+LibraryModule: provides the library APIs.
+ClientViewOfLibrary: tells the invocations of the APIs from a library in a client method.
+Composition: a pair of invocations of the APIs from a library in a client method, which complies with the atomicity-defining symptoms.

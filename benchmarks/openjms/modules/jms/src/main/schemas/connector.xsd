@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://openjms.exolab.org/connector">
+
+
+  <xsd:annotation>
+    <xsd:documentation>
+      This schema defines connector resource configurations for OpenJMS.
+
+      Author &lt;a href="mailto:tima@intalio.com">Tim Anderson;&lt;a&gt;
+    </xsd:documentation>
+  </xsd:annotation>
+
+
+  <xsd:element name="connectorResources">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        The connectorResources element is the root element of all connector 
+        resource documents.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="connectorResource" minOccurs="1" 
+                     maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="connectorResource">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="description" type="xsd:string" />
+        <xsd:element ref="server" />
+        <xsd:element ref="jndi" />
+     </xsd:sequence>
+     <xsd:attribute name="scheme" type="schemeType" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:simpleType name="schemeType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="tcp" />
+      <xsd:enumeration value="tcps" />
+      <xsd:enumeration value="http" />
+      <xsd:enumeration value="https" />
+      <xsd:enumeration value="rmi" />
+      <xsd:enumeration value="embedded" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="server">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="proxy-class" type="xsd:string" />
+        <xsd:element name="implementation-class" type="xsd:string" />
+      </xsd:sequence>
+      <xsd:attribute name="scheme" type="schemeType"/>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="jndi">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="initial-context-class" type="xsd:string" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+   
+</xsd:schema>

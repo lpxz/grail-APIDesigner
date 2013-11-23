@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring Connection Factories</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        This document describes the configuration of connection factories, 
+        i.e. <em>ConnectionFactory</em>, <em>TopicConnectionFactory</em>, 
+        <em>QueueConnectionFactory</em>, <em>XAConnectionFactory</em>,
+        <em>XATopicConnectionFactory</em> and
+        <em>XAQueueConnectionFactory</em> instances.
+      </p>
+      <p>
+        Connection factories are bound in JNDI by the OpenJMS server, to
+        make them available to clients.
+      </p> 
+    </section>
+
+    <section name="Configuring Connection Factories">
+      <p>
+        Connection factories are configured in the
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file. E.g:    
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="tcp">
+      <ConnectionFactories>
+        <ConnectionFactory name="CF"/>
+        <QueueConnectionFactory name="QueueCF"/>
+        <TopicConnectionFactory name="TopicCF"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>     </source>
+      </p>
+      <p>
+        In the above, three connection factories will be bound in JNDI:
+        <ul>
+          <li>a <code>ConnectionFactory</code> named <em>CF</em></li>
+          <li>a <code>QueueConnectionFactory</code> named <em>QueueCF</em></li>
+          <li>a <code>TopicConnectionFactory</code> named <em>TopicCF</em></li>
+        </ul>
+      </p>
+
+      <p>
+        Notes:      
+        <ul>
+          <li>
+            Multiple connection factories may be specified for each type.
+          </li>
+          <li>
+            Each connection factory must have a unique name, across all 
+            connectors.
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        For more details, see the 
+        <a href="reference.html#ConnectionFactories">ConnectionFactories</a> 
+        configuration reference.
+      </p>
+    </section>
+
+  </body>    
+</document>

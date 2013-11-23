@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring the database</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        OpenJMS requires a JDBC 2.0 compliant database.
+      </p>
+      <p>
+        As of release 0.7.7, OpenJMS is distributed pre-configured
+        with <a href="http://incubator.apache.org/derby">Derby</a>,
+        a pure Java database. This is provided to demonstrate OpenJMS' features
+        "out-of-the-box", and may change in future. 
+      </p>
+
+      <subsection name="Supported databases">
+        <p>
+          The following databases are known to work with OpenJMS:
+          <table>
+            <tr><th>Database</th><th>Version</th><th>Web Site</th></tr>
+            <tr>
+              <td>Oracle9i</td>
+              <td>9</td>
+              <td><a href="http://www.oracle.com">http://www.oracle.com</a></td>
+            </tr>
+            <tr>
+              <td>Sybase ASE</td>JDBC
+              <td>12.0</td>
+              <td><a href="http://www.sybase.com">http://www.sybase.com</a></td>
+            </tr>
+            <tr>
+              <td>MySQL</td>
+              <td>4.0.12</td>
+              <td><a href="http://www.mysql.com">http://www.mysql.com</a></td>
+            </tr>
+            <tr>
+              <td>Derby</td>
+              <td>10.0.2.1</td>
+              <td><a href="http://incubator.apache.org/derby">http://incubator.apache.org/derby</a></td>
+            </tr>
+          </table>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Configuration">
+      <p>
+        To configure OpenJMS to use a JDBC database:
+        <ol>
+          <li>Add the JDBC jars to the CLASSPATH</li>
+          <li>Configure openjms.xml</li>
+          <li>Create the OpenJMS tables in the database</li>
+        </ol>
+      </p>
+
+      <subsection name="Add the JDBC jars to the CLASSPATH">
+        <p>
+          <em>Windows</em>
+        </p>
+        <p>
+          Edit the <strong>%OPENJMS_HOME%\bin\setenv.bat</strong> batch file: 
+          <source>
+rem Configures the JDBC driver
+set CLASSPATH=&lt;insert path to JDBC driver here&gt;
+          </source>
+        </p>
+        <p>
+          <em>Unix</em>
+        </p>
+        <p>
+          Edit the <strong>$OPENJMS_HOME/bin/setenv.sh</strong> script:
+          <source>
+# Configures the JDBC driver
+CLASSPATH=&lt;insert path to JDBC driver here&gt;
+          </source>
+        </p>
+      </subsection>
+
+      <subsection name="Configure openjms.xml">
+        <p>
+          The JDBC driver connection properties need to be added to the
+          OpenJMS configuration file, 
+          <strong>$OPENJMS_HOME/config/openjms.xml</strong>, e.g:
+
+          <source><![CDATA[
+
+    <DatabaseConfiguration>
+      <RdbmsDatabaseConfiguration
+        driver="oracle.jdbc.driver.OracleDriver"
+        url="jdbc:oracle:oci8:@myhost" 
+        user="openjms" 
+        password="openjms" />
+    </DatabaseConfiguration>
+]]>
+          </source>      
+        </p>
+      </subsection>
+
+      <subsection name="Create the OpenJMS tables">
+        <p>
+          The <strong>dbtool</strong> application may be used to create, drop, 
+          and recreate the OpenJMS database tables.
+        </p>
+        <p>
+          To create the tables on open up a command prompt and type:
+        </p>
+        <p>
+          <em>Windows</em>
+          <source>
+cd %OPENJMS_HOME%\bin
+dbtool.bat -create -config %OPENJMS_HOME%\config\openjms.xml
+          </source>
+        </p>
+        <p>
+          <em>Unix</em>
+          <source>
+cd $OPENJMS_HOME/bin
+dbtool.sh -create -config $OPENJMS_HOME/config/openjms.xml
+          </source>
+        </p>
+        <p>
+          The dbtool application may not support all available JDBC drivers, 
+          due to buggy JDBC implementations. In this case, the tables must be 
+          manually created. The OpenJMS distribution ships with SQL scripts 
+          for most popular databases. These scripts are located in the
+          <strong>$OPENJMS_HOME/db/sql</strong> directory and are named in 
+          the form of create_<em>db</em>.sql (e.g create_oracle.sql, 
+          create_mysql.sql)
+        </p>
+        <p>
+          For example, to manually create the tables in an Oracle database:
+          <source>
+sqlplus <em>user</em>/<em>password</em> @create_oracle.sql
+          </source>
+        </p>
+      </subsection>
+    </section>
+ 
+    <section name="Connection pooling">
+      <p>
+        OpenJMS uses a pool of JDBC connections, for performance reasons.
+        This can be configured via the 
+        <strong>&lt;RdbmsDatabaseConfiguration&gt;</strong> element. E.g.:
+        <source><![CDATA[
+    <RdbmsDatabaseConfiguration
+      driver="com.mysql.jdbc.Driver" 
+      url="jdbc:mysql://localhost/openjms"
+      user="openjms" 
+      password="openjms"
+      maxActive="10"
+      maxIdle="5"
+      evictionInterval="3600"
+      testQuery="select current_date"/>]]>
+         </source>
+      </p>
+      <p>          
+        The above specifies to use MySQL as the JDBC provider, with
+        the connection pool configured as follows:
+        <ul>
+          <li><em>maxActive</em> specifies to use up to 10 connections</li>
+          <li>
+            <em>maxIdle</em> specifies to allow up to 5 connections to sit idle
+            in the pool.
+          </li>
+          <li>
+            <em>evictionInterval</em> specifies to run <em>testQuery</em>
+            every 3600 seconds to check if idle connections are valid.
+          </li>
+          <li>
+            <em>testQuery</em> is an SQL query used to validate connections
+            before OpenJMS tries to use them. This is useful in the case of 
+            MySQL, which forces closure of connections that have been idle
+            for too long.
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to database configuration:
+        <ul>
+          <li>
+            <a href="reference.html#DatabaseConfiguration">
+              DatabaseConfiguration
+            </a>
+          </li>
+          <li>
+            <a href="reference.html#RdbmsDatabaseConfiguration">
+              RdbmsDatabaseConfiguration
+            </a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

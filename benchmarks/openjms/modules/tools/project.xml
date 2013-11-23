@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <name>OpenJMS: Tools</name>
+  <id>openjms-tools</id>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <dependencies>
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-common</artifactId>
+      <url>http://openjms.sourceforge.net/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-net</artifactId>
+      <url>http://openjms.sourceforge.net/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms</artifactId>
+      <url>http://openjms.sourceforge.net/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>castor</groupId>
+      <artifactId>castor</artifactId>
+      <url>http://castor.exolab.org/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <url>http://jakarta.apache.org/commons/collections/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <url>http://jakarta.apache.org/commons/dbcp/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <url>http://jakarta.apache.org/commons/logging/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <url>http://jakarta.apache.org/commons/pool/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <url>http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <url>http://db.apache.org/derby</url>
+    </dependency>
+
+    <dependency>
+      <groupId>jdbc</groupId>
+      <artifactId>jdbc</artifactId>
+      <url>http://java.sun.com/products/jdbc</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jms</groupId>
+      <artifactId>jms</artifactId>
+      <url>http://java.sun.com/products/jms</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jndi</groupId>
+      <artifactId>jndi</artifactId>
+      <url>http://java.sun.com/products/jndi</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>jta</groupId>
+      <artifactId>jta</artifactId>
+      <url>http://java.sun.com/products/jta</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <url>http://logging.apache.org/log4j/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <url>http://jakarta.apache.org/oro/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>spice</groupId>
+      <artifactId>spice-jndikit</artifactId>
+      <url>http://spice.codehaus.org/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <url>http://xml.apache.org/xerces2-j/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <url>http://xml.apache.org/xerces2-j/</url>
+      <properties>
+        <classpath>true</classpath>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <url>http://dbunit.sourceforge.net/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <url>http://www.junit.org/</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/java</directory>
+        <includes>
+          <include>**/schema.xml</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <unitTest>
+      <resources>
+        <resource>
+          <directory>${basedir}/src/test/resources</directory>
+          <includes>
+            <include>**/openjmstest*.xml</include>
+          </includes>
+        </resource>
+      </resources>
+    </unitTest>
+
+  </build>
+</project>

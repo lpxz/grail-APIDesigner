@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Administrator Guide</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="About this Guide">
+      <p>
+        The OpenJMS Administrator Guide details the installation, running and
+        configuration of the OpenJMS server.
+      </p>
+      <p>
+        If you have any suggestions or comments please feel free to post them 
+        to the OpenJMS users' list. 
+      </p>
+    </section>
+
+    <section name="Overview of the Administrator Guide Documentation">
+      <table>
+        <tr><th>Document</th><th>Description</th></tr>
+        <tr><td><a href="install.html">Installation</a></td>
+          <td>
+            This document provides step-by-step instructions on the
+            installation process.
+           </td>
+        </tr>
+        <tr><td><a href="running.html">Running</a></td>
+          <td>
+            This document provides the commands to run OpenJMS.
+          </td>
+        </tr>
+        <tr><td><a href="../config/config.html">Configuration</a></td>
+          <td>
+            This section describes the configuration of the OpenJMS server.
+          </td>
+        </tr>
+      </table>
+    </section>
+
+  </body>
+</document>

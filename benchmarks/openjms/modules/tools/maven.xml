@@ -1,0 +1,96 @@
+<project default="jar:jar"
+         xmlns:ant="jelly:ant" 
+         xmlns:castor="castor"
+         xmlns:define="jelly:define"
+         xmlns:j="jelly:core"
+         xmlns:license="license" 
+         xmlns:maven="jelly:maven"
+         xmlns:util="jelly:util">
+
+  <!-- ==================================================================== -->
+  <!-- Generates java sources using castor                                  -->
+  <!-- ==================================================================== -->
+  <goal name="generate-castor-srcs">
+    <attainGoal name="castor:prepare-filesystem"/>
+    <castor:generate schema="${schema.dir}/database.xsd"
+                     package="org.exolab.jms.tools.db" 
+                     types="j2"/>
+  </goal>
+
+  <!-- ==================================================================== -->
+  <!-- Generates sources prior to compilation                               -->
+  <!-- ==================================================================== -->
+  <preGoal name="java:compile">
+    <attainGoal name="generate-castor-srcs"/>
+  </preGoal>
+
+  <!-- ==================================================================== -->
+  <!-- Generates the Class-Path manifest entry for the jar:jar goal         -->
+  <!-- ==================================================================== -->
+  <preGoal name="jar:jar">
+    <j:forEach var="dep" items="${pom.dependencies}">
+      <j:if test="${dep.getProperty('classpath')=='true'}">
+        <j:set var="openjms.tools.classpath" 
+               value="${openjms.tools.classpath} ${dep.artifact}"/>
+      </j:if>
+    </j:forEach>
+
+    <j:set var="maven.jar.manifest" value="${maven.build.dir}/MANIFEST.MF"/>
+    <manifest file="${maven.jar.manifest}">
+      <attribute name="Class-Path" value="${openjms.tools.classpath}"/>
+    </manifest>
+
+  </preGoal>
+
+  <goal name="dataload" prereqs="test:compile">
+    <java className="org.exolab.jms.tools.migration.DataLoader"
+          fork="true"
+          failonerror="true">
+      <jvmarg value="-Dderby.system.home=${derby.system.home}"/>
+      <classpath>
+        <pathelement location="${maven.test.dest}"/>
+        <pathelement location="${maven.build.dest}"/>
+        <path refid="maven.dependency.classpath"/>
+      </classpath>
+    </java>
+  </goal>
+
+  <goal name="datadump" prereqs="test:compile">
+    <j:choose>
+      <j:when test="${empty(config) and empty(db)}">
+        <echo>
+          You must specify the openjms configuration using -Dconfig=path
+          or the database using -Ddb=path
+        </echo>
+      </j:when>
+      <j:when test="${empty(output)}">
+        <echo>
+          You must specify the output path using -Doutput=path
+        </echo>
+      </j:when>
+      <j:otherwise>
+        <java className="org.exolab.jms.tools.migration.DataDumper"
+                  fork="true"
+                  failonerror="true">
+          <jvmarg value="-Dderby.system.home=${derby.system.home}"/>
+          <j:if test="${!empty(config)}">
+            <arg value="-config"/>
+            <arg value="${config}"/>
+          </j:if>
+          <j:if test="${!empty(db)}">
+            <arg value="-db"/>
+            <arg value="${db}"/>
+          </j:if>
+          <arg value="-output"/>
+          <arg value="${output}"/>
+          <classpath>
+            <pathelement location="${maven.test.dest}"/>
+            <pathelement location="${maven.build.dest}"/>
+            <path refid="maven.dependency.classpath"/>
+          </classpath>
+        </java>
+      </j:otherwise>
+    </j:choose>
+  </goal>
+
+</project>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <name>OpenJMS: Proxy Generator plugin</name>
+  <id>openjms-proxygen-plugin</id>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <shortDescription>OpenJMS Proxy Generator plugin</shortDescription>
+
+  <description>
+     Maven and ANT proxy generator plugin
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.5.3-1</version>
+      <url>http://ant.apache.org/</url>
+    </dependency>
+  </dependencies> 
+ 
+  <build> 
+    <resources> 
+      <resource> 
+        <directory>${basedir}</directory> 
+        <includes> 
+          <include>plugin.jelly</include> 
+          <include>plugin.properties</include> 
+          <include>project.properties</include> 
+          <include>project.xml</include> 
+        </includes> 
+      </resource> 
+    </resources> 
+  </build> 
+
+</project>  
+
+

@@ -1,0 +1,43 @@
+In AddClientMethodAtomicity.java:
+	// add synchronized("AC_id_deadlockproofcounter"){}. AC_id encodes the information of the composition.
+	// deadlockproofcounter is increased at each site, so that the code always cannot synchronized on the same object at any time.
+	
+I use the dynamic classpath mechanism. 
+Background: pecan-transform likes the stub Monitor.class because it has 
+few related classes. pecan-monitor must use the functional
+Monitor.class. Unfortunately, the two files own the same name, and only
+one can survive at any time.
+My solution: create two files, Monitor.java_stub and Monitor.java_impl.
+I will copy the according file as Monitor.java and compile it to the
+Monitor.class in need. 
+
+
+
+Given this code:
+System.out.println("before monitorenter");
+			
+			synchronized ("atomicintention") {
+				System.out.println("in atomicblock 1");
+				 goodEmployee.setSalaray(1000);
+				System.out.println("in atomicblock 2");
+			    goodEmployee.setSalaray(10000);
+			    System.out.println("in atomicblock 3");
+			}
+			System.out.println("after monitorexit");
+			
+		    
+		    int level2 = badEmployee.getLevel();
+		    badEmployee.setSalaray(level2);
+		    
+Our static component would say that getLevel() and setSalary() forms an atomic composition because dependence exists between them.
+However, through the dynamic analysis, we know that no AV is related to such a composition at all.
+So, it is pruned by the predictive analysis, which is based on the dynamic monitoring which distinguishes objects.
+
+
+
+soot's PDG does not work even for the following small case:
+ int level2 = badEmployee.getLevel(); // who is the dependent?
+		    int level3 = level2 +50;
+		    badEmployee.setSalaray(level3);
+soot reports nothing!
+I switch to use the wala implementation, which is confirmed to run correctly in the above case.		    

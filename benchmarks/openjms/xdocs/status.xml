@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>News and Status</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="News and Status">
+      <p>
+        This document contains the latest news and status regarding the
+        OpenJMS project.
+      </p>
+
+      <subsection name="June ??, 2006 - OpenJMS 0.7.7-beta-1 released">
+        <p>
+          See the <a href="release-notes.html">Release Notes</a> for more
+          details.
+        </p>
+      </subsection>
+
+      <subsection name="December 26, 2005 - OpenJMS 0.7.7-alpha-3 released">
+        <p>
+          See the <a href="release-notes.html">Release Notes</a> for more
+          details.
+        </p>
+      </subsection>
+
+      <subsection name="June 17, 2005 - OpenJMS 0.7.7-alpha-1 released">
+        <p>
+          This represents the first release of the OpenJMS 0.7.7 codebase.
+        </p>
+        <p>
+          See the <a href="release-notes.html">Release Notes</a> for more
+          details.
+        </p>
+      </subsection>
+
+      <subsection name="May 7, 2004 - OpenJMS 0.7.6.1 released">
+        <p>
+          This is a maintenance release for OpenJMS 0.7.6.
+        </p>
+        <p>
+          See the <a href="changes-report.html#0.7.6.1">Changes Report</a>
+          for a complete list of the changes in 0.7.6.1
+        </p>
+      </subsection>
+
+      <subsection name="January 29, 2004 - OpenJMS 0.7.6 released">
+        <p>
+          See the <a href="changes-report.html#0.7.6">Changes Report</a>
+          for a complete list of the changes in 0.7.6.
+        </p>
+        <p>
+          <strong>Note:</strong> the 0.7.6 release will be the last release to
+          support the JDBM database.
+          There are no plans to provide a tool to migrate data from a JDBM
+          database to a JDBC database.
+        </p>
+      </subsection>
+
+      <subsection name="November 2, 2003 - OpenJMS 0.7.6 RC3 released">
+        <p>
+          This fixes the following bugs in the RC2 release:
+          <ul>
+            <li>819212 - Failed to delete the message with id=ID:..</li>
+            <li>823331 - Can't acknowledge message after republishing</li>
+            <li>827545 - non-persistent msgs to non durable subscriber not
+                expiring</li>
+            <li>826378 - errors in oracle table script</li>
+            <li>816895 - Exception in purgeMessages.</li>
+            <li>831535 - Cannot connect to DB after idle several hours.</li>
+            <li>832157 - Remove LeaseManagerConfiguration.</li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="September 26, 2003 - OpenJMS 0.7.6 RC2 released">
+        <p>
+          This fixes a number of bugs in the RC1 release:
+          <ul>
+            <li>796633 - openjms.bat script terminates command prompt</li>
+            <li>797284 - http connector: Failed to process request</li>
+            <li>806378 - HTTPS connector configuration documentation
+                incomplete</li>
+            <li>806377 - HTTPS connector shouldn't convert host names</li>
+            <li>810972 - sh scripts are in windows format</li>
+            <li>811702 - Can administratively remove active durable consumer
+            </li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="August 26, 2003 - OpenJMS 0.7.6 RC1 released">
+        <p>
+          This is the first release to include authentication support.
+        </p>
+      </subsection>
+
+      <subsection name="May 21, 2003 - JMS CTS moves to a new home">
+        <p>
+         The Java Message Service Compliance Test Suite (JMS CTS),
+         been spun out into a new project, at
+         <a href="http://jmscts.sourceforge.net">
+           http://jmscts.sourceforge.net
+         </a><br/>
+         Its license has also been changed to the Exolab Project open source
+         license.
+        </p>
+      </subsection>
+
+      <subsection name="May 10, 2003 - OpenJMS 0.7.5 is released!">
+        <p>
+          This contains a few cosmetic changes since the 0.7.5 RC1 release.
+          See the <a href="changes-report.html#0.7.5">Changes Report</a>
+          for a complete list of the changes in 0.7.5.
+        </p>
+      </subsection>
+
+      <subsection name="April 15, 2003 - OpenJMS 0.7.5 RC1 released">
+        <p>
+          We have managed to sort out most of the issues related to TCP, HTTP
+          and HTTPS. OpenJMS also has improved realtime garbage collection for
+          persistent messages so there is no need to schedule batch garbage
+          collection.
+        </p>
+      </subsection>
+
+      <subsection name="January 24, 2003 - OpenJMS 0.7.4 released!">
+        <p>
+          This version has substantial changes to the memory management and
+          overall stability and performance of the OpenJMS server.
+          It fixes bugs with the TCP and HTTP connector as well as a number of
+          bugs with transacted sessions, QueueBrowser, and IntraVM support.
+        </p>
+        <p>
+          See the <a href="changes-report.html#0.7.4">Changes Report</a>
+          for a complete list of the changes in 0.7.4.
+        </p>
+      </subsection>
+
+      <subsection name="November 15, 2002 - OpenJMS 0.7.3.1 released!">
+        <p>
+          This build fixes corrects a problem with the TCP connector introduced
+          in the 0.7.3 release.
+        </p>
+        <p>
+          This release fixes some problems with transacted sessions and the
+          Queue messaging model. It also has a more efficient implementation
+          of receive() and  resolves some outstanding issues with temporary
+          destinations. Finally it provides a sample configuration file to
+          install OpenJMS as a service using
+          <a href="http://wrapper.sourceforge.net/doc/english/index.html">
+          Wrapper.exe</a>
+        </p>
+        <p>
+          See the <a href="changes-report.html#0.7.3.1">Changes Report</a>
+          for a complete list of the changes in 0.7.3.1.
+        </p>
+      </subsection>
+
+      <subsection name="February 01, 2002 - OpenJMS v0.7.2 is now available!">
+        <p>
+          The latest version once again includes a revamped configuration
+          file, which is more coherent and simpler to use. To ease the
+          conversion pain we have provided a utility to convert old
+          configuration files to the new format.
+        </p>
+        <p>
+          The new version of OpenJMS has fixed the intermittent bug with
+          persistent messages and RDBMS databases. It also provides support for
+          HTTP and HTTPS connectors to facilitate communication across
+          interposing firewalls and NATs. Additionally, the OpenJMS server
+          provides limited support for the configuration of multiple
+          connectors, which could be used to provide both secure and non-secure
+          access to the same server.
+        </p>
+        <p>
+          Several critical JMS specification bugs have been resolved,
+          in particular those related to durable subscribers, selectors,
+          and connection factories. We have further developed the
+          CTS (Compliance Test Suite), which now runs some 10000 tests on the
+          OpenJMS server to ensure that we remain compliant with the
+          specification. The CTS is not part of our open source offering but
+          remains crucial to the product's quality assurance.
+        </p>
+        <p>
+          To further automate our testing process we have released a soak test
+          framework, based on Jakarta ANT, which can be used to automate
+          end-to-end OpenJMS testing. The framework is used internally to test
+          the numerous combinations of transports and databases. To start
+          using the framework read the README file in the src/soak directory.
+        </p>
+        <p>
+          In the next release we will be looking at improving the number of
+          concurrent connections that a server can support as well as the
+          throughput of persistent messages on RDBMS databases.
+        </p>
+      </subsection>
+
+      <subsection name="September 27, 2001 - OpenJMS 0.7 released!">
+        <p>
+          OpenJMS v0.7 has increased performance through refactoring of
+          key packages. It is now able to support large number of administered
+          destinations and durable consumers (> 10000), with improved resource
+          management and new services. SSL support has been added to the IPC
+          connection using Sun Microsystems JSSE implementation.
+          We have also successfully configured OpenJMS to run across the
+          internet with interposing firewalls an NATs
+          between the client and the server.
+        </p>
+        <p>
+          OpenJMS is also more compliant to the JMS specification than ever
+          before. Our JMS Compliance Test Suite (CTS), which is a new project,
+          aims to exercise all aspects of the specification. We are currently
+          on track to achieve 80-90% coverage with the next 4-5 weeks.
+        </p>
+      </subsection>
+
+      <subsection name="Jun 9, 2001 - OpenJMS 0.6 released">
+        <p>
+          OpenJMS v0.6 is a stable and reliable implementation of the
+          JMS specifications. We have introduced in-memory and database based
+          garbage collection, which helps maintain a small memory footprint.
+          The latest version now supports the ExceptionListener facility and
+          automatic client disconnection detection for both the RMI and MIPC
+          protocols. In addition, the MIPC protocol is ideal to embed the
+          OpenJMS client into an applet. This version has resolved
+          many of the bug reports and has improved the server's persistent
+          message throughput. Although, the extent of the changes does mean
+          that we are no longer compatible with earlier versions of OpenJMS.
+          In particular, this will effect users that have an existing database
+          of persistent messages and want to upgrade to the latest version.
+        </p>
+      </subsection>
+
+      <subsection name="November 11, 2000 - OpenJMS 0.5 released">
+        <p>
+          OpenJMS 0.5 is a feature complete implementation of Sun
+          Microsystems' JMS 1.0.2 Specification excluding the XA application
+          server facility support. We have improved the general reliability of
+          the (IPC, RMI and IntraVM) servers. In addition, we have extended
+          our RDBMS support by covering Sybase, Oracle, MySQL and Postgres.
+          Selectors have stabilized and performance has improved. This
+          version also supports Topic Hierarchy, part of the Application
+          Server Facility specification, client-server flow control and queue
+          browser. Finally, this version facilitates the deployment of JMS
+          clients inside an Applet.
+        </p>
+      </subsection>
+
+      <subsection name="September 13, 2000 - OpenJMS 0.4 is released">
+        <p>
+          OpenJMS v0.4 now includes full support for the SQL-92
+          selectors, as outlined in the JMS 1.0.2 specifications. Through the
+          use of <a href="http://castor.exolab.org">Castor</a>
+          JDO, the persistency mechanism now supports both the JDBM and RDBMS
+          adapters.
+          OpenJMS should now be able to support all databases supported by
+          <a href="http://castor.exolab.org">Castor</a>.
+          Testing so far has only been conducted on Oracle 8i.1.6 and
+          Sybase 12. The testharness has been significantly improved to run
+          through and test all configurations of the OpenJMS server.
+        </p>
+      </subsection>
+
+      <subsection name="July 18, 2000 - OpenJMS v0.3 is released">
+        <p>
+          This release doesn't include many more features over and above those
+          introduced in 0.2.1. It improves the reliability of the TCP
+          connector and general stability of the product. It also extends the
+          test coverage of the JMS client. Finally, this release, includes all
+          the code required to support SQL-92 selectors, as outlined in the JMS
+          1.0.2 specifications (thanks to Tim Anderson).
+        </p>
+      </subsection>
+
+      <subsection name="June 23, 2000 - OpenJMS v0.2.1 is released">
+        <p>
+          This is an interim release that fixes some bugs in the 0.2 release,
+          introduces a TCP/IP connector and improves the performance of
+          persistent message delivery. It also supports TemporaryTopic and
+          TemporaryQueue objects and extends the coverage of the test harness.
+        </p>
+      </subsection>
+
+      <subsection name="June 1, 2000">
+        <p>
+          OpenJMS v0.2 is released.
+          The release support both persistent and non-persistent delivery
+          modes in addition to both point-to-point and publish-subscribe
+          messaging models.
+        </p>
+      </subsection>
+
+      <subsection name="March 28, 2000">
+        <p>
+          OpenJMS announced at the O'Reilly Java Conference.
+        </p>
+      </subsection>
+
+      <subsection name="March 1, 2000">
+        <p>
+          OpenJMS, an open source implementation of the JMS 1.0.2
+          specifications is launched.
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

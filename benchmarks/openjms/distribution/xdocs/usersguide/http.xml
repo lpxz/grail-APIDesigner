@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the HTTP Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The HTTP connector enables OpenJMS clients to connect to the
+        OpenJMS server using HTTP.
+      </p>
+      <p>
+        This is typically used when firewall restrictions prevent the use
+        of the RMI, TCP, and TCPS connectors.
+      </p>
+    </section>
+
+    <section name="Using the HTTP connector">
+      <p>
+        Clients connect to the OpenJMS server via a webserver. 
+        To connect to OpenJMS via a webserver running on the local host, using
+        the default HTTP configuration, construct an <em>InitialContext</em>
+        as follows:
+        <source>
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "http://localhost:80/");
+    Context context = new InitialContext(properties);
+        </source>
+      </p>
+      <p>          
+        The <em>Context.PROVIDER_URL</em> property has the format:
+        <source>
+"http://&lt;webserver-host&gt;:&lt;webserver-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>webserver-host</em> specifies the host of the webserver 
+            running the OpenJMS servlet.
+          </li>
+          <li>
+            <em>webserver-port</em> specifies the port that the 
+            OpenJMS servlet is listening on.
+          </li>
+        </ul>
+      </p>
+
+      <subsection name="Connection properties">
+        <p>
+          The HTTP connector supports the following connection properties:
+          <table>
+            <tr><th>Name</th><th>Description</th></tr>
+            <tr>
+              <td>"org.exolab.jms.net.http.proxyHost"</td>
+              <td>
+                Indicates the proxy server to use. Synonymous with the 
+                <em>"http.proxyHost"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.http.proxyPort"</td>
+              <td>
+                Indicates the port of the proxy server. Synonymous with the 
+                <em>"http.proxyPort"</em> System property.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.http.proxyUser"</td>
+              <td>
+                Indicates the user to log in to the proxy server with.
+              </td>
+            </tr>
+            <tr>
+              <td>"org.exolab.jms.net.http.proxyPassword"</td>
+              <td>
+                Indicates the password to log in to the proxy server with.
+              </td>
+            </tr>
+          </table>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Administration using the HTTP connector">
+      <p>
+        To administer an OpenJMS server via the webserver running on the local
+        host, using the default HTTP configuration, construct a 
+        <em>JmsAdminServerIfc</em> as follows:
+        <source>
+    String url = "http://localhost:80/";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>
+      </p>
+      <p>          
+        The URL argument has the same format as the 
+         <em>Context.PROVIDER_URL</em> described in 
+         <a href="#Using the HTTP connector">Using the HTTP connector</a>
+      </p>
+    </section>
+
+  </body>    
+</document>

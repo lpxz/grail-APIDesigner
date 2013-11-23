@@ -1,0 +1,104 @@
+<project default="jar:jar"
+         xmlns:j="jelly:core"
+         xmlns:maven="jelly:maven"
+         xmlns:proxygen="proxygen">
+
+  <postGoal name="java:compile">
+    <attainGoal name="proxies"/>
+  </postGoal>
+
+  <goal name="proxies" prereqs="proxygen:prepare-filesystem">
+    <proxygen:gen classname="org.exolab.jms.net.orb.RegistryImpl"/>
+
+    <rmic base="${maven.build.dest}" 
+          includes="**/RMIInvokerImpl.class
+                    **/RMIInvokerFactoryImpl.class"
+          stubversion="1.2">
+      <classpath>
+        <pathelement location="${maven.build.dest}"/>
+      </classpath>
+    </rmic>
+  </goal>
+
+  <postGoal name="test:compile">
+    <maven:pluginVar var="skipTests" plugin="maven-test-plugin"
+                     property="maven.test.skip"/>
+
+    <j:if test="${skipTests != 'true'}">
+      <attainGoal name="test-proxies"/>
+      <attainGoal name="tcps-test-setup"/>
+      <attainGoal name="https-test-setup"/>
+    </j:if>
+  </postGoal>
+
+  <goal name="test-proxies">
+    <proxygen:gentest classname="org.exolab.jms.net.EchoServiceImpl"/>
+    <proxygen:gentest classname="org.exolab.jms.net.ExceptionServiceImpl"/>
+    <proxygen:gentest classname="org.exolab.jms.net.CallbackServiceImpl"/>
+    <proxygen:gentest classname="org.exolab.jms.net.KillServiceImpl"/>
+    <proxygen:gentest classname="org.exolab.jms.net.invoke.LoggingCallback"/>
+    <proxygen:gentest classname="org.exolab.jms.net.invoke.ExportServiceImpl"/>
+  </goal>
+
+  <goal name="tcps-test-setup">
+    <available property="keyStoreAvail" 
+               file="${maven.build.dir}/test.keystore"/>
+
+    <j:if test="${keyStoreAvail != 'true'}">
+      <genkey alias="openjms" keystore="${maven.build.dir}/test.keystore"
+              storepass="secret">
+        <dname>
+          <param name="CN" value=""/>
+          <param name="OU" value=""/>
+          <param name="O"  value=""/>
+          <param name="C"  value=""/>
+        </dname>
+      </genkey>
+    </j:if>
+  </goal>
+
+  <!-- ==================================================================== -->
+  <!-- Sets up the keystore for the https connector tests                   -->
+  <!--                                                                      -->
+  <!-- Requires build.properties to be configured with:                     -->
+  <!-- . tomcat.keystore.path      path to tomcat's keystore                -->
+  <!-- . tomcat.keystore.password  keystore password (defaults to changeit) -->
+  <!--                                                                      -->
+  <!-- NOTE: in order for the test cases to pass, the CN field of tomcat's  -->
+  <!-- key needs to be set to localhost                                     -->
+  <!-- ==================================================================== -->
+  <goal name="https-test-setup">
+  
+    <available property="tomcatPublicKeyAvail" 
+               file="${maven.build.dir}/tomcat.public-key"/>
+    <j:if test="${tomcatPublicKeyAvail != 'true'}">
+      <exec dir="${maven.build.dir}" executable="keytool">
+        <arg value="-export"/>
+        <arg value="-rfc"/>
+        <arg value="-keystore"/>
+        <arg value="${tomcat.keystore.path}"/>
+        <arg value="-alias"/>
+        <arg value="tomcat"/>
+        <arg value="-file"/>
+        <arg value="tomcat.public-key"/>
+        <arg value="-storepass"/>
+        <arg value="${tomcat.keystore.password}"/>
+      </exec>
+
+      <exec dir="${maven.build.dir}" executable="keytool">
+        <arg value="-import"/>
+        <arg value="-rfc"/>
+        <arg value="-keystore"/>
+        <arg value="${maven.build.dir}/test.keystore"/>
+        <arg value="-alias"/>
+        <arg value="tomcat"/>
+        <arg value="-file"/>
+        <arg value="tomcat.public-key"/>
+        <arg value="-storepass"/>
+        <arg value="secret"/>
+        <arg value="-noprompt"/>
+      </exec>
+    </j:if>
+  </goal>
+
+</project>

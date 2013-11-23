@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>User Guide</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="About this Guide">
+      <p>
+        The OpenJMS User Guide is intended to help developers get acquainted 
+        with OpenJMS by providing thorough descriptions and examples. 
+      </p>
+      <p>
+        If you have any suggestions or comments please feel free to post them 
+        to the OpenJMS users' list. 
+      </p>
+    </section>
+
+    <section name="Overview of the User Guide Documentation">
+      <table>
+        <tr><th>Document</th><th>Description</th></tr>
+        <tr><td><a href="using.html">Using OpenJMS</a></td>
+          <td>This document provides code samples on using OpenJMS.</td>
+        </tr>
+        <tr><td><a href="examples.html">Examples</a></td>
+          <td>
+            OpenJMS is distributed with a number of example programs
+            that demonstrate writing simple applications using JMS.
+            This document describes how to build and run the examples.
+          </td>
+        </tr>
+        <tr><td><a href="jars.html">Client JARS</a></td>
+          <td>
+            This document details the JARS which must be added to 
+            an application's CLASSPATH, in order to use OpenJMS.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="connectors.html">Using Connectors</a>
+          </td>
+          <td>
+            OpenJMS provides connectivity via RMI, TCP, HTTP and SSL protocol 
+            stacks using connectors. This document describes the connectors,
+            and how to use them.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="admin.html">Using the Administration API</a>
+          </td>
+          <td>
+            This document provides code examples demonstrating how to use the 
+            OpenJMS administration API. 
+          </td>
+        </tr>
+      </table>
+    </section>
+
+  </body>
+</document>

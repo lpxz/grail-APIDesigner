@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Overview">
+      <p>
+        This document provides code examples demonstrating how to send
+        messages, and receive then both synchronously and asynchronously.
+      </p>
+    </section>
+    
+    <section name="Setup">
+      <p>
+        In general, JMS applications begin by looking up a  
+        <strong>ConnectionFactory</strong> instance from JNDI 
+        (the <a href="http://java.sun.com/products/jndi">
+        Java Naming and Directory Interface</a>), and then
+        using this to create <strong>Connection</strong>
+        and then <strong>Session</strong> instances.
+      </p>
+
+      <subsection name="Creating a JNDI InitialContext">
+        <p>
+          To create an <strong>InitialContext</strong>:
+
+          <source>
+import java.util.Hashtable;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+// ...
+
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "tcp://localhost:3035/");
+
+    Context context = new InitialContext(properties);
+          </source>
+        </p>
+        <p>
+          The above creates a initial context for the default server
+          configuration.
+        </p>
+        <p>
+          To avoid hardcoding JNDI properties, they can be specified in
+          an <em>application resource file</em> named 
+          <strong>jndi.properties</strong> located in the application's 
+          classpath.
+          The properties must be listed as a set of key/value pairs, using the
+          <em>java.util.Properties</em> file format. E.g:
+          <source>
+java.naming.factory.initial=org.exolab.jms.jndi.InitialContextFactory
+java.naming.provider.url=tcp://myhost:3035
+          </source>
+        </p>
+        <p>
+          The code to construct the JNDI <strong>InitialContext</strong> 
+          becomes:
+          <source>
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+// ...
+
+    Context context = new InitialContext();
+          </source>
+        </p>
+      </subsection>
+
+      <subsection name="Looking up a ConnectionFactory">
+        <p>
+          OpenJMS is pre-configured with a <strong>ConnectionFactory</strong>
+          named <em>"ConnectionFactory"</em>, which can be retrieved as
+          follows:
+          <source>
+import javax.jms.ConnectionFactory;
+
+// ...         
+
+    ConnectionFactory factory = 
+        (ConnectionFactory) context.lookup("ConnectionFactory");
+          </source>
+        </p>
+      </subsection>
+
+      <subsection name="Creating a Connection">
+        <p>
+          The <strong>ConnectionFactory</strong> can then be used to create a
+          <strong>Connection</strong>:
+          <source>
+import javax.jms.Connection;
+
+// ...
+
+    Connection connection = factory.createConnection();
+          </source>
+        </p>
+      </subsection>
+
+      <subsection name="Creating a Session">
+        <p>
+          The <strong>Connection</strong> can then be used to create a
+          <strong>Session</strong>:
+          <source>
+import javax.jms.Session;
+
+// ...
+
+    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+          </source>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Sending messages">
+      <p>
+        A message is sent to a <strong>Destination</strong>, which may be
+        a <strong>Queue</strong> (used for 
+        <a href="../glossary.html#point-to-point">point-to-point</a> messaging),
+        or a <strong>Topic</strong> (used for 
+        <a href="../glossary.html#publish-and-subscribe">publish-and-subscribe</a>).
+        A message is sent using a <strong>MessageProducer</strong>.
+      </p>
+
+      <subsection name="Retrieving a Destination">
+        <p>
+          <strong>Destination</strong> instances are bound in JNDI.
+        </p>
+        <p>
+          OpenJMS is pre-configured with several Destinations, including
+          a <strong>Topic</strong> named <em>"topic1"</em>, which can be 
+          retrieved as follows:
+
+          <source>
+import javax.jms.Topic;
+
+// ...
+
+    Destination destination = (Destination) context.lookup("topic1");
+          </source>
+        </p>
+      </subsection>
+
+      <subsection name="Sending a message">
+        <p>
+          <source>
+import javax.jms.MessageProducer;
+import javax.jms.TextMessage;
+
+// ...
+
+    connection.start();
+    MessageProducer sender = session.createProducer(destination);
+    TextMessage message = session.createTextMessage("Hello World!");
+    sender.send(message);       
+          </source>
+        </p>
+        
+      </subsection>
+    </section>
+
+    <section name="Receiving messages">
+      <p>
+        Messages are received from a <strong>Destination</strong> using
+        a <strong>MessageConsumer</strong>.
+      </p>
+      <p>
+        Messages can be received <em>synchronously</em> or
+        <em>asynchronously</em>.
+      </p>
+      
+      <subsection name="Receiving messages synchronously">
+        <p>
+          <source>
+import javax.jms.MessageConsumer;
+import javax.jms.TextMessage;
+
+// ...
+
+    MessageConsumer receiver = session.createConsumer(destination);
+    connection.start();
+
+    TextMessage message = (TextMessage) receiver.receive();
+    System.out.println("Received message: " + message.getText());
+          </source>
+        </p>
+        <p>
+          In the above, <em>receiver</em> blocks until it receives a message.
+        </p>
+      </subsection>
+
+      <subsection name="Receiving messages asynchronously">
+        <p>
+          Messages are received asynchronously by registering a 
+          <strong>MessageListener</strong>:
+          <source>
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
+// ...
+
+    MessageConsumer receiver = session.createConsumer(destination);
+    receiver.setMessageListener(new MessageListener() {
+        public void onMessage(Message message) {
+            TextMessage text = (TextMessage) message;
+            System.out.println("Received message: " + message.getText());
+        }
+    });
+
+    // start the connection to enable message delivery
+    connection.start();
+          </source>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="See Also">
+      <p>
+        <ul>
+          <li><a href="examples.html">Examples distributed with OpenJMS</a></li>
+          <li>Sun JNDI Tutorial: <a href="http://java.sun.com/products/jndi/tutorial/beyond/env/source.html#APPRES">Application resource files</a></li>
+        </ul>
+      </p>
+    </section>
+  </body>
+
+</document>

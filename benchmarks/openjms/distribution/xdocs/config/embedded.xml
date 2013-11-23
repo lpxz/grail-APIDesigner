@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring the Embedded Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The Embedded connector enables OpenJMS clients to connect to an
+        <em>embedded</em> OpenJMS server, i.e. a server running in the same
+        JVM as the clients.
+      </p>
+      <p>
+        This avoids the overhead of network serialization.
+      </p>
+      <p>
+        It is configured by adding a <strong>&lt;Connector&gt;</strong> 
+        element to <strong>&lt;Connectors&gt;</strong> section of the
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, with a scheme
+        of type <em>"embedded"</em>. E.g:
+
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="embedded">
+      <ConnectionFactories>
+        <ConnectionFactory name="VMConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>        
+        </source>
+      </p>
+    </section>
+
+  </body>    
+</document>

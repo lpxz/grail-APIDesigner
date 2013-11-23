@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Downloads</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Downloads">
+      <p>
+        OpenJMS releases are available in both install and source archives
+        from the 
+        <a href="http://sourceforge.net/project/showfiles.php?group_id=54559">
+          SourceForge download page
+        </a><br/>
+        For convenience, they are provided in zip and tar/gzip formats.
+      </p>
+      <subsection name="Install archives">
+        <p>
+          The following install archives are available for download:
+          <ul>
+            <li>
+              <a href="http://prdownloads.sourceforge.net/openjms/openjms-@RELEASE-VERSION@.zip">
+                openjms-@RELEASE-VERSION@.zip
+              </a>
+            </li>
+            <li>
+              <a href="http://prdownloads.sourceforge.net/openjms/openjms-@RELEASE-VERSION@.tar.gz">
+                openjms-@RELEASE-VERSION@.tar.gz
+              </a>
+            </li>
+          </ul>
+        </p>
+        <p>
+          These include:
+          <ul>
+            <li>The OpenJMS server</li>
+            <li>The OpenJMS client JARS</li>
+            <li>3rd party JARS required by the client and server</li>
+            <li>The complete set of documentation</li>
+            <li>Scripts to run the server on Windows and UNIX</li>
+            <li>Sample programs</li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="Source archives">
+        <p>
+          The following source archives are available for download:
+          <ul>
+            <li>
+              <a href="http://prdownloads.sourceforge.net/openjms/openjms-@RELEASE-VERSION@-src.zip">
+                openjms-@RELEASE-VERSION@-src.zip
+              </a>
+            </li>
+            <li>
+              <a href="http://prdownloads.sourceforge.net/openjms/openjms-@RELEASE-VERSION@-src.tar.gz">
+                openjms-@RELEASE-VERSION@-src.tar.gz
+              </a>
+            </li>
+          </ul>
+        </p>
+        <p>
+          The source distributions are a clean CVS checkout of the 
+          OpenJMS sources at the time the version was released.<br/>
+          These can be used to build an install archive of OpenJMS. 
+        </p>
+      </subsection>
+    </section>
+  </body>
+
+</document>

@@ -1,0 +1,899 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Changes</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <release version="0.7.7-dev" date="in CVS">
+      <action type="update">
+        <p>
+          OpenJMS now supports version 1.1 of the JMS API.
+        </p>
+      </action>
+      <action type="update">
+        <p> 
+          The HTTP and HTTPS connectors now communicate with the OpenJMS server
+          via the openjms-tunnel servlet.
+        </p>
+        <p>
+          This replaces the servlets deployed in openjms.war in previous
+          releases. The openjms-tunnel servlet supports bidirectional 
+          communication. This means that the server no longer needs to
+          establish socket connections back to clients (which was problematic
+          for hosts with firewalls).
+        </p>
+        <p>
+          See <a href="config/http.html">Configuring the HTTP Connector</a>&#160; 
+          and <a href="config/https.html">Configuring the HTTPS Connector</a>&#160;
+          for more details.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          Added a new attribute <em>bindAll</em>&#160; to
+          <a href="config/reference.html#TcpConfiguration">TcpConfiguration</a>,
+          <a href="config/reference.html#TcpsConfiguration">TcpsConfiguration</a>,
+          <a href="config/reference.html#HttpConfiguration">HttpConfiguration</a>&#160; and
+          <a href="config/reference.html#HttpsConfiguration">HttpsConfiguration</a>.
+        </p>
+        <p>
+          This can be used to change how the server accepts connections. 
+          If <em>"true"</em>, the server will accept connections on all 
+          network interfaces. If <em>"false"</em>&#160; the server will only 
+          accept connections on the host specified by 
+          <a href="config/reference.html#ServerConfiguration">ServerConfiguration</a>.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          The server now listens on a single port for client connections,
+          when the TCP, TCPS, HTTP, or HTTPS connector is configured.
+        </p>
+        <p>
+          Previously, two ports were required. However, the server, 
+          embedded JNDI service and administration service can
+          be configured to use separate ports.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          The TCPS connector now supports configuration of the truststore and
+          keystore in <em>openjms.xml</em> as per RFE 667023 -
+          "Add support to configure tcps connector".
+          See <a href="config/reference.html#TcpsConfiguration">
+          TcpsConfiguration</a>&#160; for more details.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          The TCPS connector no longer defaults to requiring clients to
+          authenticate themselves. 
+          See <a href="config/tcps.html#Client_authentication">
+          Client authentication</a>&#160; for more details.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          The HTTP and HTTPS connectors no longer require a TCP connector to
+          be configured.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          Changed the configuration of the 
+          <a href="config/reference.html#HttpConfiguration">HttpConfiguration</a>&#160; and
+          <a href="config/reference.html#HttpsConfiguration">HttpsConfiguration</a>&#160;
+          elements in <em>openjms.xml</em>.
+        </p>
+        <p>
+          The meanings of the <em>port</em>&#160; and <em>host</em>&#160; 
+          attributes have changed. Previously, these used to represent the 
+          web-server host and port.
+          Now, they represent the host and port that the server is handling
+          requests from the openjms-tunnel servlet on.
+        </p>
+        <p>
+          Two new attributes, <em>webServerHost</em>&#160; and
+          <em>webServerPort</em>, now represent the web-server host and port.
+        </p>
+        <p>
+          The following attributes, previously part of
+          <em>HttpConfiguration</em>&#160; and <em>HttpsConfiguration</em>,
+          are no longer supported: 
+          <ul>
+            <li>proxyHost</li>
+            <li>proxyPort</li>
+            <li>clientPingInterval</li>
+            <li>serverServlet</li>
+            <li>jndiServlet</li>
+            <li>adminServlet</li>
+          </ul>
+        </p>
+      </action>
+      <action type="remove">
+        <p>
+          The following attributes, previously part of 
+          the <a href="config/reference.html#RmiConfiguration">RmiConfiguration</a>&#160; 
+          element in <em>openjms.xml</em>&#160; are no longer supported: 
+          <ul>
+            <li>serverName</li>
+            <li>jndiName</li>
+            <li>adminName</li>
+          </ul>
+        </p>
+      </action>
+      <action type="remove">
+        <p>
+          The following attributes, previously part of 
+          the <a href="config/reference.html#DatabaseConfiguration">DatabaseConfiguration</a>&#160; 
+          element in <em>openjms.xml</em>&#160; are no longer supported: 
+          <ul>
+            <li>garbageCollectionInterval</li>
+            <li>garbageCollectionBlockSize</li>
+            <li>garbageCollectionThreadPriority</li>
+          </ul>
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1214292 - topicSubscriber.close() hangs.
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1192265 - Message lost in multi-processor environment.
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1165743 - Persistent topic messages not removed from 
+          database.
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1108562 - NullPointerException when calling 
+          DatabaseService.getAdapter
+        </p>
+      </action>      
+      <action type="fix">
+        <p>
+          Fixed bug 1144026 - ConcurrentModificationException in 
+          TopicDestinationCache
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1058427 - QueueDestinationCache throws 
+          IndexOutOfBoundsException
+        </p>
+      </action>
+      <action type="fix">
+        <p>Fixed bug 934627 - MS SQL Server very frequent deadlock victim</p>
+      </action>
+      <action type="fix">
+        <p>Fixed bug 1107742 - Clock Daemon Thread never exits in Applet</p>
+      </action>
+      <action type="fix">
+        <p>Fixed bug 797688 - Embedded JNDI should support authentication</p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 756237  telnet-ing directly to tcp connector/jndi yields
+          OutOfMemory.
+        </p>
+      </action>
+      <action type="add">
+        <p>
+          Added support for RFE-982260 - support for context classloader during
+          deserialization
+        </p>
+      </action>
+      <action type="add">
+        <p>
+          Added support for RFE 750870 - Cannot bind to a specific interface
+        </p>
+      </action>
+      <action type="add">
+        <p>
+          Added support for RFE 1183082 - Weblogic ANTLR conflict 
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 667580 - setClientID not throwing IllegalStateException
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1124441 - Default port values for http, https, and tcps
+          doco wrong.
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1109259 - Applet client connection to firewalled server
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 971182 - Receiver remains active after network
+          disconnection.
+        </p>
+      </action>
+ 
+      <action type="fix">
+        <p>
+          Fixed bug 1023188 - Network cable disconnect does not deregister
+          client.
+        </p> 
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1041628 - DestinationManager throws ArrayIndexOutOfBoundsException
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1105874 - Can't use https connector with other JSSEs
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 949270 - JmsServer(config) throws NPE
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1123902 - Heirarchical names results in 
+          NameNotFoundException
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 1236732: Impossible to bind queue to jms.queue1
+        </p>
+      </action>
+      <action type="remove">
+        <p>
+          Dropped support for the JDBM database.
+        </p>
+        <p>
+          The <em>JdbmDatabaseConfiguration</em>&#160; element of 
+          <em>openjms.xml</em>&#160; is no longer valid.
+        </p>
+        <p>
+          OpenJMS now ships with a version of Derby as the default database.
+          See <a href="config/jdbc.html">Configuring the database</a>&#160; for
+          more details.
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          Deprecated <em>org.exolab.jms.server.EmbeddedJmsServer</em>.
+          The <em>org.exolab.jms.server.JmsServer</em> class should be used
+          instead.
+        </p>
+      </action>
+      <action type="remove">
+        <p>
+          Removed pre-0.7.5 release InitialContextFactory implementations:
+          <ul>
+            <li>RmiJndiInitialContextFactory</li>
+            <li>IpcJndiInitialContextFactory</li>
+            <li>IntravmJndiInitialContextFactory</li>
+            <li>HttpJndiInitialContextFactory</li>
+            <li>SslHttpJndiInitialContextFactory</li>
+          </ul>
+        </p>
+      </action>
+      <action type="remove">
+        <p>
+          Dropped support for experimental batching RDBMS adapter.
+        </p>
+      </action>
+    </release>
+
+    <release version="0.7.6.2" date="in CVS">
+      <action type="fix">
+        Fixed bug 996959 - ConcurrentModificationException in ConsumerManager
+      </action>
+      <action type="fix" due-to="Andre Gebers">
+        Fixed bug 984891 - ConcurrentModificationException on server shutdown.
+      </action>
+      <action type="update" due-to="Michael Jaszczyk">
+        Changed create_oracle.sql script as per request 964261, to add indexes 
+        to avoid full table scans and use indexed primary keys
+      </action>
+      <action type="fix" due-to="Michael Jaszczyk">
+        Fixed bug 964267 - column indexes, names column in inserts,
+        close all db object
+      </action>
+    </release>
+
+    <release version="0.7.6.1" date="May 7, 2004">
+      <action type="fix">
+        Fixed bug 945783 - Runtime exceptions generated by MessageQueue
+      </action>
+      <action type="fix">
+        Fixed bug 945785 - NullPointerException using async 
+        delivery, selectors, queue
+      </action>
+      <action type="fix">
+        Fixed bug 938163 - Session not removing producers
+      </action>
+      <action type="fix">
+        Fixed bug 921517 - TCP JNDI IntialContext using static variables 
+        for obj. scope
+      </action>
+      <action type="fix">
+        Fixed bug 946176 - Deprecate JmsAdminServerIfc.purgeMessages()
+      </action>
+      <action type="fix">
+        Fixed bug 946283 - JMSCTS failure: 
+        StreamMessageTest.testIncrementalReadBytes
+      </action>
+      <action type="fix">
+        Fixed bug 891758 - DB table uses reserved word as column name
+      </action>
+      <action type="fix" due-to="Robert T Brown">
+        Fixed bug 947723 - syntax errors in create_sybase.sql
+      </action>
+    </release>
+
+    <release version="0.7.6" date="January 29, 2004">
+      <action type="add" due-to="Knut Lerpold">
+        Added authentication support. For details, see the 
+        <a href="config/security.html">Configuring Security</a> document.
+      </action>
+      <action type="update">
+        <p>
+          The database schema has changed, in order to support the fix for bug 
+          782209 - "JMSMessageID generation inadequate".
+        </p>
+        <p>
+          To migrate an existing JDBC database to the new schema, run: 
+        </p>
+        <p>
+          <em>Windows</em>
+          <source>
+> cd %OPENJMS_HOME%\bin
+> dbtool.bat -migrate -config ../config/openjms.xml
+          </source>
+        </p>
+        <p>
+          <em>Unix</em>
+          <source>
+> cd $OPENJMS_HOME/bin
+> dbtool.sh -migrate -config ../config/openjms.xml
+          </source>
+        </p>
+        <p>
+          Back up your database prior to doing this!
+        </p>
+        <p>
+          <strong>Limitations</strong>
+          <ul>
+            <li>no provision for migrating databases which are unsupported 
+                by dbtool</li>
+            <li>no provision for migrating a JDBM database</li>
+          </ul>
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          Merged <em>openjms-rmi-client.jar</em>&#160;  into 
+          <em>openjms-client.jar</em>. The <em>openjms-rmi-client.jar</em>&#160;  
+          is no longer distributed.
+        </p>
+        <p>
+          See the <a href="usersguide/jars.html">Client JARS</a> page
+          for the list of JARS which must by included in order to use OpenJMS
+        </p>
+      </action>
+      <action type="update">
+        Replaced logging API with 
+        <a href="http://jakarta.apache.org/commons/logging">Commons-Logging</a>
+      </action>
+      <action type="update">
+        <p>
+          Replaced Tyrex and Proxool connection pooling support with 
+          <a href="http://jakarta.apache.org/commons/dbcp">Commons-DBCP</a>.
+        </p>
+        <p>
+          Tyrex is no longer being actively maintained, and the latest versions
+          of Proxool require JDK 1.3 (at time of writing).
+        </p>
+        <p>
+          User supplied connection pools may still be used.
+        </p>
+      </action>
+      <action type="add" due-to="Elias Martenson">
+        Added create_sapdb.sql script
+      </action>
+      <action type="add">
+        Added JmsServer(Configuration) constructor, as per RFE 865658
+      </action>
+      <action type="fix">
+        Fixed bug 746875 - QueueBrowser fails to select messages
+      </action>
+      <action type="fix">
+        Fixed bug 759752 - Resumed durable subcriber after network outage 
+        fails to receive messages
+      </action>
+      <action type="fix" due-to="Juan Carlos Estibariz">
+        <p>
+          Fixed bug 744331 - messages.messageBlob using wrong field type in 
+          PostgreSQL
+        </p>
+      </action>
+      <action type="fix">
+        Fixed bug 753216 - Null pointer in connection.close()
+      </action>
+      <action type="fix">
+        Fixed bug 682160 - Connection.close() behaviour not compliant
+      </action>
+      <action type="fix">
+        Fixed bug 755234 - Discrepancy in LeaseManager configuration
+      </action>
+      <action type="fix">
+        Fixed bug 768543 - Deadlock btw LeaseManager and 
+        DestinationManager.collectGarb
+      </action>
+      <action type="fix">
+        Fixed bug 774128 - QueueDestinationCaches not gc'ed for temp 
+        destinations
+      </action>
+      <action type="fix">
+        Fixed bug 777419 - Deadlock in the tcp connector
+      </action>
+      <action type="fix">
+        Fixed bug 785039 - Client shutdown problem
+      </action>
+      <action type="fix">
+        Fixed bug 786163 - bad JMSDeliveryMode should cause 
+        InvalidSelectorException
+      </action>
+      <action type="fix">
+        Fixed bug 786622 - Invalid string literal in selector should throw 
+        exception
+      </action>
+      <action type="fix">
+        Fixed bug 788029 - Could not get message for handle error
+      </action>
+      <action type="fix">
+        Fixed bug 737037 - http transport ignores servlet path
+      </action>
+      <action type="fix">
+        Fixed bug 782209 - JMSMessageID generation inadequate.
+      </action>
+      <action type="fix">
+        Fixed bug 796633 - openjms.bat script terminates command prompt
+      </action>
+      <action type="fix">
+        Fixed bug 797284 - http connector: Failed to process request
+      </action>
+      <action type="fix">
+        Fixed bug 806378 - HTTPS connector configuration documentation 
+        incomplete
+      </action>
+      <action type="fix">
+        Fixed bug 806377 - HTTPS connector shouldn't convert host names
+      </action>
+      <action type="fix">
+        Fixed bug 811702 - Can administratively remove active durable consumer
+      </action>
+      <action type="fix">
+        Fixed bug 819212 - Failed to delete the message with id=ID:..
+      </action>
+      <action type="fix">
+        Fixed bug 823331 - Can't acknowledge message after republishing
+      </action>
+      <action type="fix">
+        Fixed bug 827545 - non-persistent msgs to non durable subscriber not 
+        expiring
+      </action>
+      <action type="fix">
+        Fixed bug 826378 - errors in oracle table script
+      </action>
+      <action type="fix">
+        Fixed bug 816895 - Exception in purgeMessages.
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 831535 - Cannot connect to DB after idle several hours.
+        </p>
+        <p>
+          Support has been added to configure the connection pool to
+          ensure invalid connections aren't used. See 
+          <a href="config/jdbc.html#Connection pooling">Connection pooling</a>
+          for more details.
+        </p>
+      </action>
+      <action type="fix">
+        <p>
+          Fixed bug 832157 - Remove LeaseManagerConfiguration.
+        </p>
+        <p>
+          As a consequence, the <em>&lt;LeaseManagerConfiguration/&gt;</em>&#160;  
+          element is no longer required in openjms.xml (specifying it
+          will cause a FailedToCreateServerException).
+        </p>
+      </action>
+      <action type="fix">
+        <p>Fixed bug 867522 - Non OpenJMS messages not supported.</p>
+        <p>Messages from other JMS providers may now be sent via OpenJMS.</p>
+      </action>
+      <action type="fix">
+        Fixed bug 854819 - getAllDestinations() return value is documented 
+        incorrectly
+      </action>
+      <action type="fix">
+        Fixed bug 866885 - ConcurrentModificationException in server during 
+        sync recv
+      </action>
+      <action type="fix">
+        Fixed bug 856383 - queue names longer then 50 chars
+      </action>
+      <action type="fix">
+        Fixed bug 831469 - ClassCastException when using MDBs in Sun ONE AS7
+      </action>
+      <action type="fix">
+        Fixed bug 879302 - tcp connector threads remain active
+      </action>
+      <action type="fix">
+        Fixed bug 875922 - time to wait for retrieving message is incorrect
+      </action>
+      <action type="fix" due-to="Bo Min Jiang">
+        Fixed bug 875841 - Error performing JNDI lookups from Sun ONE App
+        Server 7.
+      </action>
+    </release>
+
+    <release version="0.7.5" date="May 10, 2003">
+      <action type="update">
+        <p>
+          Unified InitialContextFactory implementations into a single class.
+        </p>
+        <p>
+          To construct an InitialContext:
+          <source><![CDATA[
+Hashtable properties = new Hashtable();
+properties.put(Context.INITIAL_CONTEXT_FACTORY,
+               "org.exolab.jms.jndi.InitialContextFactory");
+properties.put(Context.PROVIDER_URL, "rmi://myhost:1099/");
+Context initial = new InitialContext(properties);]]>
+          </source>
+        </p>
+        <p>
+          To specify to connect to the JNDI provider using TCP:
+          <source>
+properties.put(Context.PROVIDER_URL, "tcp://myhost:3035/");
+          </source>
+        </p>
+        <p>
+          Using HTTP:
+          <source>
+properties.put(Context.PROVIDER_URL, "http://myhost:8080/");
+          </source>
+        </p>
+        <p>
+          The old InitialContextFactory implementations 
+          (<em>RmiJndiInitialContextFactory, IpcJndiInitialContextFactory, 
+          IntravmJndiInitialContextFactory, HttpJndiInitialContextFactory, 
+          SslHttpJndiInitialContextFactory</em>) may still be used, but 
+          will be removed in a future release.
+        </p>
+      </action>  
+      <action type="add">
+        <p>Added support for multiple connectors.</p>
+        <p>
+          In order to configure multiple connectors, simply add a 
+          &lt;Connector&gt; entry for each desired connector.
+        </p>
+        <p>Each connection factory must have a different name.</p>
+        <p>  
+          E.g, to configure tcp and rmi connectors:<br/>
+          <source>
+&lt;Connectors;&gt;
+  &lt;Connector scheme="rmi"&gt;
+    &lt;ConnectionFactories&gt;
+      &lt;QueueConnectionFactory name="RMIQueueConnectionFactory" /&gt;
+      &lt;TopicConnectionFactory name="RMITopicConnectionFactory" /&gt;
+    &lt;/ConnectionFactories&gt;
+  &lt;/Connector&gt;
+  &lt;Connector scheme="tcp"&gt;
+    &lt;ConnectionFactories&gt;
+      &lt;QueueConnectionFactory name="TCPQueueConnectionFactory" /&gt;
+      &lt;TopicConnectionFactory name="TCPTopicConnectionFactory" /&gt;
+    &lt;/ConnectionFactories&gt;
+  &lt;/Connector&gt;
+&lt;/Connectors&gt;
+          </source>
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          Simplified URLs for the RMI connector. The server path no longer 
+          needs to be specified in the URL.
+        </p>
+        <p>
+          E.g, when specifying the Context.PROVIDER_URL, 
+          <em>rmi://myhost:1099/</em>&#160;  is equivalent to
+          <em>rmi://myhost:1099/JndiServer</em>
+        </p>
+        <p>
+          When specifying the administration URL, <em>rmi://myhost:1099/</em>
+          is equivalent to <em>rmi://myhost:1099/JmsAdminServer</em>
+        </p>
+      </action>
+      <action type="update">
+        <p>
+          Simplified the Context.PROVIDER_URL for the HTTP and HTTPS 
+          connectors. The server path no longer needs to be specified in the 
+          URL.
+        </p>
+        <p>
+          E.g, <em>http://myhost:8080/</em>&#160;  is equivalent to 
+               <em>http://myhost:8080/openjms/OpenJMSJndi</em><br/>
+          and <em>https://myhost:8443/</em>&#160;  is equivalent to
+              <em>https://myhost:8443/openjms/OpenJMSJndi</em>
+        </p>
+      </action>
+      <action type="update"> 
+        <p>
+          Changed the behaviour of the http connector.
+          Previously, if the JndiConstants.HTTP_CLIENT_URL_PROPERTY property
+          wasn't set, the value would default to 
+          <em>http://localhost:8080/openjms/OpenJMSClient</em>, which
+          isn't very useful for most applications. It now defaults to
+          the host and port of the server's web server.
+        </p>
+      </action>
+      <action type="fix">
+        Fixed bug 669033 - Can't shutdown embedded server via admin API
+      </action>
+      <action type="fix">
+        Fixed bug which prevented the use of an external JNDI provider
+      </action>
+      <action type="fix">
+        Fixed bug which prevented the registration of heirarchical topics
+      </action>
+      <action type="fix">
+        Fixed bug which prevented messages created via 
+        Session.createMessage() from being made persistent if their JMSType
+        was null.
+      </action>    
+      <action type="fix">
+        Fixed memory leak of Connection instances for the rmi and embedded
+        connectors.
+      </action>
+      <action type="fix">
+        Fixed bug in the SSL connector, which wasn't requiring clients
+        to authenticate themselves.
+      </action>      
+      <action type="update">
+        Added code to support realtime database garbage collection for 
+        topics and queues. Previously we only supported queues. This 
+        option means that we can deprecate the garbage collection options
+        on the DatabaseConfiguration element. This is only supported for 
+        JDBC since we will be deprecate support for JDBM in the near 
+        future
+      </action>          
+      <action type="fix">
+        Made changes to JMSServerSession so that a message is only made
+        persistent if the delivery mode is PERSISTENT and the destination
+        is an administered destination
+      </action>          
+      <action type="fix">
+        Added support for administered wildcard destinations and durable
+        consumers. So a destination such as "*" can be defined and durable
+        subscribers attached to it. Such a consumer will receive all messages
+        destined for single level destinations (i.e topic1, jima, exolab etc)
+        The existing wild carding mechanism is too limited.
+      </action>          
+      <action type="fix">
+        Made a change to the connection garbage collection algorithm. Now a 
+        connection will only be cleaned up if there are 3 consecutive failures
+        to a ping request. Connection GC is scheduled every minute. Previously,
+        the server was occasionally, prematurely cleaning up connections even
+        if the client was still active. This would be seen with the error 
+        "No consumer registered with Id XX".
+      </action>          
+      <action type="fix">
+        Previously, when a client terminated abnormally while it has a receiver
+        waiting on a synchronous receive, the server would display an error 
+        indicating that it could not send the notification when a message for 
+        that receiver became available. This would only happen if a message 
+        arrived almost at the same time as the client was terminated. 
+        This error message is not displayed at the moment.
+      </action>          
+      <action type="update">
+        Modified the factory binding so that if "localhost" is specified as 
+        the server host name, it will be replaced with the IP address. 
+        This enables clients to connect from a different host, even if the 
+        server host name is configured with "localhost"
+      </action>          
+      <action type="add">
+        Added the method JmsAdminServerIfc.destinationExists(String name) so a 
+        client can query whether a destination exists.
+      </action>
+    </release>
+
+    <release version="0.7.4" date="January 24, 2003">
+      <action type="update">
+        Refactored the OpenJMS startup, shutdown and administration 
+        scripts. There is now a single script to perform these tasks: 
+        <em>openjms.bat</em>&#160;  (<em>openjms.sh</em>&#160;  for unix).
+        Helper scripts are provided:
+        <ul>
+          <li>startup.sh - invokes <em>openjms.sh start</em></li>
+          <li>shutdown.sh - invokes <em>openjms.sh stop</em></li>
+          <li>admin.sh - invokes <em>openjms.sh admin</em></li>
+        </ul>
+        <ul>
+          <li>startup.bat - invokes <em>openjms.bat start</em></li>
+          <li>shutdown.bat - invokes <em>openjms.bat stop</em></li>
+          <li>admin.bat - invokes <em>openjms.bat admin</em></li>
+        </ul>
+        The original startjms script now invokes <em>openjms run</em>.
+      </action>
+      <action type="update">
+        The scripts now ignore the global CLASSPATH environment variable.
+        <br/>
+        In order to specify JDBC driver jars, create a script named 
+        <em>setenv.bat</em>&#160;  (<em>setenv.sh</em>&#160;  for Unix) 
+        in $OPENJMS_HOME/bin, and set the CLASSPATH in it. This will be
+        called by the openjms script.<br/>
+        Eg, to configure the CLASSPATH for Oracle on Windows, setenv.bat 
+        might look like:
+        <source>
+  rem set up the classpath to include the Oracle JDBC drivers            
+  set CLASSPATH=c:/oracle/jdbc/lib/classes12.zip
+        </source>
+      </action>
+      <action type="update">
+        Made the -config switch to JmsServer and AdminMgr optional.
+        If not specified, the configuration file:<br/>
+        <em>${openjms.home}/config/openjms.xml</em><br/>
+        will be used
+      </action>
+      <action type="fix">
+        Fixed memory leak in the server's handling of QueueBrowsers
+      </action>
+      <action type="fix">
+        Updated to ANTLR 2.7.2a2. ANTLR 2.7.1 was producing code in 
+        SelectorLexer which when compiled exceeded the JVM method size limit 
+        of 65535 bytes, resulting in a java.lang.ClassFormatError exception 
+        at runtime.
+      </action>
+      <action type="fix">
+        Fixed NPE in the intravm client. It wasn't handling 'is-alive' pings 
+        from the server.
+      </action>
+      <action type="update">
+        The &lt;TcpsConfiguration&gt; is now used to determine the port and
+        jndiPort when the tcps connector is configured. In previous releases,
+        it was ignored and the &lt;TcpConfiguration&gt; used instead.<br/>
+        <b>Note</b>: the default port for the tcps connector is 3031.
+      </action>
+      <action type="fix">
+        Fixed bug 665495: &quot;receive blocks all sessions on tcp&quot;<br/>
+        This bug, introduced in 0.7.3, also impacted the http connector.
+      </action>
+      <action type="fix">
+        Fixed bug 667595: &quot;InvalidDestinationException for null 
+        destination&quot;
+      </action>
+      <action type="fix">
+        Fixed bug 667590: &quot;Incorrect default delivery mode&quot; <br/>
+        <b>NOTE: this may break existing clients which expect NON_PERSISTENT
+        to be the default delivery mode</b>.<br/>
+        Clients which specify the delivery mode will be unaffected.
+      </action>
+      <action type="fix">
+        Fixed bug 667581: &quot;Incorrect default priority&quot; <br/>
+        The priority previously defaulted to 0. It now defaults to 
+        Message.DEFAULT_PRIORITY (4)
+      </action>
+      <action type="fix">
+        Fixed bug 667597: &quot;IllegalStateException for non-transacted 
+        commit&quot;<br/>
+        Previously a JMSException was thrown if Session.commit() or 
+        Session.rollback() were invoked for a non-transacted session. 
+        It now throws a javax.jms.IllegalStateException
+      </action>
+      <action type="update">
+        Refactored the message cache in the engine. Messages are no longer
+        cached at the MessageMgr level. Now they are cached at the 
+        DestinationCache level for queues and the CosumerEndpoint level 
+        for topics. This also reduces contention to single data structure 
+        and improves performance of the overall server.
+      </action>
+      <action type="update">
+        Modified the build.xml file and openjms so that it now compiles and 
+        runs under both JDK1.3 and JDK1.4. 
+      </action>
+      <action type="update">
+        Modified the HTTP configuration so that the URL is now in the form
+        of /openjms/[name-of-servlet]. This changes simplifies the deployment 
+        of the openjms.war in Jakarta Tomcat since you do not to change the
+        server.xml configuration file. This was tested against Tomcat v4.1.18
+      </action>
+      <action type="add">
+        Add create_informix.sql script, which was provided by Ludovic 
+        Pourrat.
+      </action>
+    </release>
+
+    <release version="0.7.3.1" date="November 15, 2002">
+      <action type="fix">
+        Fixed a FATAL issue with TCP, which preventing it from working in 
+        v0.7.3.<br/>
+        Build v0.7.3 is invalid for TCP.
+      </action>        
+      <action type="add">
+        Added a sample openjms-wrapper.conf, which can be used with 
+        http://wrapper.sourceforge.net, to install it as an NT service. 
+        Modify the configuration file to suit your environment and then 
+        execute Wrapper.exe -i config-file to install the service.        
+      </action>
+    </release>
+    
+    <release version="0.7.3" date="November 10, 2002">
+      <action type="fix">
+        Applied a patch by Christer Homer to fix bug #915
+      </action>
+      <action type="fix">
+        Fixed a problem with transacted sessions, queues and asynchronous 
+        listener. Messages were being acked more than once.
+      </action>
+      <action type="fix">
+        Fixed a problem with client ack mode and Qeueues. Messages were not 
+        being acknowledged correctly.
+      </action>
+      <action type="fix">
+        Messages for Queues are now removed from the database once they have 
+        been acknowledged. If your JMS application is simply using Queues 
+        there is no need to run the database garbage collection service.
+      </action>
+      <action type="fix">
+        Fixed bug 889 - Rollback on transacted session does not work correctly.
+        If the session was rolled back the messages were never resent.
+      </action>        
+      <action type="fix">
+        Fixed bug 669 - Receiving from a temporary topic within the scope of 
+        the same connection as the publisher does not work.
+      </action>        
+      <action type="update">
+        Changed garbage collection policy so that when memory is low, 
+        persistent messages are removed from transient memory. They are then 
+        retrieved as required.
+      </action>        
+      <action type="fix">
+        Fixed a bug with receive(time).
+      </action>        
+      <action type="fix">
+        Fixed bug 966, which prevented the creation of a publisher with a null
+        queue.
+      </action>
+    </release>
+    
+    <release version="0.7.2b14" date="June 8, 2002">
+      <action type="fix">
+        Fixed bug 888, rolling back a transaction with an asynchronous 
+        consumer.
+      </action>        
+      <action type="fix">
+        Fixed the intermittent client disconnection problem for RMI. The 
+        problem was evident under heavy load and led to the client 
+        failing to contact the server and assuming the server was
+        unavailable. The solution was to retry the request.
+      </action>
+    </release>
+
+  </body>
+</document>

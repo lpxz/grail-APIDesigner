@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Installation</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Installing OpenJMS">
+      <p>
+        This document describes how to install OpenJMS from an install 
+        archive. Refer to the <a href="../downloads.html">Downloads</a> document
+        for instructions on obtaining a copy.
+      </p>
+
+      <subsection name="Requirements">
+        <p>
+          OpenJMS will run on any platform where there is a suitable 
+          <a href="http://java.sun.com/j2se">Java 2 runtime environment</a>
+        </p>
+      </subsection>
+
+      <subsection name="Unpacking the install archive">   
+        <p>
+          The install archive contains everything required to run 
+          OpenJMS on your system. The archive has a single top-level directory 
+          named <strong>openjms-@RELEASE-VERSION@</strong> with all the OpenJMS 
+          related files beneath that.
+        </p>
+        <p>
+          Install archives with a <strong>.zip</strong> extension can be 
+          unpacked using <a href="http://www.winzip.com">winzip</a>, or the
+          <strong>jar</strong> tool (distributed with the Java 2 SDK). E.g.:
+          <source>
+jar xvf openjms-@RELEASE-VERSION@.zip
+          </source>
+        </p>
+        <p>
+          Install archives with a <strong>.tar.gz</strong> extension can be 
+          unpacked with 
+          <a href="http://www.gnu.org/software/gzip/">gzip</a>
+          and <a href="http://www.gnu.org/software/tar/">tar</a>. E.g.:
+          <source>
+gzip -cd openjms-@RELEASE-VERSION@.tar.gz | tar xvf -
+          </source> 
+        </p>      
+      </subsection>
+
+      <subsection name="Environment variables">
+        <p>
+          The OpenJMS server uses the following environment variables:
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Required?</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>JAVA_HOME</td>
+                <td>Java runtime environment installation directory.</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>OPENJMS_HOME</td>
+                <td>OpenJMS installation directory.</td>
+                <td>No</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+      </subsection>
+
+      <subsection name="Directory structure">
+        <p>
+          The <code>bin</code> directory contains Unix shell 
+          scripts and Windows batch files to:
+          <ul>
+            <li>start, stop, and administer the OpenJMS server</li>
+            <li>create the OpenJMS database</li>
+          </ul>
+        </p>
+        <p>
+          The <code>docs</code> directory contains the full set of OpenJMS 
+          documentation.
+        </p>
+        <p>
+          The <code>lib</code> directory contains:
+          <ul>
+            <li>JARs required to run the OpenJMS server</li>
+            <li>JARs required by client programs to use OpenJMS</li>
+          </ul>
+        </p>
+        <p>
+          The <code>config</code> directory contains:
+          <ul>
+            <li>
+              the default OpenJMS server configuration file, 
+              <code>openjms.xml</code>
+            </li>  
+            <li>SQL scripts to create the OpenJMS database</li>
+          </ul>
+        </p>
+        <p>
+          The <code>examples</code> directory contains the sources to the 
+          sample programs.
+        </p>
+      </subsection>
+
+    </section>
+  </body>
+
+</document>

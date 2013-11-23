@@ -1,0 +1,87 @@
+<project default="o:build"
+         xmlns:j="jelly:core"
+         xmlns:maven="jelly:maven">
+         
+
+  <goal name="o:build">
+     <attainGoal name="multiproject:install"/>
+  </goal>
+
+  <goal name="o:clean">
+    <attainGoal name="multiproject:clean"/>
+  </goal>
+
+  <goal name="o:site">
+    <attainGoal name="openjms:process-docs"/>
+    <attainGoal name="multiproject:site"/>
+  </goal>
+
+  <goal name="o:site-deploy">
+    <attainGoal name="site:${maven.site.deploy.method}deploy"/> 
+  </goal>
+
+  <goal name="o:install" prereqs="o:build">
+    <maven:reactor basedir="${basedir}"
+                   banner="Installing "
+                   includes="distribution/project.xml"
+                   goals="o:install"
+                   ignoreFailures="${maven.multiproject.ignoreFailures}"/>
+  </goal>
+
+  <goal name="o:dist-bin" prereqs="o:build">
+    <maven:reactor basedir="${basedir}"
+                   banner="Building binary distribution"
+                   includes="distribution/project.xml"
+                   goals="o:dist-bin"
+                   ignoreFailures="${maven.multiproject.ignoreFailures}"/>
+  </goal>
+
+  <goal name="o:dist-src" prereqs="o:build">
+    <maven:reactor basedir="${basedir}"
+                   banner="Building source distribution"
+                   includes="distribution/project.xml"
+                   goals="o:dist-src"
+                   ignoreFailures="${maven.multiproject.ignoreFailures}"/>
+  </goal>
+
+  <!-- Required to ensure that the proxygen plugin is installed first -->
+  <preGoal name="multiproject:install">
+    <maven:reactor basedir="${maven.multiproject.basedir}"
+                   banner="Installing proxygen plugin"
+                   includes="modules/proxygen-plugin/project.xml"
+                   goals="plugin:install-now"
+                   ignoreFailures="${maven.multiproject.ignoreFailures}"/>
+  </preGoal>
+
+  <postGoal name="multiproject:clean">
+    <maven:reactor basedir="${maven.multiproject.basedir}"
+                   banner="Cleaning "
+                   includes="modules/proxygen-plugin/project.xml,distribution/project.xml"
+                   goals="clean"
+                   ignoreFailures="${maven.multiproject.ignoreFailures}"/>
+    <attainGoal name="clean"/>  
+  </postGoal>
+
+  <goal name="openjms:process-docs">
+    <copy todir="${maven.docs.src}">
+      <fileset dir="${xdoc.dir}"/>
+    </copy>
+    <maven:reactor basedir="${basedir}"
+                   banner="Generating manual "
+                   includes="distribution/project.xml"
+                   goals="o:xdoc"
+                   ignoreFailures="${maven.multiproject.ignoreFailures}"/>
+    <copy todir="${maven.docs.src}">
+      <fileset dir="${basedir}/distribution/target/xdocs">
+        <include name="**/*"/>
+        <exclude name="**/navigation.xml"/>
+      </fileset>
+    </copy>
+    <copy todir="${maven.gen.docs}">
+      <fileset dir="${basedir}/distribution/target/generated-xdocs">
+        <include name="**/faq.xml"/>
+      </fileset>
+    </copy>
+  </goal>
+
+</project>

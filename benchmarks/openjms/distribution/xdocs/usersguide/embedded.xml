@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the Embedded Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The Embedded connector enables OpenJMS clients to connect to an
+        <em>embedded</em> OpenJMS server, i.e. a server running in the same
+        JVM as the clients.
+      </p>
+      <p>
+        This avoids the overhead of network serialization.
+      </p>
+    </section>
+
+    <section name="Using the Embedded Connector">
+      <p>
+        To connect to an embedded OpenJMS server, construct an 
+        <em>InitialContext</em> as follows:
+        <source>
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "embedded://");
+    Context context = new InitialContext(properties);
+        </source>
+      </p>
+    </section>
+
+    <section name="Administration using the Embedded connector">
+      <p>
+        To administer an embedded OpenJMS server, construct a 
+        <em>JmsAdminServerIfc</em> as follows:
+        <source>
+    String url = "embedded://";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>
+      </p>
+    </section>
+
+  </body>    
+</document>

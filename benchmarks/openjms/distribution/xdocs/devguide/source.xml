@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Getting the Source</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Getting the Source">
+      <p>
+        The source for an OpenJMS release can be obtained from the 
+        <a href="../downloads.html">Downloads</a> page.
+      </p>
+      <p>
+        Instructions for obtaining the latest source from the CVS repository
+        can be found on the <a href="../cvs-usage.html">CVS</a> page.
+      </p>
+      <p>
+        More detailed instructions on accessing the source can be found on the 
+        <a href="http://sourceforge.net/cvs/?group_id=54559">
+          CVS repository
+        </a>
+        page.
+      </p>
+      <p>
+        If you intend to contribute changes to OpenJMS, it is recommended that
+        you use the latest source from the CVS repository.
+      </p>
+    </section>
+  </body>
+
+</document>

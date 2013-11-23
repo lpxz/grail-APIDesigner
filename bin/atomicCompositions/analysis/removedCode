@@ -1,0 +1,17 @@
+From Finder.java invokeAtomicAPI() method
+//				ExceptionalUnitGraph eug = new ExceptionalUnitGraph(b);
+//				SynchronizedRegionFinder ta = new SynchronizedRegionFinder(eug,
+//						b, optionOpenNesting);
+//				Chain units = b.getUnits();
+//				Unit lastUnit = (Unit) units.getLast();
+//				FlowSet fs = (FlowSet) ta.getFlowBefore(lastUnit);
+//				if (fs != null) {
+//					for (Iterator iterator = fs.iterator(); iterator.hasNext();) {
+//						SynchronizedRegionFlowPair srfp = (SynchronizedRegionFlowPair) iterator
+//								.next();
+//						return true;
+//					}
+//				}
+
+
+

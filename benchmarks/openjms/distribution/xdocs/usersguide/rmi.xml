@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Using the RMI Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The RMI connector enables OpenJMS clients to connect to the
+        OpenJMS server using RMI.
+      </p>
+    </section>
+
+    <section name="Using the RMI connector">
+      <p>
+        To connect to an OpenJMS server running on the local host, using
+        the default RMI configuration, construct an 
+        <code>InitialContext</code> as follows:
+        <source>
+    Hashtable properties = new Hashtable();
+    properties.put(Context.INITIAL_CONTEXT_FACTORY, 
+                   "org.exolab.jms.jndi.InitialContextFactory");
+    properties.put(Context.PROVIDER_URL, "rmi://localhost:1099/");
+    Context context = new InitialContext(properties);
+        </source>
+      </p>
+      <p>          
+        The JNDI <code>Context.PROVIDER_URL</code> property above, has
+        the format:
+        <source>
+"rmi://&lt;registry-host&gt;:&lt;registry-port&gt;/"
+        </source>
+      </p>
+      <p>
+        Where:
+        <ul>
+          <li>
+            <em>registry-host</em> specifies the host that the RMI registry 
+            is running on. 
+          </li>
+          <li>
+            <em>registry-port</em> specifies the port that the RMI registry
+            is listening on.
+          </li>
+        </ul>
+      </p>
+      <p>
+        By default, the OpenJMS server is configured to use an embedded RMI 
+        registry. Under this configuration, <em>registry-host</em> will be 
+        the host that the OpenJMS server is running on.
+      </p>
+    </section>
+
+    <section name="Administration using the RMI connector">
+      <p>
+        To administer an OpenJMS server running on the local host, using
+        the default RMI configuration, construct a 
+        <code>JmsAdminServerIfc</code> as follows:
+        <source>
+    String url = "rmi://localhost:1099/";
+    JmsAdminServerIfc admin = AdminConnectionFactory.create(url);
+        </source>
+      </p>
+      <p>          
+        The URL argument has the same format as the 
+         <code>Context.PROVIDER_URL</code> described in 
+         <a href="#Using the RMI connector">Using the RMI connector</a>
+      </p>
+    </section>
+
+  </body>    
+</document>
+
+

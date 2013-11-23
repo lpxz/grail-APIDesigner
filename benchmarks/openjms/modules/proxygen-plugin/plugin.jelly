@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<project xmlns:ant="jelly:ant" 
+         xmlns:j="jelly:core" 
+         xmlns:define="jelly:define"
+         xmlns:maven="jelly:maven">
+
+  <goal name="proxygen:prepare-filesystem"
+          description="Make any necessary directories for proxygen processing">
+      <ant:mkdir dir="${proxygen.src.dir}"/>
+  </goal>
+
+  <define:taglib uri="proxygen">
+
+    <ant:taskdef
+      name="proxygen"
+      classname="org.exolab.jms.plugins.proxygen.ProxyGeneratorTask">
+      <classpath>
+        <pathelement path="${plugin.dir}"/>
+      </classpath>
+    </ant:taskdef>
+
+    <define:tag name="gen">
+      <ant:proxygen base="${maven.build.dest}"
+                    sourceBase="${proxygen.src.dir}"
+                    classname="${classname}"
+                    adapters="${adapters}"
+                    debug="${maven.compile.debug}">
+        <ant:classpath refid="maven.dependency.classpath"/>
+      </ant:proxygen>
+    </define:tag>
+
+    <define:tag name="gentest">
+      <ant:proxygen base="${maven.test.dest}"
+                    sourceBase="${proxygen.src.dir}"
+                    classname="${classname}"
+                    adapters="${adapters}"
+                    debug="${maven.compile.debug}">
+        <ant:classpath>
+          <ant:path refid="maven.dependency.classpath"/>
+          <ant:pathelement path="${maven.build.dest}"/>
+        </ant:classpath>
+      </ant:proxygen>
+    </define:tag>
+
+  </define:taglib>
+
+
+</project>

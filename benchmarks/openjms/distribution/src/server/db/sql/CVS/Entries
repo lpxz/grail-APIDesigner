@@ -1,0 +1,13 @@
+/create_db2.sql/1.1/Fri Jun 18 16:49:08 2010/-kb/
+/create_hsql.sql/1.1/Fri Jun 18 16:49:07 2010/-kb/
+/create_interbase.sql/1.1/Fri Jun 18 16:49:08 2010/-kb/
+/create_jds.sql/1.1/Fri Jun 18 16:49:08 2010/-kb/
+/create_mckoi.sql/1.1/Fri Jun 18 16:49:09 2010/-kb/
+/create_mysql.sql/1.1/Fri Jun 18 16:49:07 2010/-kb/
+/create_oracle.sql/1.1/Fri Jun 18 16:49:09 2010/-kb/
+/create_postgresql.sql/1.1/Fri Jun 18 16:49:07 2010/-kb/
+/create_sapdb.sql/1.1/Fri Jun 18 16:49:07 2010/-kb/
+/create_sqlserver.sql/1.1/Fri Jun 18 16:49:07 2010/-kb/
+/create_sybase.sql/1.1/Fri Jun 18 16:49:08 2010/-kb/
+/create_sybaseanywhere.sql/1.1/Fri Jun 18 16:49:09 2010/-kb/
+/drop_sqlserver.sql/1.1/Fri Jun 18 16:49:08 2010/-kb/

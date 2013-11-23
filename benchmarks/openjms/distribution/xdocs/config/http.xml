@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring the HTTP Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        The HTTP connector enables OpenJMS clients to connect to the
+        OpenJMS server using HTTP.
+      </p>
+      <p>
+        This is typically used when firewall restrictions prevent the use
+        of the RMI, TCP, and TCPS connectors.
+      </p>
+      <p>
+        To use the HTTP connector, the OpenJMS webapp 
+        must be deployed on a 2.3 compliant servlet engine, such as 
+        <a href="http://jakarta.apache.org/tomcat">Tomcat</a>. The webapp
+        works with Tomcat 4.0 or higher.
+      </p>
+    </section>
+
+    <section name="Deploying the OpenJMS webapp on Tomcat">
+      <p>
+        To deploy the OpenJMS webapp on Tomcat, copy 
+        <strong>$OPENJMS_HOME/lib/openjms-tunnel-@RELEASE-VERSION@.war</strong>
+        to <strong>$CATALINA_HOME/webapps/openjms-tunnel.war</strong>.
+      </p>
+      <p>
+        In the above, the variable name <em>$CATALINA_HOME</em> refers to the 
+        directory into which you have installed Tomcat.
+      </p>
+      <p>
+        For further details on deploying webapps on Tomcat, refer to 
+        <a href="http://jakarta.apache.org/tomcat/tomcat-5.5-doc/appdev/deployment.html">Deployment</a>
+      </p>      
+    </section>
+
+    <section name="Configuring openjms.xml">
+      <p>
+        The HTTP connector is configured by adding a 
+        <strong>&lt;Connector&gt;</strong> element to 
+        <strong>&lt;Connectors&gt;</strong> section of the
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, with a scheme
+        of type <em>"http"</em>. E.g:
+
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="http">
+      <ConnectionFactories>
+        <ConnectionFactory name="HTTPConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>        
+        </source>
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to the HTTP connector:
+        <ul>
+          <li>
+            <a href="reference.html#Connectors">Connectors</a>
+          </li>
+          <li>
+            <a href="reference.html#ServerConfiguration">
+              ServerConfiguration
+            </a>
+          </li>
+          <li>
+            <a href="reference.html#HttpConfiguration">HttpConfiguration</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

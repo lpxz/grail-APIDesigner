@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${basedir}/../../etc/project.xml</extend>
+
+  <id>openjms-net</id>
+  <name>OpenJMS: Network</name>
+
+  <organization>
+    <name>The OpenJMS Group</name>
+    <url>http://openjms.sourceforge.net</url>
+    <logo>/../../images/openjms.gif</logo>
+  </organization>
+
+  <shortDescription>OpenJMS Network Layer</shortDescription>
+
+  <description>
+     OpenJMS network layer, providing transports over TCP sockets, SSL,
+     RMI, HTTP, HTTPS, and intra-VM.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-common</artifactId>
+      <url>http://openjms.sourceforge.net</url>
+    </dependency>
+
+    <dependency>
+      <groupId>openjms</groupId>
+      <artifactId>openjms-tunnel</artifactId>
+      <type>war</type>
+      <url>http://openjms.sourceforge.net</url>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <url>http://jakarta.apache.org/commons/codec/</url>
+    </dependency>
+ 
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <url>http://jakarta.apache.org/commons/logging/</url>
+    </dependency>
+ 
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <url>http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>jsse</groupId>
+      <artifactId>jcert</artifactId>
+      <url>http://java.sun.com/products/jsse/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>jsse</groupId>
+      <artifactId>jsse</artifactId>
+      <url>http://java.sun.com/products/jsse/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>jsse</groupId>
+      <artifactId>jnet</artifactId>
+      <url>http://java.sun.com/products/jsse/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <url>http://logging.apache.org/log4j/</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+  </build>
+</project>

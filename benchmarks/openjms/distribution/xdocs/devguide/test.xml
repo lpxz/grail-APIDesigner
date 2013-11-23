@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Testing OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Overview">
+      <p>
+        There are two types of tests available for testing OpenJMS: unit and
+        functional tests.
+      </p>
+    </section>
+
+    <section name="Unit tests">
+      <p>
+        Unit tests are run as part of the build process.
+      </p>
+    </section>
+
+    <section name="Functional tests">
+      <p>
+        Functional testing is provided by 
+        <a href="http://jmscts.sourceforge.net">JMS CTS</a>.
+        This includes:
+        <ul>
+          <li>
+            a comprehensive test suite for testing JMS provider
+            compliance to the JMS specification, and;
+          </li>
+          <li>
+            stress tests for measuring performance
+          </li>
+        </ul>
+        Refer to the 
+        <a href="http://jmscts.sourceforge.net/gettingstarted.html">
+          Getting Started
+        </a>
+        page for instructions on testing OpenJMS using JMS CTS.
+      </p>
+    </section>
+
+  </body>
+
+</document>

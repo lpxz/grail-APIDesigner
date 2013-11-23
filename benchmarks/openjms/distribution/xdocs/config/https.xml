@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>HTTPS Connector</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="HTTPS Connector">
+      <p>
+        The HTTPS connector enables OpenJMS clients to connect to the
+        OpenJMS server using secure HTTP.
+      </p>
+      <p>
+        This is typically used when firewall restrictions prevent the use
+        of the RMI, TCP, and TCPS connectors.
+      </p>
+      <p>
+        To use the HTTPS connector, the OpenJMS webapp must be deployed on a 
+        2.3 compliant servlet engine. This document assumes that
+        <a href="http://jakarta.apache.org/tomcat">Tomcat</a> 4.1 or higher
+        is being used. In general, the steps are the same for any 2.3 compliant
+        servlet engine.
+      </p>
+      <p>
+        To configure the HTTPS connector:
+        <ol>
+          <li>
+             <a href="#Configuring Tomcat to support SSL">
+               Tomcat must be configured to support SSL
+             </a>
+          </li>
+          <li>
+            <a href="#Deploying the OpenJMS webapp on Tomcat">
+              the OpenJMS webapp must be deployed.
+            </a>
+          </li>
+          <li>
+            <a href="#Importing public keys">
+              Tomcat's public key must be imported into the client keystores.
+            </a>
+          </li>
+          <li>
+            <a href="#Configuring openjms.xml">
+              openjms.xml must be modified.
+            </a>
+          </li>
+        </ol>
+      </p>
+    </section>
+
+    <section name="Configuring Tomcat to support SSL">
+      <p>
+        In order to configure Tomcat to support SSL, see Tomcat's
+        <a href="http://jakarta.apache.org/tomcat/tomcat-5.5-doc/ssl-howto.html">SSL Configuration HOW-TO</a>. This document is also included in Tomcat's
+        binary distribution.
+      </p>
+      <p>
+        <strong>NOTE:</strong> when running the <em>keytool</em> command to 
+        prepare Tomcat's keystore, you may need to specify the hostname of 
+        your webserver (e.g. <em>foo.bar.org</em>) when prompted for
+        <em>"What is your first and last name?"</em>, in order to create a 
+        working Certificate.
+      </p>
+    </section>
+
+    <section name="Deploying the OpenJMS webapp on Tomcat">
+      <p>
+        To deploy the OpenJMS webapp on Tomcat, copy 
+        <strong>$OPENJMS_HOME/lib/openjms-tunnel-@RELEASE-VERSION@.war</strong>
+        to <strong>$CATALINA_HOME/webapps/openjms-tunnel.war</strong>.
+      </p>
+      <p>
+        In the above, the variable name <em>$CATALINA_HOME</em> refers to the 
+        directory into which you have installed Tomcat.
+      </p>
+      <p>
+        For further details on deploying webapps on Tomcat, refer to 
+        <a href="http://jakarta.apache.org/tomcat/tomcat-5.5-doc/appdev/deployment.html">Deployment</a>
+      </p>      
+    </section>
+
+    <section name="Importing public keys">
+      <p>
+        Tomcat's public key must be imported into each OpenJMS clients' 
+        certificate keystore, in order for it to be authenticated.
+      </p>
+      <p>
+        To export Tomcat's public key, and import it into an OpenJMS
+        client's certificate keystore, enter the following:
+      </p>
+      <p>
+        <em>Windows</em>
+        <source>
+%JAVA_HOME%\bin\keytool -export -rfc -keystore &lt;path-to-tomcat-keystore&gt; \
+        -alias tomcat -file tomcat.public-key
+
+%JAVA_HOME%\bin\keytool -import -rfc -keystore client.keystore \
+        -alias tomcat -file tomcat.public-key
+        </source>
+      </p>
+      <p>
+        <em>Unix</em>
+        <source>
+$JAVA_HOME/bin/keytool -export -rfc -keystore &lt;path-to-tomcat-keystore&gt; \
+        -alias tomcat -file tomcat.public-key
+
+$JAVA_HOME/bin/keytool -import -rfc -keystore client.keystore \
+        -alias tomcat -file tomcat.public-key
+        </source>
+      </p>
+      <p>
+        In the above, the <em>path-to-tomcat-keystore</em> is the path
+        to the keystore created by 
+        <a href="#Configuring_Tomcat_to_support_SSL">Configuring Tomcat to support SSL</a>.
+      </p>
+    </section>
+
+    <section name="Configuring openjms.xml">
+      <p>
+        In order to activate the HTTPS connector, a 
+        <strong>&lt;Connector&gt;</strong> 
+        element needs to be added to <strong>&lt;Connectors&gt;</strong> 
+        section of the <strong>$OPENJMS_HOME/config/openjms.xml</strong> file, 
+        with a scheme of type <em>"https"</em>. E.g:
+
+        <source><![CDATA[
+  <Connectors>
+    <Connector scheme="https">
+      <ConnectionFactories>
+        <ConnectionFactory name="HTTPSConnectionFactory"/>
+      </ConnectionFactories>
+    </Connector>
+  </Connectors>
+]]>        
+        </source>
+      </p>
+    </section>
+
+    <section name="Known Issues - Tomcat 4.1.27">
+      <p>
+        Using the HTTPS connector with Tomcat 4.1.27, Tomcat logs [WARN] 
+        messages for each request, e.g:
+        <source>
+[WARN] Http11Processor - -Exception getting SSL attributes
+&lt;javax.net.ssl.SSLPeerUnverifiedException: peer not authenticated&lt;javax.net.ssl.SSLPeerUnverifiedException: peer not authenticated
+...
+        </source>
+      </p>
+      <p>
+        This is a bug in 4.1.27 which is reported to be fixed in the 4.1.28 
+        release.
+      </p>
+    </section>
+
+    <section name="See Also">
+      <p>
+        The following references provide detailed descriptions of 
+        the configuration elements related to the HTTPS connector:
+        <ul>
+          <li>
+            <a href="reference.html#Connectors">Connectors</a>
+          </li>
+          <li>
+            <a href="reference.html#ServerConfiguration">
+              ServerConfiguration
+            </a>
+          </li>
+          <li>
+            <a href="reference.html#HttpsConfiguration">HttpsConfiguration</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+  </body>    
+</document>

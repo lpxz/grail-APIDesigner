@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Getting Started with OpenJMS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+    <section name="Getting Started with OpenJMS">
+      <p>
+        The purpose of this document is to get an "out-of-the-box" OpenJMS 
+        server running. It is intended to be the quickest path to
+        the OpenJMS experience.
+      </p>
+
+      <subsection name="Overview of the Getting Started Documentation">
+        <table>
+          <tr><th>Document</th><th>Description</th></tr>
+          <tr><td><a href="downloads.html">Downloads</a></td>
+            <td>
+              Before you can start using OpenJMS, you need to download
+              the OpenJMS distribution to your system.  
+              This document provides links to the various distributions 
+              available.
+            </td>
+          </tr>
+          <tr><td><a href="adminguide/install.html">Installation</a></td>
+            <td>
+              After you have downloaded a distribution, you need to
+              install this on your system before you can start using
+              OpenJMS. This document provides step-by-step instructions on the
+              installation process.
+            </td>
+          </tr>
+          <tr><td><a href="adminguide/running.html">Running OpenJMS</a></td>
+            <td>
+              Once you've installed OpenJMS, you need to start the OpenJMS
+              server. This document provides the commands to run OpenJMS.
+            </td>
+          </tr>
+          <tr><td><a href="usersguide/using.html">Using OpenJMS</a></td>
+            <td>
+              This document provides code samples on using OpenJMS.
+            </td>
+          </tr>
+          <tr><td><a href="usersguide/examples.html">Examples</a></td>
+            <td>
+              OpenJMS is distributed with a number of example programs
+              that demonstrate writing simple applications using JMS.
+              This document describes how to build and run the examples.
+            </td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+ </body>
+</document>

@@ -1,0 +1,14 @@
+/AbstractConnectionManager.java/1.1/Fri Jun 18 16:48:45 2010//
+/Consumers.java/1.1/Fri Jun 18 16:48:43 2010//
+/DBCPConnectionManager.java/1.1/Fri Jun 18 16:48:45 2010//
+/DBConnectionManager.java/1.1/Fri Jun 18 16:48:44 2010//
+/DatabaseService.java/1.1/Fri Jun 18 16:48:43 2010//
+/Destinations.java/1.1/Fri Jun 18 16:48:43 2010//
+/MessageHandles.java/1.1/Fri Jun 18 16:48:44 2010//
+/Messages.java/1.1/Fri Jun 18 16:48:43 2010//
+/PersistenceAdapter.java/1.1/Fri Jun 18 16:48:44 2010//
+/PersistenceException.java/1.1/Fri Jun 18 16:48:42 2010//
+/RDBMSAdapter.java/1.1/Fri Jun 18 16:48:44 2010//
+/SQLHelper.java/1.1/Fri Jun 18 16:48:44 2010//
+/SeedGenerator.java/1.1/Fri Jun 18 16:48:42 2010//
+/Users.java/1.1/Fri Jun 18 16:48:42 2010//

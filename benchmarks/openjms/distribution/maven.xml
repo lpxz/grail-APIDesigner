@@ -1,0 +1,332 @@
+<project xmlns:ant="jelly:ant" 
+         xmlns:castor="castor"
+         xmlns:define="jelly:define"
+         xmlns:deploy="deploy"
+         xmlns:j="jelly:core"
+         xmlns:license="license" 
+         xmlns:maven="jelly:maven"
+         xmlns:openjms="openjms"
+         xmlns:velocity="jelly:velocity"
+         xmlns:util="jelly:util">
+>
+  <!-- ==================================================================== -->
+  <!-- Source distribution                                                  -->
+  <!-- ==================================================================== -->
+  <goal name="o:dist-src"
+        prereqs="dist:build-setup,openjms:prepare-src-filesystem"
+        description="Build the source distribution.">
+
+   <!-- Create a tar.gz file -->
+    <tar longfile="gnu" tarfile="${maven.dist.dir}/${maven.final.name}-src.tar">
+      <tarfileset dir="${maven.dist.src.archive.dir}"/>
+    </tar>
+
+    <gzip 
+      zipfile="${maven.dist.dir}/${maven.final.name}-src.tar.gz" 
+      src="${maven.dist.dir}/${maven.final.name}-src.tar"
+    />
+    
+    <delete file="${maven.dist.dir}/${maven.final.name}-src.tar"/>
+
+    <!-- Create a zip file -->
+    <zip zipfile="${maven.dist.dir}/${maven.final.name}-src.zip">
+      <zipfileset dir="${maven.dist.src.archive.dir}"/>
+    </zip>
+
+  </goal>
+
+  <goal
+    name="openjms:prepare-src-filesystem"
+    description="Builds the source distribution file system.">
+
+    <delete dir="${maven.dist.src.assembly.dir}" />
+    <mkdir dir="${maven.dist.src.assembly.dir}" />
+
+    <echo>
+      +-------------------------------------------------------+
+      | C R E A T I N G  S O U R C E  D I S T R I B U T I O N |
+      +-------------------------------------------------------+
+    </echo>
+
+    <copy todir="${maven.dist.src.assembly.dir}">
+      <fileset dir="${basedir}/..">
+        <exclude name="**/target/**"/>
+        <exclude name="**/*.log"/>
+        <exclude name="**/build.properties"/>
+        <exclude name="**/*.ipr"/>
+        <exclude name="**/*.iws"/>
+        <exclude name="install/**"/>
+      </fileset>
+    </copy>
+  </goal>
+
+  
+
+  <!-- ==================================================================== -->
+  <!-- Binary distribution                                                  -->
+  <!-- ==================================================================== -->
+  <goal name="o:dist-bin"
+        prereqs="dist:build-setup,dist:prepare-bin-filesystem"
+        description="Build the binary distribution.">
+
+    <!-- Create a tar.gz file, setting appropriate permissions for scripts -->
+    <tar longfile="gnu" 
+             tarfile="${maven.dist.dir}/${maven.final.name}.tar">
+      <tarfileset dir="${maven.dist.bin.archive.dir}">
+        <include name="**/*"/>
+        <exclude name="**/*.sh"/>
+      </tarfileset>
+      <tarfileset dir="${maven.dist.bin.archive.dir}" mode="755">
+        <include name="**/*.sh"/>
+      </tarfileset>
+    </tar>
+
+    <gzip zipfile="${maven.dist.dir}/${maven.final.name}.tar.gz"
+              src="${maven.dist.dir}/${maven.final.name}.tar"/>
+    
+    <delete file="${maven.dist.dir}/${maven.final.name}.tar"/>
+
+    <!-- Create a zip file -->
+    <zip zipfile="${maven.dist.dir}/${maven.final.name}.zip">
+      <zipfileset dir="${maven.dist.bin.archive.dir}"/>
+    </zip>
+  </goal>
+
+  <postGoal name="dist:prepare-bin-filesystem">
+    <j:set var="distDir" value="${maven.dist.bin.assembly.dir}"/>
+
+    <!-- delete dud jar created by dist:prepare-bin-filesystem --> 
+    <delete file="${distDir}/${maven.final.name}.jar"/>
+
+    <!-- generate scripts -->
+    <mkdir dir="${distDir}/bin"/>  
+    <openjms:server-scripts dir="${distDir}/bin"/>
+    <openjms:example-scripts dir="${distDir}/examples/basic"/>
+
+    <!-- copy examples -->
+    <copy todir="${distDir}/examples">
+      <fileset dir="${basedir}/../modules/examples/src/main/java"/>
+    </copy>
+    
+    <!-- copy the dependencies -->
+    <deploy:copy-deps todir="${distDir}/lib" 
+                      excludes="velocity,commons-jelly-tags-velocity"/>
+
+    <!-- copy configuration -->
+    <mkdir dir="${distDir}/config"/>
+    <copy todir="${distDir}/config">
+      <fileset dir="${basedir}/src/server/config"/>
+      <filterset refid="config.filterset"/>
+    </copy>
+
+    <!-- copy db config -->
+    <mkdir dir="${distDir}/db"/>
+    <copy todir="${distDir}/db">
+      <fileset dir="${basedir}/src/server/db"/>
+    </copy>
+
+    <!-- Ensure scripts, batch files have appropriate end-of-line chars -->
+    <fixcrlf srcDir="${distDir}" eol="lf">
+      <include name="**/*.sh"/>
+    </fixcrlf>
+
+    <fixcrlf srcDir="${distDir}" eol="crlf">
+      <include name="**/*.bat"/>
+    </fixcrlf>
+
+    <!-- create the database -->
+    <java classname="org.exolab.jms.tools.db.DBTool"
+          fork="true">
+      <jvmarg value="-Dopenjms.home=${distDir}"/>
+      <jvmarg value="-Dderby.system.home=${distDir}/db"/>
+      <arg line="-create -config ${distDir}/config/openjms.xml"/>
+      <classpath>
+        <path refid="maven.dependency.classpath"/>
+        <pathelement location="${jdbc.classpath}"/>
+      </classpath>
+    </java>
+        
+  </postGoal>
+
+  <!-- ==================================================================== -->
+  <!-- xdocs processing                                                     -->
+  <!-- ==================================================================== -->
+  <goal name="o:xdoc">
+    <attainGoal name="xdoc:generate-from-pom"/>
+    <attainGoal name="faq"/>
+  </goal>
+
+  <preGoal name="xdoc:jelly-transform">
+    <attainGoal name="faq"/>
+  </preGoal>    
+
+  <preGoal name="xdoc:register-reports">
+    <attainGoal name="openjms:process-docs"/>
+  </preGoal>
+
+  <goal name="openjms:process-docs">
+    <mkdir dir="${maven.docs.src}"/>
+    <copy todir="${maven.docs.src}">
+      <fileset dir="${xdoc.dir}">
+        <include name="**/*.xml"/>
+        <exclude name="**/jars.xml"/>
+      </fileset>
+      <filterset refid="doc.filterset"/>
+    </copy>
+    <copy todir="${maven.docs.src}">
+      <!-- copy without filterset to avoid corruption of images -->
+      <fileset dir="${xdoc.dir}">
+        <exclude name="**/*.xml"/>
+      </fileset>
+    </copy>
+    <velocity:merge name="${maven.docs.src}/usersguide/jars.xml"
+                    basedir="${xdoc.dir}/usersguide"
+                    template="jars.xml"
+                    inputEncoding="${maven.docs.outputencoding}"
+                    outputEncoding="${maven.docs.outputencoding}"/>
+    <delete file="${maven.docs.src}/velocity.log" failonerror="false"/>
+  </goal>
+
+  <!-- ==================================================================== -->
+  <!-- Filter sets                                                          -->
+  <!-- ==================================================================== -->
+  <filterset id="openjms.filterset">
+    <filter token="OPENJMS"
+            value="${pom.getDependency('openjms:openjms').artifact}"/>
+    <filter token="OPENJMS_TOOLS"
+            value="${pom.getDependency('openjms:openjms-tools').artifact}"/>
+    <filter token="JDBC.CLASSPATH"
+            value="${jdbc.classpath}"/>
+  </filterset>
+
+  <filterset id="startup.filterset">
+    <filter token="COMMENT" value="Start script for the OpenJMS server."/>
+    <filter token="DESCRIPTION" value="start the OpenJMS server."/>
+    <filter token="ACTION" value="start"/>
+  </filterset>
+
+  <filterset id="shutdown.filterset">
+    <filter token="COMMENT" value="Stop script for the OpenJMS server."/>
+    <filter token="DESCRIPTION" value="stop the OpenJMS server."/>
+    <filter token="ACTION" value="stop"/>
+  </filterset>
+
+  <filterset id="admin.filterset">
+    <filter token="COMMENT" 
+            value="Start script for the OpenJMS Administrator."/>
+    <filter token="DESCRIPTION" value="run OpenJMS Administrator."/>
+    <filter token="ACTION" value="admin"/>
+  </filterset>
+
+  <filterset id="config.filterset">
+    <filter token="JDBC.DRIVER" value="${jdbc.driver}"/>
+    <filter token="JDBC.URL" value="${jdbc.url}"/>
+    <filter token="JDBC.USER" value="${jdbc.user}"/>
+    <filter token="JDBC.PASSWORD" value="${jdbc.password}"/>
+  </filterset>
+
+  <filterset id="examples.filterset">
+    <filter token="OPENJMS"
+            value="${pom.getDependency('openjms:openjms').artifact}"/>
+    <filter token="JMS"
+            value="${pom.getDependency('jms:jms').artifact}"/>
+    <filter token="JNDI"
+            value="${pom.getDependency('jndi:jndi').artifact}"/>
+  </filterset>
+
+  <filterset id="doc.filterset">
+    <filter token="VERSION" value="${pom.currentVersion}"/>
+    <filter token="RELEASE-VERSION" value="${openjms.released.version}"/>
+  </filterset>
+
+  <!-- ==================================================================== -->
+  <!-- Local installation                                                   -->
+  <!-- ==================================================================== -->
+  <goal name="o:install">
+    <!-- copy jars -->
+
+    <mkdir dir="${install.dir}/lib"/>  
+    <deploy:copy-deps todir="${install.dir}/lib"
+                      excludes="velocity,commons-jelly-tags-velocity"/>
+
+    <!-- generate server scripts -->
+    <mkdir dir="${install.dir}/bin"/>  
+    <openjms:server-scripts dir="${install.dir}/bin"/>
+
+    <!-- copy configuration -->
+    <mkdir dir="${install.dir}/config"/>
+    <copy todir="${install.dir}/config">
+      <fileset dir="${server.config.dir}"/>
+      <filterset refid="config.filterset"/>
+    </copy>
+
+    <!-- copy examples -->
+    <copy todir="${install.dir}/examples">
+      <fileset dir="${basedir}/../modules/examples/src/main/java"/>
+    </copy>
+    <openjms:example-scripts dir="${install.dir}/examples/basic"/>
+  </goal>
+
+  <define:taglib uri="openjms">
+
+    <!-- ================================================================== -->
+    <!-- Generates the server scripts                                       -->
+    <!-- This requires parameters:                                          -->
+    <!-- . dir      - the name of the directory to generate the scripts to  -->
+    <!-- ================================================================== -->
+    <define:tag name="server-scripts">
+      <copy todir="${dir}">
+        <fileset dir="${server.bin.dir}">
+          <include name="openjms.bat"/>
+          <include name="openjms.sh"/>
+          <include name="dbtool.bat"/>
+          <include name="dbtool.sh"/>
+          <include name="setenv.bat"/>
+          <include name="setenv.sh"/>
+        </fileset>
+        <filterset refid="openjms.filterset"/>
+      </copy>
+
+      <copy file="${server.bin.dir}/stub.bat" tofile="${dir}/startup.bat">
+        <filterset refid="startup.filterset"/>
+      </copy>
+      <copy file="${server.bin.dir}/stub.sh" tofile="${dir}/startup.sh">
+        <filterset refid="startup.filterset"/>
+      </copy>
+      <copy file="${server.bin.dir}/stub.bat" tofile="${dir}/shutdown.bat">
+        <filterset refid="shutdown.filterset"/>
+      </copy>
+      <copy file="${server.bin.dir}/stub.sh" tofile="${dir}/shutdown.sh">
+        <filterset refid="shutdown.filterset"/>
+      </copy>
+      <copy file="${server.bin.dir}/stub.bat" tofile="${dir}/admin.bat">
+        <filterset refid="admin.filterset"/>
+      </copy>
+      <copy file="${server.bin.dir}/stub.sh" tofile="${dir}/admin.sh">
+        <filterset refid="admin.filterset"/>
+      </copy>
+    </define:tag>
+
+    <!-- ================================================================== -->
+    <!-- Generates the example scripts                                      -->
+    <!-- This requires parameters:                                          -->
+    <!-- . dir      - the name of the directory to generate the scripts to  -->
+    <!-- ================================================================== -->
+    <define:tag name="example-scripts">
+      <copy todir="${dir}">
+        <fileset dir="${examples.bin.dir}">
+          <include name="*.bat"/>
+          <include name="*.sh"/>
+        </fileset>      
+        <filterset refid="examples.filterset"/>
+      </copy>
+      <copy todir="${dir}">
+        <fileset dir="${examples.config.dir}">
+          <include name="jndi.properties"/>
+        </fileset>      
+      </copy>
+    </define:tag>
+
+  </define:taglib>
+
+</project>

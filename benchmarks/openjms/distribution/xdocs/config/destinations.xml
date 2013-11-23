@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring Destinations</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        This document describes the configuration of destinations, 
+        i.e. <em>Queue</em>, and <em>Topic</em> instances.
+      </p>
+      <p>
+        Destinations are bound in JNDI by the OpenJMS server, to make them 
+        available to clients.
+      </p> 
+      <p>
+        There are three methods for configuring destinations:
+        <ol>
+          <li>Via the OpenJMS Administrator GUI</li>
+          <li>Programatically, via the OpenJMS administration API</li>
+          <li>Via the OpenJMS server configuration file.</li>
+        </ol>
+        This document focuses on the last method, configuring destinations 
+        via the OpenJMS server configuration file.
+      </p>
+    </section>
+
+    <section name="Configuring Destinations">
+      <p>
+        Destinations may be configured in the 
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> file. E.g:    
+        <source><![CDATA[
+  <AdministeredDestinations>
+    <AdministeredTopic name="topic1">
+      <Subscriber name="sub1" />
+      <Subscriber name="sub2" />
+    </AdministeredTopic>
+    <AdministeredTopic name="topic2"/>
+  
+    <AdministeredQueue name="queue1" />
+    <AdministeredQueue name="queue2" />
+    <AdministeredQueue name="queue3" />
+  </AdministeredDestinations>]]>
+        </source>
+      </p>
+      <p>
+        In the above: 
+        <ul>
+          <li>
+            two topics will be bound in JNDI, named <em>topic1</em> and 
+            <em>topic2</em>
+          </li>
+          <li>
+            the Topic named <em>topic1</em> has two durable subscribers,
+            <em>sub1</em> and <em>sub2</em>
+          </li>
+          <li>
+            three queues will be bound in JNDI, named <em>queue1</em>, 
+            <em>queue2</em>, and <em>queue3</em>
+          </li>
+        </ul>
+      </p>
+
+    </section>
+
+    <section name="See Also">
+      <p>
+        For more details, see the 
+        <a href="reference.html#AdministeredDestinations">
+            AdministeredDestinations
+        </a> 
+        configuration reference.
+      </p>
+    </section>
+
+  </body>    
+</document>

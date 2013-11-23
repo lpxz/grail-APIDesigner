@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Configuring JNDI </title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+      <p>
+        OpenJMS uses JNDI (the <a href="http://java.sun.com/products/jndi">
+        Java Naming and Directory Interface</a>), to make connection
+        factories, topics, and queues available to clients.
+      </p>
+      <p>
+        OpenJMS can be configured to use an embedded JNDI provider,
+        or an external JNDI provider.
+      </p>
+    </section>
+    
+    <section name="Configuring the embedded JNDI provider">
+      <p>
+        By default, OpenJMS uses an embedded JNDI provider. 
+        This is specified by the <strong>&lt;ServerConfiguration&gt;</strong>
+        element in the <strong>$OPENJMS_HOME/config/openjms.xml</strong>
+        configuration file:
+        <source><![CDATA[       
+  <ServerConfiguration embeddedJNDI="true"/>
+        ]]>
+        </source>
+      </p>
+    </section>
+
+    <section name="Configuring an external JNDI provider">
+      <p>
+        To configure an external JNDI provider, the 
+        <strong>$OPENJMS_HOME/config/openjms.xml</strong> configuration file
+        needs to be modified:
+        <ol>
+          <li>
+            The <em>embeddedJNDI</em> attribute of the 
+            <strong>&lt;ServerConfiguration&gt;</strong> element needs to be
+            set to <em>"false"</em>
+          </li>
+          <li>
+            The <strong>&lt;JndiConfiguration&gt;</strong> element needs
+            to be specified.
+            <p>
+              This lists the connection properties of the external provider.
+            </p>
+          </li>
+        </ol>
+        E.g:
+        <source><![CDATA[
+  <ServerConfiguration embeddedJNDI="false" />
+
+  <JndiConfiguration>
+    <property name="java.naming.factory.initial"
+              value="com.sun.jndi.rmi.registry.RegistryContextFactory" />
+    <property name="java.naming.provider.url"
+              value="rmi://localhost:1099" />
+  </JndiConfiguration>
+        ]]>
+        </source>
+      </p>
+    </section>
+
+  </body>    
+</document>

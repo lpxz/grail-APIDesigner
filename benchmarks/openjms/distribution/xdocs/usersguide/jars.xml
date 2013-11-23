@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Client JARS</title>
+    <author email="tma@netspace.net.au">Tim Anderson</author>
+  </properties>
+
+  <body>
+
+    <section name="Compile time JARS">
+      <p>
+        When compiling OpenJMS clients, the following JARS are required:
+      </p>
+      <p>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th> 
+              <th>Version</th>
+              <th>JAR</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            #foreach ($dep in $pom.getDependencies())
+            #if ($dep.getProperty("client.dependency.compile"))
+            <tr>
+              <td>${dep.ArtifactId}</td>
+              <td>${dep.Version}</td>
+              <td>${dep.Artifact}</td>
+              <td>
+                #if ($dep.Url)          
+                  <a href="${dep.Url}">${dep.Url}</a>
+                #end 
+              </td>
+            </tr>
+            #end
+            #end
+          </tbody>
+        </table>
+      </p>
+    </section>
+ 
+    <section name="Runtime JARS">
+      <p>
+        At runtime, clients must add the following JARS to their CLASSPATH:
+      </p>
+      <p>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th> 
+              <th>Version</th>
+              <th>JAR</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            #foreach ($dep in $pom.getDependencies())
+            #if ($dep.getProperty("client.classpath"))
+            <tr>
+              <td>${dep.ArtifactId}</td>
+              <td>${dep.Version}</td>
+              <td>${dep.Artifact}</td>
+              <td>
+                #if ($dep.Url)          
+                  <a href="${dep.Url}">${dep.Url}</a>
+                #end 
+              </td>
+            </tr>
+            #end
+            #end
+          </tbody>
+        </table>
+      </p>
+      <p>
+        The above JARS require the following, which must be located in 
+        the same directory:
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th> 
+              <th>Version</th>
+              <th>JAR</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            #foreach ($dep in $pom.getDependencies())
+            #if ($dep.getProperty("client.dependency.runtime"))
+            <tr>
+              <td>${dep.ArtifactId}</td>
+              <td>${dep.Version}</td>
+              <td>${dep.Artifact}</td>
+              <td>
+                #if ($dep.Url)          
+                  <a href="${dep.Url}">${dep.Url}</a>
+                #end 
+              </td>
+            </tr>
+            #end
+            #end
+          </tbody>
+        </table>
+      </p>
+      <p>
+        These JARS are available from the <strong>$OPENJMS_HOME/lib</strong> 
+        directory.
+      </p>
+    </section>
+
+  </body>
+
+</document>

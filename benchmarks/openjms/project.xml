@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+
+  <extend>${basedir}/etc/project.xml</extend>
+  <id>root</id>
+
+  <build>
+    <sourceDirectory></sourceDirectory>
+    <unitTestSourceDirectory></unitTestSourceDirectory>
+  </build>
+
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-linkcheck-plugin</report>
+  </reports>
+  
+</project>

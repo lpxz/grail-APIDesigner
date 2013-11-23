@@ -1,0 +1,947 @@
+<?xml version="1.0"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:connector="http://openjms.exolab.org/connector"
+            targetNamespace="http://openjms.exolab.org/configuration">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      This schema describes the OpenJMS 0.7.7 configuration file used to 
+      configure the OpenJMS server. 
+
+      Author  &lt;a href="mailto:jima@comware.com.au"&gt;Jim Alateras;&lt;a&gt;
+      Author  &lt;a href="mailto:tma@netspace.net.au"&gt;Tim Anderson;&lt;a&gt;
+      Author  &lt;a href="mailto:knut@lerpold"&gt;Knut Lerpold;&lt;a&gt;
+      Created    14-Feb-2001
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import namespace="http://openjms.exolab.org/connector" 
+              schemaLocation="connector.xsd" />
+
+  <xsd:element name="Configuration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This top level element defines the structure of the OpenJMS 
+        configuration file.
+        A minimum configuration must provide details for the 
+        DatabaseConfiguration and AdminConfiguration elements - default values
+        will be provided for all other elements.
+      </xsd:documentation>
+    </xsd:annotation>
+     <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="DatabaseConfiguration" />
+        <xsd:element ref="AdminConfiguration" />
+        <xsd:element ref="ServerConfiguration" minOccurs="0" />
+        <xsd:element ref="Connectors" minOccurs="0" />
+        <xsd:element ref="TcpConfiguration" minOccurs="0" />
+        <xsd:element ref="TcpsConfiguration" minOccurs="0" />
+        <xsd:element ref="RmiConfiguration" minOccurs="0" />
+        <xsd:element ref="HttpConfiguration" minOccurs="0" />
+        <xsd:element ref="HttpsConfiguration" minOccurs="0" />
+        <xsd:element ref="JndiConfiguration" minOccurs="0" />
+        <xsd:element ref="MessageManagerConfiguration" minOccurs="0" />
+        <xsd:element ref="SchedulerConfiguration" minOccurs="0" />
+        <xsd:element ref="GarbageCollectionConfiguration" minOccurs="0" />
+        <xsd:element ref="LoggerConfiguration" minOccurs="0" />  
+        <xsd:element ref="SecurityConfiguration" minOccurs="0" />
+        <xsd:element ref="Users" minOccurs="0" />
+        <xsd:element ref="AdministeredDestinations" minOccurs="0" />
+        <xsd:element ref="connector:connectorResources" minOccurs="0" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="DefaultConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This top level element defines the elements which do not need to
+        be configured by users, but are required by OpenJMS.
+        Where an element is not provided by Configuration, the default values
+        provided by this element will be used.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ServerConfiguration" />
+        <xsd:element ref="Connectors" />
+        <xsd:element ref="TcpConfiguration" />
+        <xsd:element ref="TcpsConfiguration" />
+        <xsd:element ref="RmiConfiguration" />
+        <xsd:element ref="HttpConfiguration" />
+        <xsd:element ref="HttpsConfiguration" />
+        <xsd:element ref="MessageManagerConfiguration" />
+        <xsd:element ref="SchedulerConfiguration" />
+        <xsd:element ref="GarbageCollectionConfiguration" />
+        <xsd:element ref="LoggerConfiguration" />  
+        <xsd:element ref="SecurityConfiguration" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+    
+
+  <xsd:element name="ServerConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the OpenJMS server.
+        By default, OpenJMS uses an embedded JNDI server.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="host" type="xsd:string" use="optional" 
+                     default="localhost">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The host address of the OpenJMS server. This will typically be
+            'localhost'. If the host machine has multiple NICs, then 
+            the host will need to be specified.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="embeddedJNDI" type="xsd:boolean" use="optional"
+                     default="true">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            This specifies whether to use an embedded (or internal) JNDI 
+            provider, or an external one. If false, then the 
+            JndiConfiguration element is relevant. For an embedded JNDI,
+            the JndiConfiguration element will be populated with values.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="maxThreads" type="xsd:positiveInteger"
+                     use="optional"
+                     default="100">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The maximum no. of threads to use, when handling concurrent
+            requests. These are shared across all client connections.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="Connectors">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Connector" minOccurs="1" maxOccurs="unbounded" />  
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="Connector">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This specifies the type of communication to use, between clients
+        and the server.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ConnectionFactories" />
+      </xsd:sequence>
+      <xsd:attribute name="scheme" type="connector:schemeType" 
+                     use="required" />
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="TcpConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the TCP connector.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="TcpConfigurationType" />
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="TcpsConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the TCPS connector.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="TcpConfigurationType">
+          <xsd:attribute name="keyStore" type="xsd:string" use="optional"
+                         default="${openjms.home}/config/openjms.keystore">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                The path to the keystore.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+          <xsd:attribute name="keyStorePassword" type="xsd:string"
+                         use="optional" default="openjms">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                The keystore password.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+          <xsd:attribute name="keyStoreType" type="xsd:string" use="optional"
+                         default="JKS">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                The keystore type. Supported values are "JKS" and "PKCS12".
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+          <xsd:attribute name="trustStore" type="xsd:string" use="optional">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                The path to the truststore. If unset, this defaults to the
+                keystore path.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+          <xsd:attribute name="trustStorePassword" type="xsd:string"
+                           use="optional">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                The truststore password. If unset, this defaults to the value
+                of keystorePassword.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+          <xsd:attribute name="trustStoreType" type="xsd:string" use="optional"
+                         default="JKS">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                The truststore type. Supported values are "JKS" and "PKCS12".
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+          <xsd:attribute name="needClientAuth" type="xsd:boolean" use="optional"
+                         default="false">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">
+                Determines if connections which are accepted must include client
+                authentication. By default, clients do not need to provide
+                authentication information.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:complexType name="SocketConfigurationType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This type defines items specific to socket based connectors.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:attribute name="port" type="xsd:positiveInteger" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The port number that the server accepts connections on.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="jndiPort" type="xsd:positiveInteger" use="optional"
+                   default="0">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The JNDI port, if an embedded JNDI provider is being used.
+          A value of zero indicates to use the same as that of the port
+          attribute.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="adminPort" type="xsd:positiveInteger" use="optional"
+                   default="0">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The administration service port.
+          A value of zero indicates to use the same as that of the port
+          attribute.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="bindAll" type="xsd:boolean" use="optional"
+                   default="true">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Can be used on a multi-homed host to only accept connect
+          requests on the address specified by ServerConfiguration/host.
+          If true, it will accept connections on any/all local addresses.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+  </xsd:complexType>
+
+
+  <xsd:complexType name="TcpConfigurationType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This type defines items specific to TCP and TCPS connectors.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="SocketConfigurationType">
+        <xsd:attribute name="internalHost" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              This is only applicable when the server is behind a NAT firewall.
+              This becomes the internal address the server is known by and the
+              host address in ServerConfiguration is the external address.
+              Clients will attempt to connect to ServerConfiguration/host
+              first. If that fails, they will try to connect to internalHost
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+  <xsd:element name="RmiConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the RMI connector.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="embeddedRegistry" type="xsd:boolean" 
+                     use="optional" default="true">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            This specifies whether to use an embedded (or internal) RMI
+            registry, or an external one.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="registryHost" type="xsd:string" use="optional"
+                     default="localhost">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The RMI registry host. This is only applicable if an external
+            RMI registry is being used, i.e., embeddedRegistry is false.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="registryPort" type="xsd:positiveInteger"
+                     use="optional" default="1099">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The RMI registry port.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="clientPingInterval" type="seconds" 
+                     use="optional" default="15">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The client ping interval, specified in seconds. If set to 0, the 
+            ping is disabled.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="HttpConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the HTTP configuration.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="HttpConfigurationType" />
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="HttpsConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the HTTPS configuration.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="HttpConfigurationType" />
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:complexType name="HttpConfigurationType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This type defines items specific to HTTP and HTTPS connectors.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:restriction base="SocketConfigurationType">
+        <xsd:attribute name="webServerHost" type="xsd:string" use="optional"
+                       default="localhost">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              The web server host.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="webServerPort" type="xsd:positiveInteger"
+                       use="required">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              The web server port.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="servlet" type="xsd:string"
+                       use="optional" default="/openjms-tunnel/tunnel">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              The tunnel servlet path
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+
+  <xsd:element name="MessageManagerConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the message manager.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="destinationCacheSize" type="xsd:positiveInteger"
+                     use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The maximum size of a destination cache before non-persistent 
+            messages are discarded.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+    
+
+  <xsd:element name="SchedulerConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the scheduler.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="maxThreads" type="xsd:positiveInteger" 
+                     use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The maximum number of worker threads that the scheduler uses.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+    
+
+  <xsd:element name="GarbageCollectionConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the garbage collection service.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="memoryCheckInterval" type="seconds" 
+                     use="optional" default="30">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            This indicates how often the server will check the memory 
+            utilization of the server. 
+            It will check to ensure that the ratio of free memory to total 
+            memory doesn't fall below the lowWaterThreshold.
+            The value is specified in seconds, and defaults to 30 seconds if
+            not set.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="lowWaterThreshold" use="optional" default="20">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            This is the ratio of free memory to total memory, specified as a 
+            percentage, which will trigger garbage collection.
+            The default value of 20 indicates that when free memory falls 
+            below 20% of total memory (i.e. total VM memory) then garbage 
+            collection will be triggered. The range of valid values is
+            10-50.
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="10" />
+            <xsd:maxExclusive value="50" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+
+      <xsd:attribute name="garbageCollectionInterval" type="seconds"
+                     use="optional" default="600">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            This indicates how often the garbage collector will run to remove
+            processed messages from the cache. A value of zero will disable
+            this capability.
+            The value is specified in seconds, and defaults to 600 seconds if
+            a value is not set.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="garbageCollectionThreadPriority"
+                     type="threadPriority" use="optional" default="5">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            This is the priority assigned to the garbage collection thread.
+            It ranges from 1-10, and defaults to 5 if a value is not set.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+    
+
+  <xsd:element name="DatabaseConfiguration">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="RdbmsDatabaseConfiguration" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="RdbmsDatabaseConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="class" type="xsd:string" 
+        default="org.exolab.jms.persistence.DBCPConnectionManager">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The connection manager, which pools connections to the underlying
+            database.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="driver" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The JDBC driver, which must be XA compliant, used to access the 
+            database.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="url" type="xsd:anyURI" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The JDBC url.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      
+      <xsd:attribute name="user" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The database user.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+ 
+      <xsd:attribute name="password" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The user password.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="maxActive" type="xsd:nonNegativeInteger" 
+                     use="optional" default="10">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The maximum no. of active connections that can be allocated from
+            the connection pool, or zero for no limit.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="maxIdle" type="xsd:integer" 
+                     use="optional" default="10">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The maximum no. of connections that can sit idle in the connection
+            pool, before connections are evicted.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="minIdleTime" type="seconds" use="optional"
+                     default="0">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Specifies the minimum time that a connection may remain idle
+            before it may be evicted. 
+            Use "0" to disable eviction of idle connections.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="evictionInterval" type="seconds" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Specifies the interval, in seconds, between checking idle
+            connections. Idle connections are removed after 'minIdleTime'
+            seconds, or if 'testQuery' is specified and the query fails.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="testQuery" type="xsd:string" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Specifies an SQL query to validate connections. This query
+            should return at least one row, and be fast to execute.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="testBeforeUse" type="xsd:boolean" use="optional"
+                     default="false">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            If true, each connection is tested before being used, using
+            'testQuery'.
+            If a connection fails, it is discarded, and another connection
+            allocated. This ensures a higher reliability, at the cost of
+            performance.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="batch" type="xsd:boolean" use="optional" 
+                     default="false">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Determines whether or not to batch SQL requests. This will
+            only be useful in certain scenarios (i.e small to medium message
+            size). This can be controlled with the batchSize parameter.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+ 
+      <xsd:attribute name="batchSize" type="xsd:integer" use="optional" 
+                     default="10">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The number of SQL requests to batch before committing them to 
+            the database.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+ 
+    </xsd:complexType>
+  </xsd:element>
+    
+            
+  <xsd:element name="JndiConfiguration">
+    <xsd:annotation>
+      <xsd:documentation>
+        This element defines the properties used when constructing an 
+        InitialContext. Users only need to specify this if an external JNDI
+        provider is being used.
+        Typically the java.naming.factory.initial property must be supplied,
+        with the fully qualified name of the factory class that will create
+        an initial context.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="property" minOccurs="0" maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              A property name and value that is used to create an 
+              InitialContext.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:attribute name="name" type="xsd:string" use="required" />
+            <xsd:attribute name="value" type="xsd:string" use="required" />
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="AdminConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to OpenJMS administration.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="script" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The path of the script to start the OpenJMS server.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="config" type="xsd:string" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The XML configuration file to run the OpenJMS server with.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="ConnectionFactories">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Connection factories are bound in JNDI by the OpenJMS server. This
+        element defines the type and binding of factories.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ConnectionFactory" 
+                     type="ConnectionFactoryType" 
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="QueueConnectionFactory" 
+                     type="ConnectionFactoryType" 
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="TopicConnectionFactory"
+                     type="ConnectionFactoryType" 
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="XAConnectionFactory" 
+                     type="ConnectionFactoryType" 
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="XAQueueConnectionFactory"
+                     type="ConnectionFactoryType" 
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element name="XATopicConnectionFactory"
+                     type="ConnectionFactoryType"
+                     minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:complexType name="ConnectionFactoryType">
+    <xsd:attribute name="name" type="xsd:string" use="required" />
+  </xsd:complexType>
+
+
+  <xsd:element name="LoggerConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element specifies the file to initialise logging with. OpenJMS
+        uses Apache log4j (http://jakarta.apache.org/log4j/docs/index.html) 
+        for logging.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="file" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The path to an XML file conforming to log4j.dtd
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="SecurityConfiguration">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element defines items specific to the OpenJMS server.
+        By default, OpenJMS uses no security.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="securityEnabled" type="xsd:boolean" use="optional" 
+                     default="false">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Enables/disables security.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="Users">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element is used to bootstrap the creation of users.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="User" minOccurs="0" 
+                     maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              This element defines an User.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:attribute name="name" type="xsd:string" use="required">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                  The name of the user.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="password" type="xsd:string" use="required">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                  The password of the user.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+          </xsd:complexType>
+        </xsd:element>
+        
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+            
+  <xsd:element name="AdministeredDestinations">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        This element is used to bootstrap the creation of administered topics 
+        and queues. It also allows the client to register durable subscribers 
+        for administered topics.
+    
+        OpenJMS also supports topic hierarchy and wildcard subscriptions. 
+        A topic hierarchy is defined as a sequence of names separated by a '.' 
+        (i.e a.b.c).
+        Users can subscribe to multiple topics using '*' and the '**'. A '*' 
+        will wildcard one level in the hierarchy and a '**' will wildcard all 
+        subsequent levels (i.e a.*, a.b.** or **). 
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AdministeredTopic" minOccurs="0" 
+                     maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              This element defines an administered topic, and any durable
+              subscribers.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Subscriber" minOccurs="0" 
+                           maxOccurs="unbounded">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    This defines a durable subscriber to an administered topic
+                  </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                  <xsd:attribute name="name" type="xsd:string" use="required">
+                    <xsd:annotation>
+                      <xsd:documentation xml:lang="en">
+                        The name of the durable subscriber.
+                      </xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:attribute>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence> 
+
+            <xsd:attribute name="name" type="xsd:string" use="required">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                  The name of the topic. This must be unique.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+          </xsd:complexType>
+        </xsd:element>
+        
+        <xsd:element name="AdministeredQueue" minOccurs="0" 
+                     maxOccurs="unbounded">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              This element defines an administered queue.
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:attribute name="name" type="xsd:string" use="required">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                  The name of the queue. This must be unique.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+          </xsd:complexType>
+        </xsd:element>
+
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:simpleType name="threadPriority">
+    <xsd:restriction base="xsd:integer">
+      <xsd:minInclusive value="1" />
+      <xsd:maxExclusive value="10" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="seconds">
+    <xsd:restriction base="xsd:nonNegativeInteger" />
+  </xsd:simpleType>
+
+</xsd:schema>

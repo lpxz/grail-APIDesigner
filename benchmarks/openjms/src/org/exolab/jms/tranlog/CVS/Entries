@@ -1,0 +1,9 @@
+/BaseTransactionLogEntry.java/1.1/Fri Jun 18 16:45:06 2010//
+/DataTransactionLogEntry.java/1.1/Fri Jun 18 16:45:05 2010//
+/ExternalXid.java/1.1/Fri Jun 18 16:45:06 2010//
+/SerializationHelper.java/1.1/Fri Jun 18 16:45:06 2010//
+/StateTransactionLogEntry.java/1.1/Fri Jun 18 16:45:05 2010//
+/TransactionLog.java/1.1/Fri Jun 18 16:45:06 2010//
+/TransactionLogException.java/1.1/Fri Jun 18 16:45:06 2010//
+/TransactionLogExistsException.java/1.1/Fri Jun 18 16:45:05 2010//
+/TransactionState.java/1.1/Fri Jun 18 16:45:05 2010//
